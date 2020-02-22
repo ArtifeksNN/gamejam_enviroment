@@ -56,14 +56,13 @@ Scene {
 
             x: 20
             y: 20
+//            transform: Scale { xScale: -1 }
             //        playerForce: gameScene.isSlowMode ? Qt.point(controller.xAxis*17*8,0) :
             //                                            Qt.point(controller.xAxis*170*32,0)
 
             maxSpeed: gameScene.isFocusMode ? 10 : 100
         }
     }
-
-//    Keys.forwardTo: controller
 
     Keys.onPressed: {
         if (event.key === Qt.Key_Space) {
@@ -79,16 +78,4 @@ Scene {
     Keys.onReleased: {
 
     }
-
-//    TwoAxisController {
-//        id: controller
-
-//        onInputActionPressed: {
-////            console.debug("key pressed actionName " + actionName)
-//            if(actionName == "up") {
-//                player.moveUp()
-////                console.debug("up")
-//            }
-//        }
-//    }
 }

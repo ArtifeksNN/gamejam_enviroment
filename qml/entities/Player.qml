@@ -10,11 +10,12 @@ EntityBase {
     width: 232
     height: 139
 
+    transform: Scale { xScale: -1 }
+
     property alias collider: collider
     property alias horizontalVelocity: collider.linearVelocity.x
 
     property var maxSpeed: 100
-
     property int contacts: 0
 
     function moveRight() {
@@ -26,6 +27,9 @@ EntityBase {
 
         source: "../../assets/ulitka_idle.png"
         visible: true
+//        mirror: true
+
+//        transform: Scale{ xScale: -1 }
     }
 
     SequentialAnimation {
@@ -63,25 +67,14 @@ EntityBase {
         anchors.horizontalCenter: parent.horizontalCenter
         interpolate: false
 
-//        Sprite{
-//            name: "idle_begin"
-//            source: "../../assets/ulitka_idle.png"
-//            frameCount: 1
-//            frameWidth: 210
-//            frameHeight: 139
-//            frameDuration: 100
-//            to: {"forward1":1}
-//        }
-
         Sprite{
             name: "forward1"
             source: "../../assets/ulitka_forward_01.png"
             frameCount: 1
             frameWidth: 232
             frameHeight: 139
-            frameDuration: 200
+            frameDuration: 100
             to: { "forward2":1 }
-
         }
 
         Sprite{
@@ -104,16 +97,6 @@ EntityBase {
             frameDuration: 200
             to: {"forward3":0}
         }
-
-//        Sprite{
-//            name: "idle_end"
-//            source: "../../assets/ulitka_idle.png"
-//            frameCount: 1
-//            frameWidth: 210
-//            frameHeight: 139
-//            frameDuration: 100
-//            to: {"idle_end":0}
-//        }
     }
 
     BoxCollider {
@@ -155,14 +138,5 @@ EntityBase {
                 player.contacts--
             }
         }
-
-        //      Timer {
-        //        repeat: true
-        //        running: true
-        //        interval: 100
-        //        onTriggered: {
-        //          collider.body.applyForceToCenter(Qt.point(200,0));
-        //        }
-        //      }
     }
 }
