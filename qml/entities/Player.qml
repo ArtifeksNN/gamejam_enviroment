@@ -7,8 +7,10 @@ EntityBase {
 
     entityType: "player"
 
-    width: img.width
-    height: img.height
+    width: 100
+    height: 100
+
+    property int variation: 1
 
     property alias collider: collider
     property alias horizontalVelocity: collider.linearVelocity.x
@@ -20,28 +22,71 @@ EntityBase {
         collider.moveRight()
     }
 
-    //sprite this
-//    Rectangle {
-//        anchors.fill: parent
-//        color: "red"
-//    }
+    SpriteSequence {
+        id: image
 
-    MultiResolutionImage {
-        id: img
-        anchors.centerIn: parent
-        source: "../../assets/ulitka_idle.png"
+        width: 232
+        height: 139
+
+        anchors.horizontalCenter: parent.horizontalCenter
+        interpolate: false
+
+        Sprite{
+            name: "idle_begin"
+            source: "../../assets/ulitka_idle.png"
+            frameCount: 1
+            frameWidth: 210
+            frameHeight: 139
+            frameDuration: 100
+            to: {"forward1":1}
+        }
+
+        Sprite{
+            name: "forward1"
+            source: "../../assets/ulitka_forward_01.png"
+            frameCount: 1
+            frameWidth: 232
+            frameHeight: 139
+            frameDuration: 100
+            to: {"forward2":1}
+
+        }
+        Sprite{
+            name: "forward2"
+            source: "../../assets/ulitka_forward_02.png"
+            frameCount: 1
+            frameWidth: 232
+            frameHeight: 139
+            frameDuration: 100
+            to: {"forward3":1}
+
+        }
+        Sprite{
+            name: "forward3"
+            source: "../../assets/ulitka_forward_03.png"
+            frameCount: 1
+            frameWidth: 232
+            frameHeight: 139
+            frameDuration: 100
+            to: {"idle_end":1}
+        }
+
+        Sprite{
+            name: "idle_end"
+            source: "../../assets/ulitka_idle.png"
+            frameCount: 1
+            frameWidth: 210
+            frameHeight: 139
+            frameDuration: 100
+            to: {"idle_end":0, "idle_begin": 1}
+        }
     }
-
-//    Felgo.SpriteSequence {
-//        anchors.centerIn: parent
-//        defaultSource: "../../assets/ulitka_idle.png"
-//    }
 
     BoxCollider {
       id: collider
 
-      height: img.height
-      width: img.width
+      height: player.height
+      width: player.width
 
       anchors.horizontalCenter: parent.horizontalCenter
 
@@ -51,7 +96,6 @@ EntityBase {
       sleepingAllowed: false
 
       onLinearVelocityChanged: {
-
         if(linearVelocity.x > maxSpeed) linearVelocity.x = maxSpeed
         if(linearVelocity.x < -maxSpeed) linearVelocity.x = -maxSpeed
       }
