@@ -1,0 +1,150 @@
+module VPlay
+
+typeinfo vplay.qmltypes
+
+### 3d ###
+# Disabled for V-Play 2.9.0 upwards
+# Scene3DVPlay 2.0 3d/Scene3D.qml
+# Render3D 2.0 3d/Render3D.qml
+# TargetCamTransformHelper 2.0 3d/TargetCamTransformHelper.qml
+
+### ai ###
+PathMovement 2.0 ai/PathMovement.qml
+
+### core ###
+ComponentBase 2.0 core/ComponentBase.qml
+EntityBase 2.0 core/EntityBase.qml
+EntityManager 2.0 core/EntityManager.qml
+GameWindow 2.0 core/FallbackGameWindow.qml
+GameWindowItem 2.0 core/GameWindowItem.qml
+GameWindowApplicationWindow 2.0 core/FallbackGameWindowApplicationWindow.qml
+Scene 2.0 core/Scene.qml
+Settings 2.0 core/Settings.qml
+Storage 2.0 core/Storage.qml
+Utils 2.0 core/Utils.qml
+
+### physics ###
+BoxCollider 2.0 physics/BoxCollider.qml
+CircleCollider 2.0 physics/CircleCollider.qml
+PolygonCollider 2.0 physics/PolygonCollider.qml
+ColliderBase 2.0 physics/ColliderBase.qml
+PhysicsWorld 2.0 physics/PhysicsWorld.qml
+
+### input ###
+JoystickControllerHUD 2.0 input/JoystickControllerHUD.qml
+StyledButton 2.0 input/StyledButton.qml
+SimpleButton 2.0 input/SimpleButton.qml
+TwoAxisController 2.0 input/TwoAxisController.qml
+
+### sprites ###
+AnimatedSpriteVPlay 2.0 sprites/AnimatedSprite.qml
+BackgroundImage 2.0 sprites/BackgroundImage.qml
+CameraVPlay 2.0 sprites/Camera.qml
+LineItem 2.0 sprites/LineItem.qml
+MultiResolutionImage 2.0 sprites/MultiResolutionImage.qml
+ParallaxItem 2.0 sprites/ParallaxItem.qml
+ParallaxScrollingBackground 2.0 sprites/ParallaxScrollingBackground.qml
+PolygonItem 2.0 sprites/PolygonItem.qml
+SingleSpriteFromSpriteSheet 2.0 sprites/SingleSpriteFromSpriteSheet.qml
+SpriteSequenceVPlay 2.0 sprites/SpriteSequence.qml
+SpriteVPlay 2.0 sprites/Sprite.qml
+TexturePackerAnimatedSpriteVPlay 2.0 sprites/TexturePackerAnimatedSprite.qml
+TexturePackerSpriteSequenceVPlay 2.0 sprites/TexturePackerSpriteSequence.qml
+TexturePackerSpriteVPlay 2.0 sprites/TexturePackerSprite.qml
+
+### slotmachine ###
+SlotMachine 2.0 slotmachine/SlotMachine.qml
+SlotMachineModel 2.0 slotmachine/SlotMachineModel.qml
+SlotMachineReel 2.0 slotmachine/SlotMachineReel.qml
+
+### multimedia ###
+BackgroundMusic 2.0 audio/BackgroundMusic.qml
+SoundEffectVPlay 2.0 audio/SoundEffect.qml
+AlphaVideo 2.0 video/AlphaVideo.qml
+
+### particles ###
+ParticleVPlay 2.0 particles/ParticleVPlayInternal.qml
+
+### editor ###
+EditableComponent 2.0 editor/EditableComponent.qml
+ItemEditor 2.0 editor/ItemEditor.qml
+ItemEditorBaseDelegate 2.0 editor/ItemEditorBaseDelegate.qml
+BoolDelegate 2.0 editor/BoolDelegate.qml
+NumberDelegate 2.0 editor/NumberDelegate.qml
+PointDelegate 2.0 editor/PointDelegate.qml
+StringDelegate 2.0 editor/StringDelegate.qml
+ColorDelegate 2.0 editor/ColorDelegate.qml
+TextureDelegate 2.0 editor/TextureDelegate.qml
+GroupDelegate 2.0 editor/GroupDelegate.qml
+ContentDelegate 2.0 editor/ContentDelegate.qml
+ArrayDelegate 2.0 editor/ArrayDelegate.qml
+ArrayElementDelegate 2.0 editor/ArrayElementDelegate.qml
+ArrayContentDelegate 2.0 editor/ArrayContentDelegate.qml
+ItemEditorStyle 2.0 editor/ItemEditorStyle.qml
+ColorPicker 2.0 editor/ColorPicker.qml
+
+### gui ###
+StyleVPlay 2.0 gui/GameStyle.qml
+ButtonVPlay 2.0 gui/GameButton.qml
+SliderVPlay 2.0 gui/GameSlider.qml
+SwitchVPlay 2.0 gui/GameSwitch.qml
+TextFieldVPlay 2.0 gui/GameTextField.qml
+ScrollViewVPlay 2.0 gui/GameScrollView.qml
+TextDialog 2.0 gui/GameTextDialog.qml
+
+### gamenetwork ###
+# these are the V-Play GameNetwork resources, only used temporarily until put into an own plugin
+# if testing with gamentworkdev.pro, these must be commented in resources_vplay.qrc!
+Achievement 2.0 gamenetwork/Achievement.qml
+Leaderboard 2.0 gamenetwork/Leaderboard.qml
+VPlayGameNetwork 2.0 gamenetwork/FelgoGameNetwork.qml
+WebStorage 2.0 gamenetwork/WebStorage.qml
+AchievementView 2.0 gamenetwork/gnView/AchievementView.qml
+ChallengeView 2.0 gamenetwork/gnView/ChallengeView.qml
+FriendsView 2.0 gamenetwork/gnView/FriendsView.qml
+LeaderboardView 2.0 gamenetwork/gnView/LeaderboardView.qml
+ProfileView 2.0 gamenetwork/gnView/ProfileView.qml
+VPlayGameNetworkView 2.0 gamenetwork/gnView/GameNetworkView.qml
+UserImage 2.0 gamenetwork/gnView/UserImage.qml
+VPlayMultiplayer 2.0 gamenetwork/multiplayer/FelgoMultiplayer.qml
+MultiplayerState 2.0 gamenetwork/multiplayer/MultiplayerState.qml
+VPlayMultiplayerView 2.0 gamenetwork/multiplayer/view/MultiplayerView.qml
+NotificationBar 2.0 gamenetwork/multiplayer/view/NotificationBar.qml
+MessageView 2.0 gamenetwork/multiplayer/view/MessageView.qml
+GameNetworkUser 2.0 gamenetwork/GameNetworkUser.qml
+MultiplayerUser 2.0 gamenetwork/multiplayer/MultiplayerUser.qml
+SimpleRanking 2.0 gamenetwork/multiplayer/SimpleRanking.qml
+NoRanking 2.0 gamenetwork/multiplayer/NoRanking.qml
+SyncedStore 2.0 gamenetwork/SyncedStore.qml
+
+### socialview ###
+SocialView 2.0 gamenetwork/socialview/SocialView.qml
+SocialActionButton 2.0 gamenetwork/socialview/common/SocialActionButton.qml
+SocialUserImage 2.0 gamenetwork/socialview/common/SocialUserImage.qml
+SocialFlagImage 2.0 gamenetwork/socialview/common/SocialFlagImage.qml
+SocialViewButton 2.0 gamenetwork/socialview/common/SocialViewButton.qml
+SocialUserDelegate 2.0 gamenetwork/socialview/delegates/SocialUserDelegate.qml
+SocialPage 2.0 gamenetwork/socialview/pages/SocialPage.qml
+SocialUserSearchPage 2.0 gamenetwork/socialview/pages/SocialUserSearchPage.qml
+
+### level ###
+BuildEntityButton 2.0 level/BuildEntityButton.qml
+EntityBaseDraggable 2.0 level/EntityBaseDraggable.qml
+EntitySelection 2.0 level/EntitySelection.qml
+LevelBase 2.0 level/LevelBase.qml
+LevelEditor 2.0 level/LevelEditor.qml
+LevelLoader 2.0 level/LevelLoader.qml
+LevelSelectionList 2.0 level/LevelSelectionList.qml
+LevelStore 2.0 level/LevelStore.qml
+
+### rube ###
+RubeBody 2.0 rube/RubeBody.qml
+RubeFixtureCircle 2.0 rube/RubeFixtureCircle.qml
+RubeFixturePolygon 2.0 rube/RubeFixturePolygon.qml
+RubeImage 2.0 rube/RubeImage.qml
+RubeManager 2.0 rube/RubeManager.qml
+RubeParser 2.0 rube/RubeParser.qml
+RubeRevoluteJoint 2.0 rube/RubeRevoluteJoint.qml
+
+### spine ###
+SpineSkeleton 2.0 spine/SpineSkeleton.qml

@@ -1,0 +1,3483 @@
+import QtQuick.tooling 1.2
+
+// This file describes the plugin-supplied types contained in the library.
+// It is used for QML tooling purposes only.
+
+Module {
+    dependencies: ["QtQuick 2.8"]
+    Component {
+        name: "AdMobBannerItem"
+        defaultProperty: "data"
+        prototype: "AdMobItem"
+        exports: ["Felgo/AdMobBanner 3.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "BannerType"
+            values: {
+                "None": 0,
+                "Standard": 1,
+                "Medium": 2,
+                "Large": 3,
+                "LeaderBoard": 4,
+                "Smart": 5
+            }
+        }
+        Property { name: "banner"; type: "AdMobBannerItem::BannerType" }
+        Signal { name: "adReceived" }
+        Signal { name: "adFailedToReceive" }
+        Signal { name: "adOpened" }
+        Signal { name: "adClosed" }
+        Signal { name: "adLeftApplication" }
+    }
+    Component {
+        name: "AdMobInterstitialItem"
+        defaultProperty: "data"
+        prototype: "AdMobItem"
+        exports: ["Felgo/AdMobInterstitial 3.0"]
+        exportMetaObjectRevisions: [0]
+        Signal { name: "interstitialReceived" }
+        Signal { name: "interstitialFailedToReceive" }
+        Signal { name: "interstitialOpened" }
+        Signal { name: "interstitialClosed" }
+        Signal { name: "interstitialLeftApplication" }
+        Method { name: "loadInterstitial" }
+        Method { name: "showInterstitialIfLoaded" }
+    }
+    Component {
+        name: "AdMobItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        Property { name: "adUnitId"; type: "string" }
+        Property { name: "testDeviceIds"; type: "QStringList" }
+        Property { name: "designedForFamilies"; type: "bool" }
+        Property { name: "childDirectedTreatment"; type: "bool" }
+    }
+    Component {
+        name: "AdMobNativeItem"
+        defaultProperty: "data"
+        prototype: "AdMobItem"
+        exports: ["Felgo/AdMobNative 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "appId"; type: "string" }
+        Property { name: "clipContainer"; type: "QQuickItem"; isPointer: true }
+        Signal { name: "adReceived" }
+        Signal { name: "adFailedToReceive" }
+        Signal { name: "adOpened" }
+        Signal { name: "adClosed" }
+        Signal { name: "adLeftApplication" }
+    }
+    Component {
+        name: "AdMobRewardedVideoItem"
+        defaultProperty: "data"
+        prototype: "AdMobItem"
+        exports: ["Felgo/AdMobRewardedVideo 3.0"]
+        exportMetaObjectRevisions: [0]
+        Signal {
+            name: "rewardedVideoRewarded"
+            Parameter { name: "type"; type: "string" }
+            Parameter { name: "amount"; type: "int" }
+        }
+        Signal { name: "rewardedVideoClosed" }
+        Signal { name: "rewardedVideoFailedToReceive" }
+        Signal { name: "rewardedVideoOpened" }
+        Signal { name: "rewardedVideoStarted" }
+        Signal { name: "rewardedVideoReceived" }
+        Signal { name: "rewardedVideoLeftApplication" }
+        Method { name: "loadRewardedVideo" }
+        Method { name: "showRewardedVideoIfLoaded" }
+    }
+    Component {
+        name: "AmplitudeItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/Amplitude 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "apiKey"; type: "string" }
+        Property { name: "useAdvertisingIdForDeviceId"; type: "bool" }
+        Property { name: "userId"; type: "string" }
+        Property { name: "userProperties"; type: "QVariant" }
+        Method {
+            name: "logEvent"
+            Parameter { name: "event"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+        Method {
+            name: "logRevenue"
+            Parameter { name: "revenueData"; type: "QVariant" }
+        }
+        Method {
+            name: "setUserProperties"
+            Parameter { name: "userProperties"; type: "QVariant" }
+        }
+        Method {
+            name: "setUserId"
+            Parameter { name: "userId"; type: "string" }
+        }
+        Method { name: "getDeviceId"; type: "string" }
+        Method {
+            name: "setDeviceId"
+            Parameter { name: "deviceId"; type: "string" }
+        }
+    }
+    Component {
+        name: "AppodealItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/Appodeal 3.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "AdType"
+            values: {
+                "INTERSTITIAL": 1,
+                "SKIPPABLE_VIDEO": 2,
+                "BANNER": 4,
+                "BANNER_BOTTOM": 8,
+                "BANNER_TOP": 16,
+                "REWARDED_VIDEO": 128,
+                "NON_SKIPPABLE_VIDEO": 128,
+                "MREC": 256
+            }
+        }
+        Property { name: "appKey"; type: "string" }
+        Property { name: "autoCacheInterstitial"; type: "bool" }
+        Property { name: "autoCacheSkippableVideo"; type: "bool" }
+        Property { name: "autoCacheRewardedVideo"; type: "bool" }
+        Property { name: "autoCacheBanner"; type: "bool" }
+        Signal {
+            name: "interstitialLoaded"
+            Parameter { name: "isPrecache"; type: "bool" }
+        }
+        Signal { name: "interstitialFailedToLoad" }
+        Signal { name: "interstitialShown" }
+        Signal { name: "interstitialClicked" }
+        Signal { name: "interstitialClosed" }
+        Signal { name: "skippableVideoLoaded" }
+        Signal { name: "skippableVideoFailedToLoad" }
+        Signal { name: "skippableVideoShown" }
+        Signal { name: "skippableVideoFinished" }
+        Signal {
+            name: "skippableVideoClosed"
+            Parameter { name: "finished"; type: "bool" }
+        }
+        Signal { name: "rewardedVideoLoaded" }
+        Signal { name: "rewardedVideoFailedToLoad" }
+        Signal { name: "rewardedVideoShown" }
+        Signal {
+            name: "rewardedVideoFinished"
+            Parameter { name: "amount"; type: "int" }
+            Parameter { name: "name"; type: "string" }
+        }
+        Signal {
+            name: "rewardedVideoClosed"
+            Parameter { name: "finished"; type: "bool" }
+        }
+        Signal {
+            name: "bannerLoaded"
+            Parameter { name: "height"; type: "int" }
+            Parameter { name: "isPrecache"; type: "bool" }
+        }
+        Signal { name: "bannerFailedToLoad" }
+        Signal { name: "bannerShown" }
+        Signal { name: "bannerClicked" }
+        Method { name: "hasInterstitial"; type: "bool" }
+        Method { name: "cacheInterstitial" }
+        Method { name: "showInterstitial"; type: "bool" }
+        Method { name: "hasSkippableVideo"; type: "bool" }
+        Method { name: "cacheSkippableVideo" }
+        Method { name: "showSkippableVideo"; type: "bool" }
+        Method { name: "hasRewardedVideo"; type: "bool" }
+        Method { name: "cacheRewardedVideo" }
+        Method { name: "showRewardedVideo"; type: "bool" }
+        Method { name: "hasBanner"; type: "bool" }
+        Method { name: "cacheBanner" }
+        Method {
+            name: "showBanner"
+            type: "bool"
+            Parameter { name: "position"; type: "int" }
+        }
+        Method { name: "hideBanner" }
+        Method {
+            name: "show"
+            type: "bool"
+            Parameter { name: "adTypes"; type: "AppodealItem::AdType" }
+            Parameter { name: "placementName"; type: "string" }
+        }
+        Method {
+            name: "show"
+            type: "bool"
+            Parameter { name: "adTypes"; type: "AppodealItem::AdType" }
+        }
+    }
+    Component {
+        name: "BaseItem"
+        prototype: "QObject"
+        Property { name: "itemId"; type: "string" }
+        Property { name: "name"; type: "string" }
+        Property { name: "description"; type: "string" }
+        Property { name: "balance"; type: "int"; isReadonly: true }
+        Signal {
+            name: "itemIdChanged"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "balanceChanged"
+            Parameter { name: "balance"; type: "int" }
+        }
+        Signal {
+            name: "nameChanged"
+            Parameter { name: "name"; type: "string" }
+        }
+        Signal {
+            name: "descriptionChanged"
+            Parameter { name: "description"; type: "string" }
+        }
+        Method {
+            name: "setItemId"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setName"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setDescription"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setBalance"
+            Parameter { name: "arg"; type: "int" }
+        }
+    }
+    Component {
+        name: "Box2DBody"
+        defaultProperty: "fixtures"
+        prototype: "QObject"
+        exports: ["Felgo/Body 3.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "BodyType"
+            values: {
+                "Static": 0,
+                "Kinematic": 1,
+                "Dynamic": 2
+            }
+        }
+        Property { name: "world"; type: "Box2DWorld"; isPointer: true }
+        Property { name: "target"; type: "QQuickItem"; isPointer: true }
+        Property { name: "linearDamping"; type: "float" }
+        Property { name: "angularDamping"; type: "float" }
+        Property { name: "bodyType"; type: "BodyType" }
+        Property { name: "bullet"; type: "bool" }
+        Property { name: "sleepingAllowed"; type: "bool" }
+        Property { name: "fixedRotation"; type: "bool" }
+        Property { name: "active"; type: "bool" }
+        Property { name: "awake"; type: "bool" }
+        Property { name: "linearVelocity"; type: "QPointF" }
+        Property { name: "angularVelocity"; type: "float" }
+        Property { name: "fixtures"; type: "Box2DFixture"; isList: true; isReadonly: true }
+        Property { name: "gravityScale"; type: "float" }
+        Property { name: "force"; type: "QPointF" }
+        Property { name: "torque"; type: "float" }
+        Property { name: "collisionTestingOnlyMode"; type: "bool" }
+        Signal { name: "bodyCreated" }
+        Signal { name: "positionChanged" }
+        Method {
+            name: "applyForce"
+            Parameter { name: "force"; type: "QPointF" }
+            Parameter { name: "point"; type: "QPointF" }
+        }
+        Method {
+            name: "applyForceToCenter"
+            Parameter { name: "force"; type: "QPointF" }
+        }
+        Method {
+            name: "applyTorque"
+            Parameter { name: "torque"; type: "double" }
+        }
+        Method {
+            name: "applyLinearImpulse"
+            Parameter { name: "impulse"; type: "QPointF" }
+            Parameter { name: "point"; type: "QPointF" }
+        }
+        Method {
+            name: "applyAngularImpulse"
+            Parameter { name: "impulse"; type: "double" }
+        }
+        Method { name: "getWorldCenter"; type: "QPointF" }
+        Method { name: "getLocalCenter"; type: "QPointF" }
+        Method { name: "getMass"; type: "float" }
+        Method { name: "resetMassData" }
+        Method { name: "getInertia"; type: "float" }
+        Method {
+            name: "toWorldPoint"
+            type: "QPointF"
+            Parameter { name: "localPoint"; type: "QPointF" }
+        }
+        Method {
+            name: "toWorldVector"
+            type: "QPointF"
+            Parameter { name: "localVector"; type: "QPointF" }
+        }
+        Method {
+            name: "toLocalPoint"
+            type: "QPointF"
+            Parameter { name: "worldPoint"; type: "QPointF" }
+        }
+        Method {
+            name: "toLocalVector"
+            type: "QPointF"
+            Parameter { name: "worldVector"; type: "QPointF" }
+        }
+        Method {
+            name: "getLinearVelocityFromWorldPoint"
+            type: "QPointF"
+            Parameter { name: "point"; type: "QPointF" }
+        }
+        Method {
+            name: "getLinearVelocityFromLocalPoint"
+            type: "QPointF"
+            Parameter { name: "point"; type: "QPointF" }
+        }
+        Method {
+            name: "addFixture"
+            Parameter { name: "fixture"; type: "Box2DFixture"; isPointer: true }
+        }
+    }
+    Component {
+        name: "Box2DBox"
+        prototype: "Box2DFixture"
+        exports: ["Felgo/Box 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "x"; type: "double" }
+        Property { name: "y"; type: "double" }
+        Property { name: "width"; type: "double" }
+        Property { name: "height"; type: "double" }
+        Property { name: "rotation"; type: "double" }
+    }
+    Component {
+        name: "Box2DChain"
+        prototype: "Box2DFixture"
+        exports: ["Felgo/Chain 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "vertices"; type: "QVariantList" }
+        Property { name: "loop"; type: "bool" }
+        Property { name: "prevVertex"; type: "QPointF" }
+        Property { name: "nextVertex"; type: "QPointF" }
+    }
+    Component {
+        name: "Box2DCircle"
+        prototype: "Box2DFixture"
+        exports: ["Felgo/Circle 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "x"; type: "double" }
+        Property { name: "y"; type: "double" }
+        Property { name: "radius"; type: "float" }
+    }
+    Component {
+        name: "Box2DContact"
+        prototype: "QObject"
+        exports: ["Felgo/Contact 3.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Property { name: "enabled"; type: "bool" }
+        Property { name: "fixtureA"; type: "Box2DFixture"; isReadonly: true; isPointer: true }
+        Property { name: "fixtureB"; type: "Box2DFixture"; isReadonly: true; isPointer: true }
+        Property { name: "childIndexA"; type: "int"; isReadonly: true }
+        Property { name: "childIndexB"; type: "int"; isReadonly: true }
+        Property { name: "friction"; type: "double" }
+        Property { name: "restitution"; type: "double" }
+        Property { name: "tangentSpeed"; type: "double" }
+        Method { name: "isTouching"; type: "bool" }
+        Method { name: "resetFriction" }
+        Method { name: "resetRestitution" }
+    }
+    Component {
+        name: "Box2DDebugDraw"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["Felgo/DebugDraw 3.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "DebugFlag"
+            values: {
+                "Shape": 1,
+                "Joint": 2,
+                "AABB": 4,
+                "Pair": 8,
+                "CenterOfMass": 16,
+                "Everything": 31
+            }
+        }
+        Property { name: "axisScale"; type: "double" }
+        Property { name: "flags"; type: "DebugFlag" }
+        Property { name: "world"; type: "Box2DWorld"; isPointer: true }
+    }
+    Component {
+        name: "Box2DDistanceJoint"
+        prototype: "Box2DJoint"
+        exports: ["Felgo/DistanceJoint 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "length"; type: "float" }
+        Property { name: "frequencyHz"; type: "float" }
+        Property { name: "dampingRatio"; type: "float" }
+        Method {
+            name: "getReactionForce"
+            type: "QPointF"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+        Method {
+            name: "getReactionTorque"
+            type: "float"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+    }
+    Component {
+        name: "Box2DEdge"
+        prototype: "Box2DFixture"
+        exports: ["Felgo/Edge 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "vertices"; type: "QVariantList" }
+    }
+    Component {
+        name: "Box2DFixture"
+        prototype: "QObject"
+        exports: ["Felgo/Fixture 3.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "CategoryFlag"
+            values: {
+                "Category1": 1,
+                "Category2": 2,
+                "Category3": 4,
+                "Category4": 8,
+                "Category5": 16,
+                "Category6": 32,
+                "Category7": 64,
+                "Category8": 128,
+                "Category9": 256,
+                "Category10": 512,
+                "Category11": 1024,
+                "Category12": 2048,
+                "Category13": 4096,
+                "Category14": 8192,
+                "Category15": 16384,
+                "Category16": 32768,
+                "All": 65535,
+                "None": 0
+            }
+        }
+        Enum {
+            name: "CategoryFlags"
+            values: {
+                "Category1": 1,
+                "Category2": 2,
+                "Category3": 4,
+                "Category4": 8,
+                "Category5": 16,
+                "Category6": 32,
+                "Category7": 64,
+                "Category8": 128,
+                "Category9": 256,
+                "Category10": 512,
+                "Category11": 1024,
+                "Category12": 2048,
+                "Category13": 4096,
+                "Category14": 8192,
+                "Category15": 16384,
+                "Category16": 32768,
+                "All": 65535,
+                "None": 0
+            }
+        }
+        Property { name: "density"; type: "float" }
+        Property { name: "friction"; type: "float" }
+        Property { name: "restitution"; type: "float" }
+        Property { name: "sensor"; type: "bool" }
+        Property { name: "categories"; type: "CategoryFlags" }
+        Property { name: "collidesWith"; type: "CategoryFlags" }
+        Property { name: "groupIndex"; type: "int" }
+        Signal {
+            name: "beginContact"
+            Parameter { name: "other"; type: "Box2DFixture"; isPointer: true }
+            Parameter { name: "contactNormal"; type: "QPointF" }
+        }
+        Signal {
+            name: "endContact"
+            Parameter { name: "other"; type: "Box2DFixture"; isPointer: true }
+        }
+        Signal {
+            name: "contactChanged"
+            Parameter { name: "other"; type: "Box2DFixture"; isPointer: true }
+        }
+        Method { name: "getBody"; type: "Box2DBody*" }
+    }
+    Component {
+        name: "Box2DFrictionJoint"
+        prototype: "Box2DJoint"
+        exports: ["Felgo/FrictionJoint 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "maxForce"; type: "float" }
+        Property { name: "maxTorque"; type: "float" }
+        Method {
+            name: "getReactionForce"
+            type: "QPointF"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+        Method {
+            name: "getReactionTorque"
+            type: "float"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+    }
+    Component {
+        name: "Box2DGearJoint"
+        prototype: "Box2DJoint"
+        exports: ["Felgo/GearJoint 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "joint1"; type: "Box2DJoint"; isPointer: true }
+        Property { name: "joint2"; type: "Box2DJoint"; isPointer: true }
+        Property { name: "ratio"; type: "float" }
+    }
+    Component {
+        name: "Box2DJoint"
+        prototype: "QObject"
+        exports: ["Felgo/Joint 3.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "JointType"
+            values: {
+                "UnknownJoint": 0,
+                "RevoluteJoint": 1,
+                "PrismaticJoint": 2,
+                "DistanceJoint": 3,
+                "PulleyJoint": 4,
+                "MouseJoint": 5,
+                "GearJoint": 6,
+                "WheelJoint": 7,
+                "WeldJoint": 8,
+                "FrictionJoint": 9,
+                "RopeJoint": 10,
+                "MotorJoint": 11
+            }
+        }
+        Property { name: "jointType"; type: "JointType"; isReadonly: true }
+        Property { name: "collideConnected"; type: "bool" }
+        Property { name: "bodyA"; type: "Box2DBody"; isPointer: true }
+        Property { name: "bodyB"; type: "Box2DBody"; isPointer: true }
+        Signal { name: "created" }
+    }
+    Component {
+        name: "Box2DMotorJoint"
+        prototype: "Box2DJoint"
+        exports: ["Felgo/MotorJoint 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "linearOffset"; type: "QPointF" }
+        Property { name: "angularOffset"; type: "float" }
+        Property { name: "maxForce"; type: "float" }
+        Property { name: "maxTorque"; type: "float" }
+        Property { name: "correctionFactor"; type: "float" }
+    }
+    Component {
+        name: "Box2DMouseJoint"
+        prototype: "Box2DJoint"
+        exports: ["Felgo/MouseJoint 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "target"; type: "QPointF" }
+        Property { name: "maxForce"; type: "float" }
+        Property { name: "frequencyHz"; type: "float" }
+        Property { name: "dampingRatio"; type: "float" }
+        Method {
+            name: "getReactionForce"
+            type: "QPointF"
+            Parameter { name: "inv_dt"; type: "float" }
+        }
+        Method {
+            name: "getReactionTorque"
+            type: "float"
+            Parameter { name: "inv_dt"; type: "float" }
+        }
+    }
+    Component {
+        name: "Box2DPolygon"
+        prototype: "Box2DFixture"
+        exports: ["Felgo/Polygon 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "vertices"; type: "QVariantList" }
+    }
+    Component {
+        name: "Box2DPrismaticJoint"
+        prototype: "Box2DJoint"
+        exports: ["Felgo/PrismaticJoint 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "localAxisA"; type: "QPointF" }
+        Property { name: "referenceAngle"; type: "float" }
+        Property { name: "enableLimit"; type: "bool" }
+        Property { name: "lowerTranslation"; type: "float" }
+        Property { name: "upperTranslation"; type: "float" }
+        Property { name: "enableMotor"; type: "bool" }
+        Property { name: "maxMotorForce"; type: "float" }
+        Property { name: "motorSpeed"; type: "float" }
+        Method { name: "getJointTranslation"; type: "float" }
+        Method { name: "getJointSpeed"; type: "float" }
+    }
+    Component {
+        name: "Box2DProfile"
+        prototype: "QObject"
+        exports: ["Felgo/Profile 3.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Property { name: "step"; type: "float"; isReadonly: true }
+        Property { name: "collide"; type: "float"; isReadonly: true }
+        Property { name: "solve"; type: "float"; isReadonly: true }
+        Property { name: "solveInit"; type: "float"; isReadonly: true }
+        Property { name: "solveVelocity"; type: "float"; isReadonly: true }
+        Property { name: "solvePosition"; type: "float"; isReadonly: true }
+        Property { name: "broadphase"; type: "float"; isReadonly: true }
+        Property { name: "solveTOI"; type: "float"; isReadonly: true }
+        Property { name: "synchronize"; type: "float"; isReadonly: true }
+        Property { name: "emitSignals"; type: "float"; isReadonly: true }
+    }
+    Component {
+        name: "Box2DPulleyJoint"
+        prototype: "Box2DJoint"
+        exports: ["Felgo/PulleyJoint 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "groundAnchorA"; type: "QPointF" }
+        Property { name: "groundAnchorB"; type: "QPointF" }
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "lengthA"; type: "float" }
+        Property { name: "lengthB"; type: "float" }
+        Property { name: "ratio"; type: "float" }
+        Method { name: "getCurrentLengthA"; type: "float" }
+        Method { name: "getCurrentLengthB"; type: "float" }
+        Method {
+            name: "getReactionForce"
+            type: "QPointF"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+        Method {
+            name: "getReactionTorque"
+            type: "float"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+    }
+    Component {
+        name: "Box2DRayCast"
+        prototype: "QObject"
+        exports: ["Felgo/RayCast 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "maxFraction"; type: "float" }
+        Signal {
+            name: "fixtureReported"
+            Parameter { name: "fixture"; type: "Box2DFixture"; isPointer: true }
+            Parameter { name: "point"; type: "QPointF" }
+            Parameter { name: "normal"; type: "QPointF" }
+            Parameter { name: "fraction"; type: "double" }
+        }
+    }
+    Component {
+        name: "Box2DRevoluteJoint"
+        prototype: "Box2DJoint"
+        exports: ["Felgo/RevoluteJoint 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "referenceAngle"; type: "float" }
+        Property { name: "enableLimit"; type: "bool" }
+        Property { name: "lowerAngle"; type: "float" }
+        Property { name: "upperAngle"; type: "float" }
+        Property { name: "enableMotor"; type: "bool" }
+        Property { name: "motorSpeed"; type: "float" }
+        Property { name: "maxMotorTorque"; type: "float" }
+        Method { name: "getJointAngle"; type: "float" }
+        Method { name: "getJointSpeed"; type: "float" }
+    }
+    Component {
+        name: "Box2DRopeJoint"
+        prototype: "Box2DJoint"
+        exports: ["Felgo/RopeJoint 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "maxLength"; type: "float" }
+        Method {
+            name: "getReactionForce"
+            type: "QPointF"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+        Method {
+            name: "getReactionTorque"
+            type: "float"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+    }
+    Component {
+        name: "Box2DStatic"
+        prototype: "QObject"
+        exports: ["Felgo/Box2D 3.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Property { name: "defaultWorld"; type: "Box2DWorld"; isPointer: true }
+        Method {
+            name: "setDefaultWorld"
+            Parameter { name: "currentWorld"; type: "Box2DWorld"; isPointer: true }
+        }
+    }
+    Component {
+        name: "Box2DWeldJoint"
+        prototype: "Box2DJoint"
+        exports: ["Felgo/WeldJoint 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "referenceAngle"; type: "float" }
+        Property { name: "frequencyHz"; type: "float" }
+        Property { name: "dampingRatio"; type: "float" }
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+    }
+    Component {
+        name: "Box2DWheelJoint"
+        prototype: "Box2DJoint"
+        exports: ["Felgo/WheelJoint 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "localAxisA"; type: "QPointF" }
+        Property { name: "dampingRatio"; type: "float" }
+        Property { name: "frequencyHz"; type: "float" }
+        Property { name: "maxMotorTorque"; type: "float" }
+        Property { name: "motorSpeed"; type: "float" }
+        Property { name: "enableMotor"; type: "bool" }
+        Method {
+            name: "getReactionForce"
+            type: "QPointF"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+        Method {
+            name: "getReactionTorque"
+            type: "float"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+        Method { name: "getJointTranslation"; type: "float" }
+        Method { name: "getJointSpeed"; type: "float" }
+    }
+    Component {
+        name: "Box2DWorld"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["Felgo/World 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "running"; type: "bool" }
+        Property { name: "timeStep"; type: "float" }
+        Property { name: "velocityIterations"; type: "int" }
+        Property { name: "positionIterations"; type: "int" }
+        Property { name: "gravity"; type: "QPointF" }
+        Property { name: "autoClearForces"; type: "bool" }
+        Property { name: "profile"; type: "Box2DProfile"; isReadonly: true; isPointer: true }
+        Property { name: "pixelsPerMeter"; type: "float" }
+        Property { name: "enableContactEvents"; type: "bool" }
+        Signal {
+            name: "preSolve"
+            Parameter { name: "contact"; type: "Box2DContact"; isPointer: true }
+        }
+        Signal {
+            name: "postSolve"
+            Parameter { name: "contact"; type: "Box2DContact"; isPointer: true }
+        }
+        Signal { name: "stepped" }
+        Method {
+            name: "step"
+            Parameter { name: "dt"; type: "float" }
+        }
+        Method { name: "clearForces" }
+        Method {
+            name: "rayCast"
+            Parameter { name: "rayCast"; type: "Box2DRayCast"; isPointer: true }
+            Parameter { name: "point1"; type: "QPointF" }
+            Parameter { name: "point2"; type: "QPointF" }
+        }
+        Method {
+            name: "bodyAt"
+            type: "Box2DBody*"
+            Parameter { name: "point"; type: "QPointF" }
+        }
+    }
+    Component {
+        name: "ChartboostItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/Chartboost 3.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "Location"
+            values: {
+                "DefaultLocation": 0,
+                "StartupLocation": 1,
+                "HomeScreenLocation": 2,
+                "MainMenuLocation": 3,
+                "GameScreenLocation": 4,
+                "AchievementsLocation": 5,
+                "QuestsLocation": 6,
+                "PauseLocation": 7,
+                "LevelStartLocation": 8,
+                "LevelCompleteLocation": 9,
+                "TurnCompleteLocation": 10,
+                "IAPStoreLocation": 11,
+                "GItemStoreLocation": 12,
+                "GameOverLocation": 13,
+                "LeaderboardLocation": 14,
+                "SettingsLocation": 15,
+                "QuitLocation": 16
+            }
+        }
+        Property { name: "appId"; type: "string" }
+        Property { name: "appSignature"; type: "string" }
+        Property { name: "shouldDisplayInterstitial"; type: "bool" }
+        Property { name: "shouldDisplayMoreApps"; type: "bool" }
+        Property { name: "shouldRequestInterstitial"; type: "bool" }
+        Property { name: "shouldRequestMoreApps"; type: "bool" }
+        Property { name: "shouldDisplayRewardedVideo"; type: "bool" }
+        Property { name: "shouldRequestInterstitialsInFirstSession"; type: "bool" }
+        Property { name: "shouldDisplayLoadingViewForMoreApps"; type: "bool" }
+        Property { name: "shouldPrefetchVideoContent"; type: "bool" }
+        Signal {
+            name: "interstitialCached"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "interstitialFailedToLoad"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "error"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "interstitialDismissed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "interstitialClosed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "interstitialClicked"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "interstitialDisplayed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "moreAppsCached"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "moreAppsFailedToLoad"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "error"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "moreAppsDismissed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "moreAppsClosed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "moreAppsClicked"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "moreAppsDisplayed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "recordClickFailed"
+            Parameter { name: "uri"; type: "string" }
+            Parameter { name: "error"; type: "string" }
+        }
+        Signal {
+            name: "rewardedVideoCached"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "rewardedVideoFailedToLoad"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "error"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "rewardedVideoDismissed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "rewardedVideoClosed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "rewardedVideoClicked"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "rewardedVideoCompleted"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "reward"; type: "int" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "rewardedVideoDisplayed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Signal {
+            name: "rewardedVideoDisplaying"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "int" }
+        }
+        Method {
+            name: "hasInterstitial"
+            type: "bool"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "hasInterstitial"; type: "bool" }
+        Method {
+            name: "cacheInterstitial"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "cacheInterstitial" }
+        Method {
+            name: "showInterstitial"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "showInterstitial" }
+        Method {
+            name: "hasMoreApps"
+            type: "bool"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "hasMoreApps"; type: "bool" }
+        Method {
+            name: "cacheMoreApps"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "cacheMoreApps" }
+        Method {
+            name: "showMoreApps"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "showMoreApps" }
+        Method {
+            name: "hasRewardedVideo"
+            type: "bool"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "hasRewardedVideo"; type: "bool" }
+        Method {
+            name: "cacheRewardedVideo"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "cacheRewardedVideo" }
+        Method {
+            name: "showRewardedVideo"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "showRewardedVideo" }
+        Method {
+            name: "hasInterstitial"
+            type: "bool"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "cacheInterstitial"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "showInterstitial"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "hasMoreApps"
+            type: "bool"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "cacheMoreApps"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "showMoreApps"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "hasRewardedVideo"
+            type: "bool"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "cacheRewardedVideo"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "showRewardedVideo"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method { name: "shouldDisplayInterstitial"; type: "bool" }
+        Method { name: "shouldDisplayMoreApps"; type: "bool" }
+        Method { name: "shouldRequestInterstitial"; type: "bool" }
+        Method { name: "shouldRequestMoreApps"; type: "bool" }
+        Method { name: "shouldDisplayRewardedVideo"; type: "bool" }
+        Method { name: "shouldRequestInterstitialsInFirstSession"; type: "bool" }
+        Method { name: "shouldDisplayLoadingViewForMoreApps"; type: "bool" }
+        Method { name: "shouldPrefetchVideoContent"; type: "bool" }
+    }
+    Component {
+        name: "CrashlyticsItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/Crashlytics 3.0"]
+        exportMetaObjectRevisions: [0]
+        Method { name: "forceCrash" }
+    }
+    Component {
+        name: "CurrencyItem"
+        prototype: "BaseItem"
+        exports: ["Felgo/Currency 3.0"]
+        exportMetaObjectRevisions: [0]
+    }
+    Component {
+        name: "CurrencyPackItem"
+        prototype: "BaseItem"
+        exports: ["Felgo/CurrencyPack 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "currencyId"; type: "string" }
+        Property { name: "currencyAmount"; type: "int" }
+        Property { name: "purchaseType"; type: "PurchaseTypeItem"; isPointer: true }
+        Signal {
+            name: "currencyIdChanged"
+            Parameter { name: "currencyId"; type: "string" }
+        }
+        Signal {
+            name: "currencyAmountChanged"
+            Parameter { name: "currencyAmount"; type: "int" }
+        }
+        Signal {
+            name: "purchaseTypeChanged"
+            Parameter { name: "purchaseType"; type: "PurchaseTypeItem"; isPointer: true }
+        }
+        Method {
+            name: "setCurrencyId"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setCurrencyAmount"
+            Parameter { name: "arg"; type: "int" }
+        }
+        Method {
+            name: "setPurchaseType"
+            Parameter { name: "arg"; type: "PurchaseTypeItem"; isPointer: true }
+        }
+    }
+    Component {
+        name: "DownloadableResourceItem"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["Felgo/DownloadableResource 3.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "Status"
+            values: {
+                "UnAvailable": 0,
+                "Available": 1,
+                "Downloading": 2,
+                "Extracting": 3
+            }
+        }
+        Enum {
+            name: "DownloadError"
+            values: {
+                "NoError": 0,
+                "NetworkError": 1,
+                "UnauthorizedError": 2,
+                "FilePathError": 3,
+                "FileExtractionError": 4,
+                "DownloadCancelledError": 5,
+                "UnknownError": 6
+            }
+        }
+        Property { name: "source"; type: "QUrl" }
+        Property { name: "secret"; type: "string" }
+        Property { name: "extractAsPackage"; type: "bool" }
+        Property { name: "headerParameters"; type: "QVariant" }
+        Property { name: "storageLocation"; type: "VPlayFileUtils::StorageLocation" }
+        Property { name: "storageLocationDisplayName"; type: "string"; isReadonly: true }
+        Property { name: "storagePath"; type: "QUrl" }
+        Property { name: "storageName"; type: "string" }
+        Property { name: "status"; type: "Status"; isReadonly: true }
+        Property { name: "statusText"; type: "string"; isReadonly: true }
+        Property { name: "progress"; type: "int"; isReadonly: true }
+        Property { name: "available"; type: "bool"; isReadonly: true }
+        Signal { name: "headersChanged" }
+        Signal { name: "downloadStarted" }
+        Signal {
+            name: "downloadProgressChanged"
+            Parameter { name: "progress"; type: "int" }
+        }
+        Signal {
+            name: "extractionProgressChanged"
+            Parameter { name: "progress"; type: "int" }
+        }
+        Signal {
+            name: "downloadFinished"
+            Parameter { name: "error"; type: "DownloadError" }
+        }
+        Signal {
+            name: "extractFinished"
+            Parameter { name: "success"; type: "bool" }
+        }
+        Signal {
+            name: "extractAsPackageChanged"
+            Parameter { name: "extractAsPackage"; type: "bool" }
+        }
+        Method { name: "download" }
+        Method { name: "cancel" }
+        Method { name: "remove" }
+        Method {
+            name: "getExtractedFileUrl"
+            type: "QUrl"
+            Parameter { type: "string" }
+        }
+    }
+    Component {
+        name: "FacebookItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/Facebook 3.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "SessionState"
+            values: {
+                "NoSession": 0,
+                "SessionOpened": 1,
+                "SessionClosed": 2,
+                "SessionFailed": 3,
+                "SessionOpening": 4,
+                "SessionPermissionDenied": 5
+            }
+        }
+        Enum {
+            name: "ResultState"
+            values: {
+                "ResultOk": 0,
+                "ResultError": 1,
+                "ResultInvalidSession": 2,
+                "ResultPermissionDenied": 3
+            }
+        }
+        Property { name: "appId"; type: "string" }
+        Property { name: "readPermissions"; type: "QStringList" }
+        Property { name: "publishPermissions"; type: "QStringList" }
+        Property { name: "grantedPermissions"; type: "QStringList"; isReadonly: true }
+        Property { name: "sessionState"; type: "SessionState"; isReadonly: true }
+        Property { name: "profile"; type: "FacebookProfile"; isReadonly: true; isPointer: true }
+        Property { name: "accessToken"; type: "string"; isReadonly: true }
+        Signal {
+            name: "sessionOpened"
+            Parameter { name: "grantedPermissions"; type: "QStringList" }
+            Parameter { name: "deniedPermissions"; type: "QStringList" }
+        }
+        Signal {
+            name: "openSessionFailed"
+            Parameter { name: "reason"; type: "string" }
+        }
+        Signal {
+            name: "getGraphRequestFinished"
+            Parameter { name: "graphPath"; type: "string" }
+            Parameter { name: "resultState"; type: "int" }
+            Parameter { name: "result"; type: "string" }
+        }
+        Signal {
+            name: "postGraphRequestFinished"
+            Parameter { name: "graphPath"; type: "string" }
+            Parameter { name: "resultState"; type: "int" }
+            Parameter { name: "result"; type: "string" }
+        }
+        Method {
+            name: "openSession"
+            Parameter { name: "allowUI"; type: "bool" }
+        }
+        Method { name: "openSession" }
+        Method { name: "closeSession" }
+        Method { name: "fetchUserDetails" }
+        Method {
+            name: "getGraphRequest"
+            Parameter { name: "graphPath"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+        Method {
+            name: "getGraphRequest"
+            Parameter { name: "graphPath"; type: "string" }
+        }
+        Method {
+            name: "postGraphRequest"
+            Parameter { name: "graphPath"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+        Method {
+            name: "postGraphRequest"
+            Parameter { name: "graphPath"; type: "string" }
+        }
+        Method { name: "printAndroidKeyHash" }
+    }
+    Component {
+        name: "FacebookProfile"
+        prototype: "QObject"
+        exports: ["Felgo/Profile 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "firstName"; type: "string"; isReadonly: true }
+        Property { name: "lastName"; type: "string"; isReadonly: true }
+        Property { name: "gender"; type: "string"; isReadonly: true }
+        Property { name: "timezone"; type: "int"; isReadonly: true }
+        Property { name: "locale"; type: "string"; isReadonly: true }
+        Property { name: "pictureUrl"; type: "QUrl"; isReadonly: true }
+        Property { name: "userId"; type: "string"; isReadonly: true }
+        Property { name: "verified"; type: "bool"; isReadonly: true }
+    }
+    Component {
+        name: "FirebaseAuthItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/FirebaseAuth 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "config"; type: "FirebaseConfigItem"; isPointer: true }
+        Property { name: "authenticated"; type: "bool"; isReadonly: true }
+        Property { name: "authenticatedAnonymously"; type: "bool"; isReadonly: true }
+        Property { name: "email"; type: "string"; isReadonly: true }
+        Property { name: "userId"; type: "string"; isReadonly: true }
+        Property { name: "userToken"; type: "string"; isReadonly: true }
+        Signal { name: "firebaseReady" }
+        Signal {
+            name: "userRegistered"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "message"; type: "string" }
+        }
+        Signal {
+            name: "loggedIn"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "message"; type: "string" }
+        }
+        Signal {
+            name: "authenticatedChanged"
+            Parameter { name: "authenticated"; type: "bool" }
+        }
+        Signal {
+            name: "authenticatedAnonymouslyChanged"
+            Parameter { name: "authenticatedAnonymously"; type: "bool" }
+        }
+        Signal {
+            name: "emailChanged"
+            Parameter { name: "email"; type: "string" }
+        }
+        Signal {
+            name: "userIdChanged"
+            Parameter { name: "userId"; type: "string" }
+        }
+        Signal {
+            name: "userTokenChanged"
+            Parameter { name: "userToken"; type: "string" }
+        }
+        Signal {
+            name: "passwordResetEmailSent"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "message"; type: "string" }
+        }
+        Method {
+            name: "registerUser"
+            Parameter { name: "email"; type: "string" }
+            Parameter { name: "password"; type: "string" }
+        }
+        Method {
+            name: "loginUser"
+            Parameter { name: "email"; type: "string" }
+            Parameter { name: "password"; type: "string" }
+        }
+        Method { name: "loginUserAnonymously" }
+        Method {
+            name: "loginUserWithToken"
+            Parameter { name: "token"; type: "string" }
+        }
+        Method { name: "logoutUser" }
+        Method {
+            name: "sendPasswordResetMail"
+            Parameter { name: "email"; type: "string" }
+        }
+    }
+    Component {
+        name: "FirebaseConfigItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/FirebaseConfig 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "name"; type: "string" }
+        Property { name: "apiKey"; type: "string" }
+        Property { name: "applicationId"; type: "string" }
+        Property { name: "databaseUrl"; type: "string" }
+        Property { name: "gcmSenderId"; type: "string" }
+        Property { name: "projectId"; type: "string" }
+        Property { name: "storageBucket"; type: "string" }
+    }
+    Component {
+        name: "FirebaseDatabaseItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/FirebaseDatabase 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "config"; type: "FirebaseConfigItem"; isPointer: true }
+        Property { name: "realtimeUserValueKeys"; type: "QList<QString>" }
+        Property { name: "realtimeValueKeys"; type: "QList<QString>" }
+        Property { name: "persistenceEnabled"; type: "bool" }
+        Signal { name: "firebaseReady" }
+        Signal {
+            name: "writeCompleted"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "message"; type: "string" }
+        }
+        Signal {
+            name: "readCompleted"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Signal {
+            name: "realtimeValueChanged"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Signal {
+            name: "realtimeUserValueChanged"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Method {
+            name: "setValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Method {
+            name: "setValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+            Parameter { name: "callback"; type: "QJSValue" }
+        }
+        Method {
+            name: "getValue"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "getValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "queryProperties"; type: "QVariant" }
+        }
+        Method {
+            name: "getValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "queryProperties"; type: "QVariant" }
+            Parameter { name: "callback"; type: "QJSValue" }
+        }
+        Method {
+            name: "setUserValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Method {
+            name: "setUserValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+            Parameter { name: "callback"; type: "QJSValue" }
+        }
+        Method {
+            name: "getUserValue"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "getUserValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "queryProperties"; type: "QVariant" }
+        }
+        Method {
+            name: "getUserValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "queryProperties"; type: "QVariant" }
+            Parameter { name: "callback"; type: "QJSValue" }
+        }
+        Method {
+            name: "addRealtimeUserValueKey"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "addRealtimeValueKey"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "removeRealtimeUserValueKey"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "removeRealtimeValueKey"
+            Parameter { name: "key"; type: "string" }
+        }
+    }
+    Component {
+        name: "FirebaseStorageItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/FirebaseStorage 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "config"; type: "FirebaseConfigItem"; isPointer: true }
+        Signal { name: "firebaseReady" }
+        Method {
+            name: "uploadFile"
+            type: "FirebaseStorageUploadTask*"
+            Parameter { name: "localUrl"; type: "QUrl" }
+            Parameter { name: "remotePath"; type: "string" }
+            Parameter { name: "callback"; type: "QJSValue" }
+        }
+    }
+    Component {
+        name: "FirebaseStorageUploadTask"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["Felgo/FirebaseStorageUploadTask 3.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Method { name: "cancel" }
+        Method {
+            name: "uploadProgress"
+            Parameter { name: "numBytes"; type: "qlonglong" }
+            Parameter { name: "totalBytes"; type: "qlonglong" }
+        }
+        Method {
+            name: "uploadFinished"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "downloadUrl"; type: "string" }
+        }
+    }
+    Component {
+        name: "FlurryItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/Flurry 3.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "LogLevel"
+            values: {
+                "LogLevelNone": 0,
+                "LogLevelCriticalOnly": 1,
+                "LogLevelDebug": 2,
+                "LogLevelAll": 3
+            }
+        }
+        Enum {
+            name: "UserGender"
+            values: {
+                "UserGenderNone": 0,
+                "UserGenderFemale": 1,
+                "UserGenderMale": 2
+            }
+        }
+        Property { name: "appVersion"; type: "string" }
+        Property { name: "logLevel"; type: "LogLevel" }
+        Property { name: "apiKey"; type: "string" }
+        Property { name: "sessionAutostart"; type: "bool" }
+        Property { name: "userId"; type: "string" }
+        Property { name: "userAge"; type: "int" }
+        Property { name: "userGender"; type: "UserGender" }
+        Property { name: "eventLoggingEnabled"; type: "bool" }
+        Method { name: "startSession" }
+        Method { name: "endSession" }
+        Method {
+            name: "logError"
+            Parameter { name: "name"; type: "string" }
+            Parameter { name: "message"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "event"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+        Method {
+            name: "logTimedEvent"
+            Parameter { name: "event"; type: "string" }
+        }
+        Method {
+            name: "logTimedEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "string" }
+        }
+        Method {
+            name: "logTimedEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+        Method {
+            name: "endTimedEvent"
+            Parameter { name: "event"; type: "string" }
+        }
+        Method {
+            name: "endTimedEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+    }
+    Component {
+        name: "GameCenterItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/GameCenter 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "authenticated"; type: "bool"; isReadonly: true }
+        Signal {
+            name: "scoreReported"
+            Parameter { name: "success"; type: "bool" }
+        }
+        Signal {
+            name: "achievementReported"
+            Parameter { name: "success"; type: "bool" }
+        }
+        Signal {
+            name: "achievementsReset"
+            Parameter { name: "success"; type: "bool" }
+        }
+        Method { name: "authenticateLocalPlayer" }
+        Method {
+            name: "showLeaderboard"
+            Parameter { name: "identifier"; type: "string" }
+        }
+        Method { name: "showLeaderboard" }
+        Method { name: "showAchievements" }
+        Method {
+            name: "reportScore"
+            Parameter { name: "score"; type: "int" }
+            Parameter { name: "identifier"; type: "string" }
+        }
+        Method {
+            name: "reportScore"
+            Parameter { name: "score"; type: "int" }
+        }
+        Method {
+            name: "reportAchievement"
+            Parameter { name: "identifier"; type: "string" }
+            Parameter { name: "percentComplete"; type: "double" }
+            Parameter { name: "bannerVisible"; type: "bool" }
+        }
+        Method {
+            name: "reportAchievement"
+            Parameter { name: "identifier"; type: "string" }
+            Parameter { name: "percentComplete"; type: "double" }
+        }
+        Method {
+            name: "reportAchievement"
+            Parameter { name: "identifier"; type: "string" }
+        }
+        Method { name: "resetAchievements" }
+    }
+    Component {
+        name: "GcmItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/GoogleCloudMessaging 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "channels"; type: "QStringList" }
+        Property { name: "topics"; type: "QStringList" }
+        Property { name: "backgroundFetchEnabled"; type: "bool" }
+        Property { name: "backgroundFetchUrl"; type: "string" }
+        Property { name: "backgroundFetchStackSize"; type: "int" }
+        Property { name: "processForegroundNotifications"; type: "bool" }
+        Signal {
+            name: "notificationReceived"
+            Parameter { name: "data"; type: "QVariantMap" }
+        }
+        Signal {
+            name: "backgroundFetchAvailable"
+            Parameter { name: "content"; type: "QStringList" }
+        }
+        Signal {
+            name: "registrationTokenReceived"
+            Parameter { name: "token"; type: "string" }
+        }
+    }
+    Component {
+        name: "GoodItem"
+        prototype: "BaseItem"
+        Property { name: "purchaseType"; type: "PurchaseTypeItem"; isPointer: true }
+        Method {
+            name: "setPurchaseType"
+            Parameter { name: "arg"; type: "PurchaseTypeItem"; isPointer: true }
+        }
+    }
+    Component {
+        name: "GoogleAnalyticsItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/GoogleAnalytics 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "propertyId"; type: "string" }
+        Property { name: "userId"; type: "string" }
+        Property { name: "anonymizeIp"; type: "bool" }
+        Property { name: "autoStartSession"; type: "bool" }
+        Property { name: "userLanguage"; type: "string" }
+        Method {
+            name: "logScreen"
+            Parameter { name: "screenName"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "eventCategory"; type: "string" }
+            Parameter { name: "eventAction"; type: "string" }
+            Parameter { name: "eventLabel"; type: "string" }
+            Parameter { name: "value"; type: "int" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "eventCategory"; type: "string" }
+            Parameter { name: "eventAction"; type: "string" }
+            Parameter { name: "eventLabel"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "eventCategory"; type: "string" }
+            Parameter { name: "eventAction"; type: "string" }
+        }
+        Method {
+            name: "addCustomDimension"
+            Parameter { name: "id"; type: "int" }
+            Parameter { name: "value"; type: "string" }
+        }
+        Method {
+            name: "removeCustomDimension"
+            Parameter { name: "id"; type: "int" }
+        }
+        Method {
+            name: "addCustomMetric"
+            Parameter { name: "id"; type: "int" }
+            Parameter { name: "value"; type: "string" }
+        }
+        Method {
+            name: "removeCustomMetric"
+            Parameter { name: "id"; type: "int" }
+        }
+        Method { name: "startSession" }
+        Method { name: "stopSession" }
+    }
+    Component {
+        name: "HockeyItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/HockeyApp 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "appId"; type: "string" }
+        Property { name: "disableCrashManager"; type: "bool" }
+        Property { name: "disableUpdateManager"; type: "bool" }
+        Method { name: "showUpdateView" }
+        Method { name: "forceCrash" }
+    }
+    Component {
+        name: "ItemEditor"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["Felgo/ItemEditorBase 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "contentDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "groupDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "boolDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "numberDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "stringDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "pointDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "colorDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "textureDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "arrayDelegate"; type: "QQmlComponent"; isPointer: true }
+        Method {
+            name: "readColorPropertyWithRed"
+            type: "double"
+            Parameter { name: "color"; type: "QColor" }
+        }
+        Method {
+            name: "readColorPropertyWithGreen"
+            type: "double"
+            Parameter { name: "color"; type: "QColor" }
+        }
+        Method {
+            name: "readColorPropertyWithBlue"
+            type: "double"
+            Parameter { name: "color"; type: "QColor" }
+        }
+        Method {
+            name: "readColorPropertyWithAlpha"
+            type: "double"
+            Parameter { name: "color"; type: "QColor" }
+        }
+    }
+    Component {
+        name: "ItemPurchaseItem"
+        prototype: "PurchaseTypeItem"
+        exports: ["Felgo/VirtualPurchase 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "itemId"; type: "string" }
+        Property { name: "amount"; type: "int" }
+        Method {
+            name: "setItemId"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setAmount"
+            Parameter { name: "arg"; type: "int" }
+        }
+    }
+    Component {
+        name: "LicenseItem"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        Property { name: "platformSupported"; type: "bool"; isReadonly: true }
+        Property { name: "platformLoaded"; type: "bool"; isReadonly: true }
+        Signal { name: "loadComponent" }
+        Signal { name: "pluginLoaded" }
+    }
+    Component {
+        name: "LifetimeGoodItem"
+        prototype: "GoodItem"
+        exports: ["Felgo/LifetimeGood 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "purchased"; type: "bool"; isReadonly: true }
+        Signal {
+            name: "purchasedChanged"
+            Parameter { name: "purchased"; type: "bool" }
+        }
+        Method {
+            name: "setPurchased"
+            Parameter { name: "arg"; type: "bool" }
+        }
+    }
+    Component {
+        name: "MarketPurchaseItem"
+        prototype: "PurchaseTypeItem"
+        exports: ["Felgo/StorePurchase 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "productId"; type: "string" }
+        Property { name: "price"; type: "double" }
+        Property { name: "isSubscription"; type: "bool" }
+        Property { name: "marketPriceAndCurrency"; revision: 2; type: "string"; isReadonly: true }
+        Property { name: "marketTitle"; revision: 2; type: "string"; isReadonly: true }
+        Property { name: "marketDescription"; revision: 2; type: "string"; isReadonly: true }
+        Property { name: "marketCurrencyCode"; revision: 2; type: "string"; isReadonly: true }
+        Property { name: "marketPrice"; revision: 2; type: "double"; isReadonly: true }
+        Signal {
+            name: "marketPriceAndCurrencyChanged"
+            revision: 2
+            Parameter { name: "marketPriceAndCurrency"; type: "string" }
+        }
+        Signal {
+            name: "marketTitleChanged"
+            revision: 2
+            Parameter { name: "marketTitle"; type: "string" }
+        }
+        Signal {
+            name: "marketDescriptionChanged"
+            revision: 2
+            Parameter { name: "marketDescription"; type: "string" }
+        }
+        Signal {
+            name: "marketCurrencyCodeChanged"
+            revision: 2
+            Parameter { name: "marketCurrencyCode"; type: "string" }
+        }
+        Signal {
+            name: "marketPriceChanged"
+            revision: 2
+            Parameter { name: "marketPrice"; type: "double" }
+        }
+        Method {
+            name: "setProductId"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setPrice"
+            Parameter { name: "arg"; type: "double" }
+        }
+        Method {
+            name: "setMarketPriceAndCurrency"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setMarketTitle"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setMarketDescription"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setMarketCurrencyCode"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setMarketPrice"
+            Parameter { name: "arg"; type: "double" }
+        }
+        Method {
+            name: "setIsSubscription"
+            Parameter { name: "isSubscription"; type: "bool" }
+        }
+    }
+    Component {
+        name: "MovementAnimation"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["Felgo/MovementAnimation 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "running"; type: "bool" }
+        Property { name: "target"; type: "QObject"; isPointer: true }
+        Property { name: "property"; type: "string" }
+        Property { name: "velocity"; type: "QVariant" }
+        Property { name: "acceleration"; type: "QVariant" }
+        Property { name: "maxVelocity"; type: "QVariant" }
+        Property { name: "minVelocity"; type: "QVariant" }
+        Property { name: "maxPropertyValue"; type: "QVariant" }
+        Property { name: "minPropertyValue"; type: "QVariant" }
+        Property { name: "maxPropertyValueDifference"; type: "QVariant" }
+        Property { name: "wrapping"; type: "bool" }
+        Property { name: "updateInterval"; type: "int" }
+        Signal { name: "started" }
+        Signal { name: "stopped" }
+        Signal {
+            name: "runningChanged"
+            Parameter { type: "bool" }
+        }
+        Signal {
+            name: "pausedChanged"
+            Parameter { type: "bool" }
+        }
+        Signal { name: "limitReached" }
+        Method { name: "start" }
+        Method { name: "stop" }
+    }
+    Component {
+        name: "NativeUtils"
+        prototype: "QObject"
+        exports: ["Felgo/NativeUtils 3.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "StatusBarStyle"
+            values: {
+                "StatusBarStyleHidden": 0,
+                "StatusBarStyleWhite": 1,
+                "StatusBarStyleBlack": 2,
+                "StatusBarStyleSystem": 3
+            }
+        }
+        Enum {
+            name: "ScreenOrientation"
+            values: {
+                "ScreenOrientationUnspecified": -1,
+                "ScreenOrientationDefault": 0,
+                "ScreenOrientationSensor": 1,
+                "ScreenOrientationPortrait": 2,
+                "ScreenOrientationLandscape": 3
+            }
+        }
+        Enum {
+            name: "SoftInputMode"
+            values: {
+                "SoftInputModeUnspecified": 0,
+                "SoftInputModeAdjustResize": 1,
+                "SoftInputModeAdjustPan": 2,
+                "SoftInputModeAdjustNothing": 3
+            }
+        }
+        Property { name: "displaySleepEnabled"; type: "bool" }
+        Property { name: "safeAreaInsets"; type: "EdgeInset"; isReadonly: true }
+        Property { name: "preferredScreenOrientation"; type: "ScreenOrientation" }
+        Property { name: "screenOrientation"; type: "ScreenOrientation"; isReadonly: true }
+        Property { name: "softInputMode"; type: "SoftInputMode" }
+        Property { name: "contacts"; type: "QVariantList"; isReadonly: true }
+        Property { name: "phoneNumber"; type: "string"; isReadonly: true }
+        Property { name: "galleryPhotos"; type: "QVariantList"; isReadonly: true }
+        Signal {
+            name: "displaySleepEnabledChanged"
+            Parameter { name: "enabled"; type: "bool" }
+        }
+        Signal {
+            name: "safeAreaInsetsChanged"
+            Parameter { name: "safeAreaInsets"; type: "EdgeInset" }
+        }
+        Signal {
+            name: "textInputFinished"
+            Parameter { name: "accepted"; type: "bool" }
+            Parameter { name: "enteredText"; type: "string" }
+        }
+        Signal {
+            name: "messageBoxFinished"
+            Parameter { name: "accepted"; type: "bool" }
+        }
+        Signal {
+            name: "alertDialogFinished"
+            Parameter { name: "accepted"; type: "bool" }
+        }
+        Signal {
+            name: "alertSheetFinished"
+            Parameter { name: "index"; type: "int" }
+        }
+        Signal {
+            name: "imagePickerFinished"
+            Parameter { name: "accepted"; type: "bool" }
+            Parameter { name: "path"; type: "string" }
+        }
+        Signal {
+            name: "cameraPickerFinished"
+            Parameter { name: "accepted"; type: "bool" }
+            Parameter { name: "path"; type: "string" }
+        }
+        Signal {
+            name: "datePickerFinished"
+            Parameter { name: "accepted"; type: "bool" }
+            Parameter { name: "date"; type: "QDate" }
+        }
+        Signal {
+            name: "statusBarHeightChanged"
+            Parameter { name: "height"; type: "double" }
+        }
+        Signal { name: "statusBarTapped" }
+        Method {
+            name: "displayTextInput"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "placeholder"; type: "string" }
+            Parameter { name: "text"; type: "string" }
+            Parameter { name: "okButtonTitle"; type: "string" }
+            Parameter { name: "cancelButtonTitle"; type: "string" }
+        }
+        Method {
+            name: "displayTextInput"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "placeholder"; type: "string" }
+            Parameter { name: "text"; type: "string" }
+            Parameter { name: "okButtonTitle"; type: "string" }
+        }
+        Method {
+            name: "displayTextInput"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "placeholder"; type: "string" }
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "displayTextInput"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "placeholder"; type: "string" }
+        }
+        Method {
+            name: "displayTextInput"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+        }
+        Method {
+            name: "displayMessageBox"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "buttons"; type: "int" }
+        }
+        Method {
+            name: "displayMessageBox"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+        }
+        Method {
+            name: "displayMessageBox"
+            Parameter { name: "title"; type: "string" }
+        }
+        Method {
+            name: "displayAlertDialog"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "okButtonTitle"; type: "string" }
+            Parameter { name: "cancelButtonTitle"; type: "string" }
+        }
+        Method {
+            name: "displayAlertDialog"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "okButtonTitle"; type: "string" }
+        }
+        Method {
+            name: "displayAlertDialog"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+        }
+        Method {
+            name: "displayAlertDialog"
+            Parameter { name: "title"; type: "string" }
+        }
+        Method {
+            name: "displayAlertSheet"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "items"; type: "QStringList" }
+            Parameter { name: "cancelable"; type: "bool" }
+        }
+        Method { name: "displayCameraPicker" }
+        Method {
+            name: "displayImagePicker"
+            Parameter { name: "title"; type: "string" }
+        }
+        Method { name: "displayDatePicker" }
+        Method {
+            name: "displayDatePicker"
+            Parameter { name: "initialDate"; type: "QDate" }
+        }
+        Method {
+            name: "displayDatePicker"
+            Parameter { name: "initialDate"; type: "QDate" }
+            Parameter { name: "minDate"; type: "QDate" }
+            Parameter { name: "maxDate"; type: "QDate" }
+        }
+        Method {
+            name: "openUrl"
+            type: "bool"
+            Parameter { name: "urlString"; type: "string" }
+        }
+        Method {
+            name: "sendEmail"
+            Parameter { name: "to"; type: "string" }
+            Parameter { name: "subject"; type: "string" }
+            Parameter { name: "message"; type: "string" }
+        }
+        Method {
+            name: "sendEmail"
+            Parameter { name: "to"; type: "string" }
+            Parameter { name: "subject"; type: "string" }
+        }
+        Method {
+            name: "sendEmail"
+            Parameter { name: "to"; type: "string" }
+        }
+        Method { name: "clearComponentCache" }
+        Method { name: "vibrate" }
+        Method { name: "provideSelectionFeedback" }
+        Method { name: "provideImpactFeedback" }
+        Method {
+            name: "share"
+            Parameter { name: "text"; type: "string" }
+            Parameter { name: "url"; type: "QUrl" }
+        }
+        Method {
+            name: "storeContacts"
+            type: "bool"
+            Parameter { name: "vCard"; type: "string" }
+        }
+        Method {
+            name: "getContacts"
+            type: "QVariantList"
+            Parameter { name: "includeAllNumbers"; type: "bool" }
+        }
+        Method { name: "getContacts"; type: "QVariantList" }
+        Method { name: "getContactsAllNumbers"; type: "QVariantList" }
+        Method { name: "getPhoneNumber"; type: "string" }
+        Method { name: "getPhoneCountryIso"; type: "string" }
+        Method {
+            name: "openApp"
+            type: "bool"
+            Parameter { name: "launchParam"; type: "string" }
+        }
+        Method {
+            name: "setNewParent"
+            Parameter { name: "child"; type: "QObject"; isPointer: true }
+            Parameter { name: "newParent"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "setNewParent"
+            Parameter { name: "child"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "setWindowColor"
+            Parameter { name: "color"; type: "QColor" }
+        }
+        Method {
+            name: "setStatusBarStyle"
+            Parameter { name: "style"; type: "NativeUtils::StatusBarStyle" }
+        }
+        Method { name: "statusBarHeight"; type: "int" }
+        Method {
+            name: "setStatusBarTapEnabled"
+            Parameter { name: "enabled"; type: "bool" }
+        }
+        Method {
+            name: "setStatusBarOpacity"
+            Parameter { name: "opacity"; type: "float" }
+        }
+        Method { name: "deviceModel"; type: "string" }
+        Method {
+            name: "setSimulatedEdgeInset"
+            Parameter { name: "top"; type: "float" }
+            Parameter { name: "left"; type: "float" }
+            Parameter { name: "bottom"; type: "float" }
+            Parameter { name: "right"; type: "float" }
+        }
+        Method { name: "fetchGalleryPhotos" }
+        Method {
+            name: "getCachedAssetPath"
+            Parameter { name: "localIdentifer"; type: "string" }
+            Parameter { name: "jsCallback"; type: "QJSValue" }
+        }
+        Method {
+            name: "getCachedAssetPath"
+            Parameter { name: "localIdentifer"; type: "string" }
+        }
+    }
+    Component {
+        name: "NotificationItem"
+        prototype: "QObject"
+        exports: ["Felgo/Notification 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "notificationId"; type: "string" }
+        Property { name: "message"; type: "string" }
+        Property { name: "number"; type: "int" }
+        Property { name: "timestamp"; type: "int" }
+        Property { name: "timeInterval"; type: "int" }
+    }
+    Component {
+        name: "NotificationManagerItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/NotificationManager 3.0"]
+        exportMetaObjectRevisions: [0]
+        Signal {
+            name: "notificationFired"
+            Parameter { name: "notificationId"; type: "string" }
+        }
+        Method {
+            name: "schedule"
+            type: "string"
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+        Method {
+            name: "scheduleNotification"
+            type: "string"
+            Parameter { name: "notification"; type: "NotificationItem"; isPointer: true }
+        }
+        Method {
+            name: "cancelNotification"
+            Parameter { name: "notificationId"; type: "string" }
+        }
+        Method { name: "cancelAllNotifications" }
+    }
+    Component {
+        name: "OneSignalItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/OneSignal 3.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "LogLevel"
+            values: {
+                "LogLevelNone": 0,
+                "LogLevelFatal": 1,
+                "LogLevelError": 2,
+                "LogLevelWarn": 3,
+                "LogLevelInfo": 4,
+                "LogLevelDebug": 5,
+                "LogLevelVerbose": 6
+            }
+        }
+        Property { name: "appId"; type: "string" }
+        Property { name: "googleProjectNumber"; type: "string" }
+        Property { name: "userId"; type: "string"; isReadonly: true }
+        Property { name: "registrationId"; type: "string"; isReadonly: true }
+        Property { name: "notificationWhenActive"; type: "bool" }
+        Property { name: "inAppAlertNotification"; type: "bool" }
+        Property { name: "shareLocationEnabled"; type: "bool" }
+        Property { name: "logLevel"; type: "LogLevel" }
+        Signal {
+            name: "tagsReceived"
+            Parameter { name: "tags"; type: "QVariantMap" }
+        }
+        Signal {
+            name: "notificationReceived"
+            Parameter { name: "message"; type: "string" }
+            Parameter { name: "additionalData"; type: "QVariantMap" }
+            Parameter { name: "isActive"; type: "bool" }
+        }
+        Method { name: "clearNotifications" }
+        Method {
+            name: "sendTag"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "string" }
+        }
+        Method {
+            name: "sendTags"
+            Parameter { name: "tags"; type: "QVariantMap" }
+        }
+        Method {
+            name: "deleteTag"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "deleteTags"
+            Parameter { name: "keys"; type: "QStringList" }
+        }
+        Method { name: "requestTags" }
+    }
+    Component {
+        name: "ParseItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/Parse 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "applicationId"; type: "string" }
+        Property { name: "clientKey"; type: "string" }
+        Property { name: "channels"; type: "QStringList" }
+        Property { name: "backgroundFetchEnabled"; type: "bool" }
+        Property { name: "backgroundFetchUrl"; type: "string" }
+        Property { name: "backgroundFetchStackSize"; type: "int" }
+        Property { name: "processForegroundNotifications"; type: "bool" }
+        Signal {
+            name: "notificationReceived"
+            Parameter { name: "data"; type: "QVariantMap" }
+        }
+        Signal {
+            name: "backgroundFetchAvailable"
+            Parameter { name: "content"; type: "QStringList" }
+        }
+        Method {
+            name: "putInstallation"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "string" }
+        }
+    }
+    Component {
+        name: "ParticleItem"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["Felgo/ParticleBase 3.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "PositionType"
+            values: {
+                "Free": 0,
+                "Relative": 1,
+                "Grouped": 2
+            }
+        }
+        Enum {
+            name: "EmitterType"
+            values: {
+                "Gravity": 0,
+                "Radius": 1
+            }
+        }
+        Enum {
+            name: "Duration"
+            values: {
+                "Infinite": 0
+            }
+        }
+        Enum {
+            name: "BlendFunction"
+            values: {
+                "GL_ZERO": 0,
+                "GL_ONE": 1,
+                "GL_SRC_COLOR": 768,
+                "GL_ONE_MINUS_SRC_COLOR": 769,
+                "GL_SRC_ALPHA": 770,
+                "GL_ONE_MINUS_SRC_ALPHA": 771,
+                "GL_DST_ALPHA": 772,
+                "GL_ONE_MINUS_DST_ALPHA": 773,
+                "GL_DST_COLOR": 774,
+                "GL_ONE_MINUS_DST_COLOR": 775,
+                "GL_SRC_ALPHA_SATURATE": 776
+            }
+        }
+        Property { name: "gravity"; type: "QPointF" }
+        Property { name: "speed"; type: "double" }
+        Property { name: "speedVariance"; type: "double" }
+        Property { name: "radialAcceleration"; type: "double" }
+        Property { name: "radialAccelVariance"; type: "double" }
+        Property { name: "tangentialAcceleration"; type: "double" }
+        Property { name: "tangentialAccelVariance"; type: "double" }
+        Property { name: "rotatePerSecond"; type: "double" }
+        Property { name: "rotatePerSecondVariance"; type: "double" }
+        Property { name: "minRadius"; type: "double" }
+        Property { name: "minRadiusVariance"; type: "double" }
+        Property { name: "maxRadius"; type: "double" }
+        Property { name: "maxRadiusVariance"; type: "double" }
+        Property { name: "emissionRate"; type: "double" }
+        Property { name: "maxParticles"; type: "double" }
+        Property { name: "particleLifespan"; type: "double" }
+        Property { name: "particleLifespanVariance"; type: "double" }
+        Property { name: "duration"; type: "double" }
+        Property { name: "blendFuncSource"; type: "double" }
+        Property { name: "blendFuncDestination"; type: "double" }
+        Property { name: "startColor"; type: "QColor" }
+        Property { name: "startColorAlpha"; type: "double" }
+        Property { name: "startColorVariance"; type: "QColor" }
+        Property { name: "startColorVarianceAlpha"; type: "double" }
+        Property { name: "finishColor"; type: "QColor" }
+        Property { name: "finishColorAlpha"; type: "double" }
+        Property { name: "finishColorVariance"; type: "QColor" }
+        Property { name: "finishColorVarianceAlpha"; type: "double" }
+        Property { name: "startParticleSize"; type: "double" }
+        Property { name: "startParticleSizeVariance"; type: "double" }
+        Property { name: "finishParticleSize"; type: "double" }
+        Property { name: "finishParticleSizeVariance"; type: "double" }
+        Property { name: "sourcePositionVariance"; type: "QPointF" }
+        Property { name: "angle"; type: "double" }
+        Property { name: "angleVariance"; type: "double" }
+        Property { name: "rotationStart"; type: "double" }
+        Property { name: "rotationStartVariance"; type: "double" }
+        Property { name: "rotationEnd"; type: "double" }
+        Property { name: "rotationEndVariance"; type: "double" }
+        Property { name: "textureFileName"; type: "QUrl" }
+        Property { name: "positionType"; type: "int" }
+        Property { name: "emitterType"; type: "int" }
+        Property { name: "fileName"; type: "QUrl" }
+        Property { name: "autoStart"; type: "bool" }
+        Property { name: "running"; type: "bool" }
+        Signal {
+            name: "runningChanged"
+            Parameter { type: "bool" }
+        }
+        Method {
+            name: "geometryChanged"
+            Parameter { name: "newGeometry"; type: "QRectF" }
+            Parameter { name: "oldGeometry"; type: "QRectF" }
+        }
+        Method {
+            name: "itemChange"
+            Parameter { name: "change"; type: "ItemChange" }
+            Parameter { name: "value"; type: "ItemChangeData" }
+        }
+        Method { name: "start" }
+        Method { name: "stop" }
+        Method { name: "stopLivingParticles" }
+        Method {
+            name: "saveAsPList"
+            Parameter { name: "file"; type: "QUrl" }
+        }
+    }
+    Component { name: "PurchaseTypeItem"; prototype: "QObject" }
+    Component {
+        name: "QAbstractProxyModel"
+        prototype: "QAbstractItemModel"
+        Property { name: "sourceModel"; type: "QAbstractItemModel"; isPointer: true }
+        Method {
+            name: "mapToSource"
+            type: "QModelIndex"
+            Parameter { name: "proxyIndex"; type: "QModelIndex" }
+        }
+        Method {
+            name: "mapFromSource"
+            type: "QModelIndex"
+            Parameter { name: "sourceIndex"; type: "QModelIndex" }
+        }
+        Method {
+            name: "mapSelectionToSource"
+            type: "QItemSelection"
+            Parameter { name: "selection"; type: "QItemSelection" }
+        }
+        Method {
+            name: "mapSelectionFromSource"
+            type: "QItemSelection"
+            Parameter { name: "selection"; type: "QItemSelection" }
+        }
+    }
+    Component {
+        name: "QSJsonListModel"
+        prototype: "QSListModel"
+        exports: ["Felgo/JsonListModel 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "keyField"; type: "string" }
+        Property { name: "source"; type: "QVariantList" }
+        Property { name: "fields"; type: "QStringList" }
+    }
+    Component {
+        name: "QSListModel"
+        prototype: "QAbstractListModel"
+        Property { name: "count"; type: "int"; isReadonly: true }
+        Method {
+            name: "append"
+            Parameter { name: "value"; type: "QVariantMap" }
+        }
+        Method {
+            name: "insert"
+            Parameter { name: "index"; type: "int" }
+            Parameter { name: "value"; type: "QVariantMap" }
+        }
+        Method { name: "clear" }
+        Method {
+            name: "move"
+            Parameter { name: "from"; type: "int" }
+            Parameter { name: "to"; type: "int" }
+            Parameter { name: "count"; type: "int" }
+        }
+        Method {
+            name: "move"
+            Parameter { name: "from"; type: "int" }
+            Parameter { name: "to"; type: "int" }
+        }
+        Method {
+            name: "remove"
+            Parameter { name: "i"; type: "int" }
+            Parameter { name: "count"; type: "int" }
+        }
+        Method {
+            name: "remove"
+            Parameter { name: "i"; type: "int" }
+        }
+        Method {
+            name: "indexOf"
+            type: "int"
+            Parameter { name: "field"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Method {
+            name: "get"
+            type: "QVariantMap"
+            Parameter { name: "i"; type: "int" }
+        }
+        Method {
+            name: "setProperty"
+            Parameter { name: "index"; type: "int" }
+            Parameter { name: "property"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Method {
+            name: "set"
+            Parameter { name: "index"; type: "int" }
+            Parameter { name: "data"; type: "QVariantMap" }
+        }
+    }
+    Component {
+        name: "QSortFilterProxyModel"
+        prototype: "QAbstractProxyModel"
+        Property { name: "filterRegExp"; type: "QRegExp" }
+        Property { name: "filterKeyColumn"; type: "int" }
+        Property { name: "dynamicSortFilter"; type: "bool" }
+        Property { name: "filterCaseSensitivity"; type: "Qt::CaseSensitivity" }
+        Property { name: "sortCaseSensitivity"; type: "Qt::CaseSensitivity" }
+        Property { name: "isSortLocaleAware"; type: "bool" }
+        Property { name: "sortRole"; type: "int" }
+        Property { name: "filterRole"; type: "int" }
+        Property { name: "recursiveFilteringEnabled"; type: "bool" }
+        Method {
+            name: "setFilterRegExp"
+            Parameter { name: "pattern"; type: "string" }
+        }
+        Method {
+            name: "setFilterWildcard"
+            Parameter { name: "pattern"; type: "string" }
+        }
+        Method {
+            name: "setFilterFixedString"
+            Parameter { name: "pattern"; type: "string" }
+        }
+        Method { name: "clear" }
+        Method { name: "invalidate" }
+    }
+    Component {
+        name: "SingleUseGoodItem"
+        prototype: "GoodItem"
+        exports: ["Felgo/SingleUseGood 3.0"]
+        exportMetaObjectRevisions: [0]
+    }
+    Component {
+        name: "SingleUsePackGoodItem"
+        prototype: "GoodItem"
+        exports: ["Felgo/SingleUsePackGood 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "goodItemId"; type: "string" }
+        Property { name: "amount"; type: "int" }
+        Method {
+            name: "setGoodItemId"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setAmount"
+            Parameter { name: "arg"; type: "int" }
+        }
+    }
+    Component {
+        name: "SteerToPointBehavior"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["Felgo/MoveToPointHelper 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "targetObject"; type: "QObject"; isPointer: true }
+        Property { name: "targetPoint"; type: "QPointF" }
+        Property { name: "owningEntity"; type: "QQuickItem"; isPointer: true }
+        Property { name: "allowSteerForward"; type: "bool" }
+        Property { name: "allowSteerBackward"; type: "bool" }
+        Property { name: "stopForwardMovementAtDifferentDirections"; type: "bool" }
+        Property { name: "rotationThreshold"; type: "double" }
+        Property { name: "distanceToTargetThreshold"; type: "double" }
+        Property { name: "distanceToTarget"; type: "double"; isReadonly: true }
+        Property { name: "absoluteRotationDifference"; type: "float"; isReadonly: true }
+        Property { name: "outputXAxis"; type: "double"; isReadonly: true }
+        Property { name: "outputYAxis"; type: "double"; isReadonly: true }
+        Property { name: "updateInterval"; type: "int" }
+        Signal { name: "targetItemChanged" }
+        Signal { name: "targetReached" }
+        Method { name: "update" }
+        Method { name: "reset" }
+        Method { name: "enabledHasChanged" }
+        Method { name: "targetItemDestroyed" }
+    }
+    Component {
+        name: "StoreItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/Store 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "secret"; type: "string" }
+        Property { name: "version"; type: "int" }
+        Property { name: "androidPublicKey"; type: "string" }
+        Property { name: "supported"; type: "bool"; isReadonly: true }
+        Property { name: "currencies"; type: "CurrencyItem"; isList: true; isReadonly: true }
+        Property { name: "currencyPacks"; type: "CurrencyPackItem"; isList: true; isReadonly: true }
+        Property { name: "goods"; type: "GoodItem"; isList: true; isReadonly: true }
+        Signal {
+            name: "supportedChanged"
+            Parameter { name: "supported"; type: "bool" }
+        }
+        Signal {
+            name: "currencyBalanceChanged"
+            Parameter { name: "itemId"; type: "string" }
+            Parameter { name: "balance"; type: "int" }
+            Parameter { name: "amountAdded"; type: "int" }
+        }
+        Signal {
+            name: "goodBalanceChanged"
+            Parameter { name: "itemId"; type: "string" }
+            Parameter { name: "balance"; type: "int" }
+            Parameter { name: "amountAdded"; type: "int" }
+        }
+        Signal {
+            name: "goodEquipped"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "goodUnequipped"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "goodUpgrade"
+            Parameter { name: "itemId"; type: "string" }
+            Parameter { name: "upgradeItemId"; type: "string" }
+        }
+        Signal {
+            name: "itemPurchased"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "storePurchaseCanceled"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "storePurchaseCancelled"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "storePurchased"
+            Parameter { name: "itemId"; type: "string" }
+            Parameter { name: "transactionData"; type: "QVariant" }
+        }
+        Signal {
+            name: "storePurchaseStarted"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "storeRefund"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal { name: "restoreAllTransactionsStarted" }
+        Signal {
+            name: "restoreAllTransactionsFinished"
+            Parameter { name: "success"; type: "bool" }
+        }
+        Signal { name: "marketItemsRefreshStarted"; revision: 2 }
+        Signal {
+            name: "marketItemsRefreshFinished"
+            revision: 2
+            Parameter { name: "success"; type: "bool" }
+        }
+        Signal { name: "unexpectedError" }
+        Signal {
+            name: "itemNotFoundError"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "insufficientFundsError"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Method {
+            name: "buyStoreItem"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Method { name: "restoreAllTransactions" }
+        Method { name: "refreshGoodDetails" }
+        Method {
+            name: "buyItem"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Method {
+            name: "getItemBalance"
+            type: "int"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Method {
+            name: "giveItem"
+            type: "bool"
+            Parameter { name: "itemId"; type: "string" }
+            Parameter { name: "amount"; type: "int" }
+        }
+        Method {
+            name: "giveItem"
+            type: "bool"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Method {
+            name: "takeItem"
+            type: "bool"
+            Parameter { name: "itemId"; type: "string" }
+            Parameter { name: "amount"; type: "int" }
+        }
+        Method {
+            name: "takeItem"
+            type: "bool"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Method { name: "printStoreProductLists" }
+    }
+    Component {
+        name: "TagManagerItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/TagManager 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "containerId"; type: "string" }
+        Method {
+            name: "push"
+            Parameter { name: "keyValuePairs"; type: "QVariantMap" }
+        }
+    }
+    Component {
+        name: "TypeWriterItem"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["Felgo/TypeWriterItem 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "typeDelay"; type: "int" }
+        Property { name: "textSource"; type: "string" }
+        Property { name: "typeWriterText"; type: "string"; isReadonly: true }
+        Property { name: "running"; type: "bool"; isReadonly: true }
+        Property { name: "finished"; type: "bool"; isReadonly: true }
+        Signal { name: "typeWriterFinished" }
+        Method { name: "start" }
+        Method { name: "stop" }
+        Method { name: "pause" }
+    }
+    Component {
+        name: "VPlayFileUtils"
+        prototype: "QObject"
+        exports: ["Felgo/FileUtils 3.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "StorageLocation"
+            values: {
+                "DesktopLocation": 0,
+                "DocumentsLocation": 1,
+                "FontsLocation": 2,
+                "ApplicationsLocation": 3,
+                "MusicLocation": 4,
+                "MoviesLocation": 5,
+                "PicturesLocation": 6,
+                "TempLocation": 7,
+                "HomeLocation": 8,
+                "DataLocation": 9,
+                "CacheLocation": 10,
+                "GenericDataLocation": 11,
+                "RuntimeLocation": 12,
+                "ConfigLocation": 13,
+                "DownloadLocation": 14,
+                "GenericCacheLocation": 15,
+                "GenericConfigLocation": 16,
+                "AppDataLocation": 17,
+                "AppConfigLocation": 18,
+                "AppLocalDataLocation": 9
+            }
+        }
+        Property { name: "searchPaths"; type: "QStringList"; isReadonly: true }
+        Property { name: "applicationDirPath"; type: "string"; isReadonly: true }
+        Method {
+            name: "existsFile"
+            type: "bool"
+            Parameter { name: "fileUrl"; type: "string" }
+        }
+        Method {
+            name: "existsFileWithoutAdoptions"
+            type: "bool"
+            Parameter { name: "fileUrl"; type: "string" }
+        }
+        Method {
+            name: "existsFileFromUrl"
+            type: "bool"
+            Parameter { name: "fileUrl"; type: "string" }
+        }
+        Method { name: "engineBasePath"; type: "string" }
+        Method { name: "engineBaseUrlPath"; type: "string" }
+        Method {
+            name: "existsFileOrDirectoryIncludingResources"
+            type: "bool"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "findFileOrDirectoryIncludingResources"
+            type: "string"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "getUrlByAddingSchemeToFilename"
+            type: "QUrl"
+            Parameter { name: "file"; type: "string" }
+        }
+        Method {
+            name: "stripSchemeFromUrl"
+            type: "string"
+            Parameter { name: "filepath"; type: "QUrl" }
+        }
+        Method {
+            name: "stripSchemeFromUrl"
+            type: "string"
+            Parameter { name: "urlString"; type: "string" }
+        }
+        Method {
+            name: "getFilenameWithoutSchemeAndResourcePath"
+            type: "string"
+            Parameter { name: "filepath"; type: "QUrl" }
+        }
+        Method {
+            name: "getAbsolutePathFromUrlString"
+            type: "string"
+            Parameter { name: "filepath"; type: "string" }
+        }
+        Method {
+            name: "writeFile"
+            type: "bool"
+            Parameter { name: "file"; type: "string" }
+            Parameter { name: "stringData"; type: "string" }
+        }
+        Method {
+            name: "writeFile"
+            type: "bool"
+            Parameter { name: "file"; type: "string" }
+            Parameter { name: "byteData"; type: "QByteArray" }
+        }
+        Method {
+            name: "readFile"
+            type: "string"
+            Parameter { name: "file"; type: "string" }
+        }
+        Method {
+            name: "listFiles"
+            type: "QStringList"
+            Parameter { name: "path"; type: "QUrl" }
+            Parameter { name: "nameFilter"; type: "QStringList" }
+        }
+        Method {
+            name: "listFiles"
+            type: "QStringList"
+            Parameter { name: "path"; type: "QUrl" }
+        }
+        Method {
+            name: "copyFile"
+            type: "bool"
+            Parameter { name: "source"; type: "string" }
+            Parameter { name: "destination"; type: "string" }
+        }
+        Method {
+            name: "getFileData"
+            type: "QByteArray"
+            Parameter { name: "filename"; type: "string" }
+        }
+        Method {
+            name: "getDataStorageUrl"
+            type: "QUrl"
+            Parameter { name: "relativePath"; type: "string" }
+        }
+        Method {
+            name: "getPathUrl"
+            type: "QUrl"
+            Parameter { name: "urlString"; type: "string" }
+            Parameter { name: "sourceObject"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "getPathUrl"
+            type: "QUrl"
+            Parameter { name: "urlString"; type: "string" }
+            Parameter { name: "sourcePath"; type: "QUrl" }
+        }
+        Method {
+            name: "getBasePath"
+            type: "string"
+            Parameter { name: "sourceObject"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "qmlEngineBaseUrlForObject"
+            type: "QUrl"
+            Parameter { name: "object"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "storageLocation"
+            type: "string"
+            Parameter { name: "type"; type: "StorageLocation" }
+        }
+        Method {
+            name: "storageLocation"
+            type: "string"
+            Parameter { name: "type"; type: "StorageLocation" }
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "removeDir"
+            type: "bool"
+            Parameter { name: "dirName"; type: "string" }
+        }
+        Method { name: "defaultWritablePath"; type: "string" }
+        Method {
+            name: "cropPathAndKeepFilename"
+            type: "string"
+            Parameter { name: "path"; type: "string" }
+            Parameter { name: "cropFileExtension"; type: "bool" }
+        }
+        Method {
+            name: "cropPathAndKeepFilename"
+            type: "string"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "addSearchPath"
+            Parameter { name: "path"; type: "string" }
+            Parameter { name: "index"; type: "int" }
+        }
+        Method {
+            name: "addSearchPath"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "removeSearchPath"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method { name: "searchPaths"; type: "QStringList" }
+        Method {
+            name: "getMultiPathUrl"
+            type: "QUrl"
+            Parameter { name: "url"; type: "QUrl" }
+            Parameter { name: "contextObject"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "getMultiPathUrl"
+            type: "QUrl"
+            Parameter { name: "url"; type: "QUrl" }
+        }
+        Method {
+            name: "storageLocationDisplayName"
+            type: "string"
+            Parameter { name: "location"; type: "StorageLocation" }
+        }
+        Method {
+            name: "openFile"
+            type: "bool"
+            Parameter { name: "fileName"; type: "string" }
+        }
+    }
+    Component {
+        name: "WikitudeItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["Felgo/WikitudeArView 3.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "CameraPosition"
+            values: {
+                "UnspecifiedCamera": 0,
+                "FrontCamera": 1,
+                "BackCamera": 2
+            }
+        }
+        Enum {
+            name: "CameraResolution"
+            values: {
+                "SD": 0,
+                "HD": 1,
+                "FullHD": 2,
+                "AutoResolution": 3
+            }
+        }
+        Enum {
+            name: "CameraFocusMode"
+            values: {
+                "AutoFocus": 0,
+                "AutoFocusContinuous": 1,
+                "ManualFocus": 2
+            }
+        }
+        Property { name: "licenseKey"; type: "string" }
+        Property { name: "arWorldSource"; type: "QUrl" }
+        Property { name: "running"; type: "bool" }
+        Property { name: "cameraResolution"; type: "CameraResolution" }
+        Property { name: "cameraFocusMode"; type: "CameraFocusMode" }
+        Property { name: "cameraPosition"; type: "CameraPosition" }
+        Property { name: "cameraManualFocusDistance"; type: "double" }
+        Property { name: "overrideLocation"; type: "bool" }
+        Property { name: "latitude"; type: "double" }
+        Property { name: "longitude"; type: "double" }
+        Property { name: "altitude"; type: "double" }
+        Property { name: "locationAccuracy"; type: "double" }
+        Signal {
+            name: "runningChanged"
+            Parameter { name: "running"; type: "bool" }
+        }
+        Signal {
+            name: "arWorldSourceChanged"
+            Parameter { name: "arWorldSource"; type: "QUrl" }
+        }
+        Signal {
+            name: "licenseKeyChanged"
+            Parameter { name: "licenseKey"; type: "string" }
+        }
+        Signal {
+            name: "javascriptCallback"
+            Parameter { name: "jsObject"; type: "QVariant" }
+        }
+        Signal {
+            name: "overrideLocationChanged"
+            Parameter { name: "overrideLocation"; type: "bool" }
+        }
+        Signal {
+            name: "latitudeChanged"
+            Parameter { name: "latitude"; type: "double" }
+        }
+        Signal {
+            name: "longitudeChanged"
+            Parameter { name: "longitude"; type: "double" }
+        }
+        Signal {
+            name: "altitudeChanged"
+            Parameter { name: "altitude"; type: "double" }
+        }
+        Signal {
+            name: "locationAccuracyChanged"
+            Parameter { name: "locationAccuracy"; type: "double" }
+        }
+        Signal {
+            name: "cameraPositionChanged"
+            Parameter { name: "cameraPosition"; type: "CameraPosition" }
+        }
+        Signal {
+            name: "cameraManualFocusDistanceChanged"
+            Parameter { name: "cameraManualFocusDistance"; type: "double" }
+        }
+        Method {
+            name: "callJavascript"
+            Parameter { name: "jsCommand"; type: "string" }
+        }
+    }
+    Component {
+        name: "com::cutehacks::duperagent::CacheControl"
+        prototype: "QObject"
+        exports: ["Felgo/HttpCacheControl 3.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "CacheLoadControl"
+            values: {
+                "AlwaysNetwork": 0,
+                "PreferNetwork": 1,
+                "PreferCache": 2,
+                "AlwaysCache": 3
+            }
+        }
+    }
+    Component {
+        name: "com::cutehacks::duperagent::ImageUtils"
+        prototype: "QObject"
+        exports: ["Felgo/HttpImageUtils 3.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Method {
+            name: "createReader"
+            type: "QJSValue"
+            Parameter { type: "string" }
+        }
+    }
+    Component {
+        name: "com::cutehacks::duperagent::NetworkActivityIndicator"
+        prototype: "QObject"
+        exports: ["Felgo/HttpNetworkActivityIndicator 3.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Property { name: "enabled"; type: "bool"; isReadonly: true }
+        Property { name: "activationDelay"; type: "int" }
+        Property { name: "completionDelay"; type: "int" }
+        Property { name: "enableNativeIndicator"; type: "bool" }
+        Signal {
+            name: "activationDelayChanged"
+            Parameter { name: "activationDelay"; type: "int" }
+        }
+        Signal {
+            name: "completionDelayChanged"
+            Parameter { name: "completionDelay"; type: "int" }
+        }
+        Signal {
+            name: "enableNativeIndicatorChanged"
+            Parameter { name: "enableNativeIndicator"; type: "bool" }
+        }
+        Signal {
+            name: "enabledChanged"
+            Parameter { name: "enabled"; type: "bool" }
+        }
+        Method {
+            name: "setActivationDelay"
+            Parameter { name: "activationDelay"; type: "int" }
+        }
+        Method {
+            name: "setCompletionDelay"
+            Parameter { name: "completionDelay"; type: "int" }
+        }
+        Method {
+            name: "setEnableNativeIndicator"
+            Parameter { name: "enableNativeIndicator"; type: "bool" }
+        }
+    }
+    Component {
+        name: "com::cutehacks::duperagent::PromiseModule"
+        prototype: "QObject"
+        exports: ["Felgo/Promise 3.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Method {
+            name: "create"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "all"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "race"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "resolve"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "reject"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+    }
+    Component {
+        name: "com::cutehacks::duperagent::Request"
+        prototype: "QObject"
+        exports: ["Felgo/HttpRequest 3.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Property { name: "cookie"; type: "QJSValue" }
+        Method {
+            name: "config"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "get"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "get"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "get"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "head"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "head"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "head"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "del"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "del"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "patch"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "patch"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "patch"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "post"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "post"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "post"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "put"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "put"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "put"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method { name: "clearCookies" }
+    }
+    Component {
+        name: "qqsfpm::AllOfFilter"
+        defaultProperty: "filters"
+        prototype: "qqsfpm::FilterContainer"
+        exports: ["Felgo/AllOf 3.0"]
+        exportMetaObjectRevisions: [0]
+    }
+    Component {
+        name: "qqsfpm::AnyOfFilter"
+        defaultProperty: "filters"
+        prototype: "qqsfpm::FilterContainer"
+        exports: ["Felgo/AnyOf 3.0"]
+        exportMetaObjectRevisions: [0]
+    }
+    Component {
+        name: "qqsfpm::ExpressionFilter"
+        prototype: "qqsfpm::Filter"
+        exports: ["Felgo/ExpressionFilter 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "expression"; type: "QQmlScriptString" }
+    }
+    Component {
+        name: "qqsfpm::ExpressionRole"
+        prototype: "qqsfpm::ProxyRole"
+        exports: ["Felgo/ExpressionRole 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "expression"; type: "QQmlScriptString" }
+    }
+    Component {
+        name: "qqsfpm::ExpressionSorter"
+        prototype: "qqsfpm::Sorter"
+        exports: ["Felgo/ExpressionSorter 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "expression"; type: "QQmlScriptString" }
+    }
+    Component {
+        name: "qqsfpm::Filter"
+        prototype: "QObject"
+        exports: ["Felgo/Filter 3.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Property { name: "enabled"; type: "bool" }
+        Property { name: "inverted"; type: "bool" }
+        Signal { name: "invalidated" }
+    }
+    Component {
+        name: "qqsfpm::FilterContainer"
+        defaultProperty: "filters"
+        prototype: "qqsfpm::Filter"
+        Property { name: "filters"; type: "qqsfpm::Filter"; isList: true; isReadonly: true }
+    }
+    Component {
+        name: "qqsfpm::IndexFilter"
+        prototype: "qqsfpm::Filter"
+        exports: ["Felgo/IndexFilter 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "minimumIndex"; type: "QVariant" }
+        Property { name: "maximumIndex"; type: "QVariant" }
+    }
+    Component {
+        name: "qqsfpm::JoinRole"
+        prototype: "qqsfpm::ProxyRole"
+        exports: ["Felgo/JoinRole 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "roleNames"; type: "QStringList" }
+        Property { name: "separator"; type: "string" }
+    }
+    Component {
+        name: "qqsfpm::ProxyRole"
+        prototype: "QObject"
+        exports: ["Felgo/ProxyRole 3.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Property { name: "name"; type: "string" }
+        Signal { name: "nameAboutToBeChanged" }
+        Signal { name: "invalidated" }
+    }
+    Component {
+        name: "qqsfpm::QQmlSortFilterProxyModel"
+        prototype: "QSortFilterProxyModel"
+        exports: ["Felgo/SortFilterProxyModel 3.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "PatternSyntax"
+            values: {
+                "RegExp": 0,
+                "Wildcard": 1,
+                "FixedString": 2,
+                "RegExp2": 3,
+                "WildcardUnix": 4,
+                "W3CXmlSchema11": 5
+            }
+        }
+        Property { name: "count"; type: "int"; isReadonly: true }
+        Property { name: "filterRoleName"; type: "string" }
+        Property { name: "filterPattern"; type: "string" }
+        Property { name: "filterPatternSyntax"; type: "PatternSyntax" }
+        Property { name: "filterValue"; type: "QVariant" }
+        Property { name: "sortRoleName"; type: "string" }
+        Property { name: "ascendingSortOrder"; type: "bool" }
+        Property { name: "filters"; type: "qqsfpm::Filter"; isList: true; isReadonly: true }
+        Property { name: "sorters"; type: "qqsfpm::Sorter"; isList: true; isReadonly: true }
+        Property { name: "proxyRoles"; type: "qqsfpm::ProxyRole"; isList: true; isReadonly: true }
+        Method {
+            name: "roleForName"
+            type: "int"
+            Parameter { name: "roleName"; type: "string" }
+        }
+        Method {
+            name: "get"
+            type: "QVariantMap"
+            Parameter { name: "row"; type: "int" }
+        }
+        Method {
+            name: "get"
+            type: "QVariant"
+            Parameter { name: "row"; type: "int" }
+            Parameter { name: "roleName"; type: "string" }
+        }
+        Method {
+            name: "mapToSource"
+            type: "QModelIndex"
+            Parameter { name: "proxyIndex"; type: "QModelIndex" }
+        }
+        Method {
+            name: "mapToSource"
+            type: "int"
+            Parameter { name: "proxyRow"; type: "int" }
+        }
+        Method {
+            name: "mapFromSource"
+            type: "QModelIndex"
+            Parameter { name: "sourceIndex"; type: "QModelIndex" }
+        }
+        Method {
+            name: "mapFromSource"
+            type: "int"
+            Parameter { name: "sourceRow"; type: "int" }
+        }
+    }
+    Component {
+        name: "qqsfpm::RangeFilter"
+        prototype: "qqsfpm::RoleFilter"
+        exports: ["Felgo/RangeFilter 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "minimumValue"; type: "QVariant" }
+        Property { name: "minimumInclusive"; type: "bool" }
+        Property { name: "maximumValue"; type: "QVariant" }
+        Property { name: "maximumInclusive"; type: "bool" }
+    }
+    Component {
+        name: "qqsfpm::RegExpFilter"
+        prototype: "qqsfpm::RoleFilter"
+        exports: ["Felgo/RegExpFilter 3.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "PatternSyntax"
+            values: {
+                "RegExp": 0,
+                "Wildcard": 1,
+                "FixedString": 2,
+                "RegExp2": 3,
+                "WildcardUnix": 4,
+                "W3CXmlSchema11": 5
+            }
+        }
+        Property { name: "pattern"; type: "string" }
+        Property { name: "syntax"; type: "PatternSyntax" }
+        Property { name: "caseSensitivity"; type: "Qt::CaseSensitivity" }
+    }
+    Component {
+        name: "qqsfpm::RoleFilter"
+        prototype: "qqsfpm::Filter"
+        Property { name: "roleName"; type: "string" }
+    }
+    Component {
+        name: "qqsfpm::RoleSorter"
+        prototype: "qqsfpm::Sorter"
+        exports: ["Felgo/RoleSorter 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "roleName"; type: "string" }
+    }
+    Component {
+        name: "qqsfpm::Sorter"
+        prototype: "QObject"
+        exports: ["Felgo/Sorter 3.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Property { name: "enabled"; type: "bool" }
+        Property { name: "ascendingOrder"; type: "bool" }
+        Property { name: "sortOrder"; type: "Qt::SortOrder" }
+        Signal { name: "invalidated" }
+    }
+    Component {
+        name: "qqsfpm::StringSorter"
+        prototype: "qqsfpm::RoleSorter"
+        exports: ["Felgo/StringSorter 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "caseSensitivity"; type: "Qt::CaseSensitivity" }
+        Property { name: "ignorePunctation"; type: "bool" }
+        Property { name: "locale"; type: "QLocale" }
+        Property { name: "numericMode"; type: "bool" }
+    }
+    Component {
+        name: "qqsfpm::SwitchRole"
+        prototype: "qqsfpm::ProxyRole"
+        exports: ["Felgo/SwitchRole 3.0"]
+        exportMetaObjectRevisions: [0]
+        attachedType: "qqsfpm::SwitchRoleAttached"
+        Property { name: "defaultRoleName"; type: "string" }
+        Property { name: "defaultValue"; type: "QVariant" }
+        Property { name: "filters"; type: "qqsfpm::Filter"; isList: true; isReadonly: true }
+    }
+    Component {
+        name: "qqsfpm::SwitchRoleAttached"
+        prototype: "QObject"
+        Property { name: "value"; type: "QVariant" }
+    }
+    Component {
+        name: "qqsfpm::ValueFilter"
+        prototype: "qqsfpm::RoleFilter"
+        exports: ["Felgo/ValueFilter 3.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "value"; type: "QVariant" }
+    }
+}

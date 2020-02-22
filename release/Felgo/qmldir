@@ -1,0 +1,250 @@
+module Felgo
+
+# set dependency to felgo modules
+# otherwise import scanner does not check QML files of these modules and dependencies are missing
+depends VPlay 2.0
+depends VPlayApps 1.0
+depends VPlayPlugins 1.0
+
+# set typeinfo
+typeinfo felgo.qmltypes
+
+## Felgo ##
+GameWindow 3.0 core/GameWindow.qml
+GameWindowApplicationWindow 3.0 core/GameWindowApplicationWindow.qml
+App 3.0 core/App.qml
+
+## VPlay ##
+
+### 3d ###
+# Disabled for Felgo 2.9.0 upwards
+# Scene3D 3.0 ../VPlay/3d/Scene3D.qml
+# Render3D 3.0 ../VPlay/3d/Render3D.qml
+# TargetCamTransformHelper 3.0 ../VPlay/3d/TargetCamTransformHelper.qml
+
+### ai ###
+PathMovement 3.0 ../VPlay/ai/PathMovement.qml
+
+### core ###
+ComponentBase 3.0 ../VPlay/core/ComponentBase.qml
+EntityBase 3.0 ../VPlay/core/EntityBase.qml
+EntityManager 3.0 ../VPlay/core/EntityManager.qml
+GameWindowItem 3.0 ../VPlay/core/GameWindowItem.qml
+Scene 3.0 ../VPlay/core/Scene.qml
+Settings 3.0 ../VPlay/core/Settings.qml
+Storage 3.0 ../VPlay/core/Storage.qml
+Utils 3.0 ../VPlay/core/Utils.qml
+
+### physics ###
+BoxCollider 3.0 ../VPlay/physics/BoxCollider.qml
+CircleCollider 3.0 ../VPlay/physics/CircleCollider.qml
+PolygonCollider 3.0 ../VPlay/physics/PolygonCollider.qml
+ColliderBase 3.0 ../VPlay/physics/ColliderBase.qml
+PhysicsWorld 3.0 ../VPlay/physics/PhysicsWorld.qml
+
+### input ###
+JoystickControllerHUD 3.0 ../VPlay/input/JoystickControllerHUD.qml
+StyledButton 3.0 ../VPlay/input/StyledButton.qml
+SimpleButton 3.0 ../VPlay/input/SimpleButton.qml
+TwoAxisController 3.0 ../VPlay/input/TwoAxisController.qml
+
+### sprites ###
+AnimatedSprite 3.0 ../VPlay/sprites/AnimatedSprite.qml
+BackgroundImage 3.0 ../VPlay/sprites/BackgroundImage.qml
+Camera 3.0 ../VPlay/sprites/Camera.qml
+LineItem 3.0 ../VPlay/sprites/LineItem.qml
+MultiResolutionImage 3.0 ../VPlay/sprites/MultiResolutionImage.qml
+ParallaxItem 3.0 ../VPlay/sprites/ParallaxItem.qml
+ParallaxScrollingBackground 3.0 ../VPlay/sprites/ParallaxScrollingBackground.qml
+PolygonItem 3.0 ../VPlay/sprites/PolygonItem.qml
+SingleSpriteFromSpriteSheet 3.0 ../VPlay/sprites/SingleSpriteFromSpriteSheet.qml
+SpriteSequence 3.0 ../VPlay/sprites/SpriteSequence.qml
+Sprite 3.0 ../VPlay/sprites/Sprite.qml
+TexturePackerAnimatedSprite 3.0 ../VPlay/sprites/TexturePackerAnimatedSprite.qml
+TexturePackerSpriteSequence 3.0 ../VPlay/sprites/TexturePackerSpriteSequence.qml
+TexturePackerSprite 3.0 ../VPlay/sprites/TexturePackerSprite.qml
+
+### slotmachine ###
+SlotMachine 3.0 ../VPlay/slotmachine/SlotMachine.qml
+SlotMachineModel 3.0 ../VPlay/slotmachine/SlotMachineModel.qml
+SlotMachineReel 3.0 ../VPlay/slotmachine/SlotMachineReel.qml
+
+### multimedia ###
+BackgroundMusic 3.0 ../VPlay/audio/BackgroundMusic.qml
+SoundEffect 3.0 ../VPlay/audio/SoundEffect.qml
+AlphaVideo 3.0 ../VPlay/video/AlphaVideo.qml
+
+### particles ###
+Particle 3.0 ../VPlay/particles/ParticleVPlayInternal.qml
+
+### editor ###
+EditableComponent 3.0 ../VPlay/editor/EditableComponent.qml
+ItemEditor 3.0 ../VPlay/editor/ItemEditor.qml
+ItemEditorBaseDelegate 3.0 ../VPlay/editor/ItemEditorBaseDelegate.qml
+BoolDelegate 3.0 ../VPlay/editor/BoolDelegate.qml
+NumberDelegate 3.0 ../VPlay/editor/NumberDelegate.qml
+PointDelegate 3.0 ../VPlay/editor/PointDelegate.qml
+StringDelegate 3.0 ../VPlay/editor/StringDelegate.qml
+ColorDelegate 3.0 ../VPlay/editor/ColorDelegate.qml
+TextureDelegate 3.0 ../VPlay/editor/TextureDelegate.qml
+GroupDelegate 3.0 ../VPlay/editor/GroupDelegate.qml
+ContentDelegate 3.0 ../VPlay/editor/ContentDelegate.qml
+ArrayDelegate 3.0 ../VPlay/editor/ArrayDelegate.qml
+ArrayElementDelegate 3.0 ../VPlay/editor/ArrayElementDelegate.qml
+ArrayContentDelegate 3.0 ../VPlay/editor/ArrayContentDelegate.qml
+ItemEditorStyle 3.0 ../VPlay/editor/ItemEditorStyle.qml
+ColorPicker 3.0 ../VPlay/editor/ColorPicker.qml
+
+### gui ###
+GameStyle 3.0 ../VPlay/gui/GameStyle.qml
+GameButton 3.0 ../VPlay/gui/GameButton.qml
+GameSlider 3.0 ../VPlay/gui/GameSlider.qml
+GameSwitch 3.0 ../VPlay/gui/GameSwitch.qml
+GameTextField 3.0 ../VPlay/gui/GameTextField.qml
+GameScrollView 3.0 ../VPlay/gui/GameScrollView.qml
+GameTextDialog 3.0 ../VPlay/gui/GameTextDialog.qml
+
+### gamenetwork ###
+# these are the Felgo GameNetwork resources, only used temporarily until put into an own plugin
+# if testing with gamentworkdev.pro, these must be commented in resources_vplay.qrc!
+Achievement 3.0 ../VPlay/gamenetwork/Achievement.qml
+Leaderboard 3.0 ../VPlay/gamenetwork/Leaderboard.qml
+FelgoGameNetwork 3.0 ../VPlay/gamenetwork/FelgoGameNetwork.qml
+WebStorage 3.0 ../VPlay/gamenetwork/WebStorage.qml
+AchievementView 3.0 ../VPlay/gamenetwork/gnView/AchievementView.qml
+ChallengeView 3.0 ../VPlay/gamenetwork/gnView/ChallengeView.qml
+FriendsView 3.0 ../VPlay/gamenetwork/gnView/FriendsView.qml
+LeaderboardView 3.0 ../VPlay/gamenetwork/gnView/LeaderboardView.qml
+ProfileView 3.0 ../VPlay/gamenetwork/gnView/ProfileView.qml
+GameNetworkView 3.0 ../VPlay/gamenetwork/gnView/GameNetworkView.qml
+FelgoMultiplayer 3.0 ../VPlay/gamenetwork/multiplayer/FelgoMultiplayer.qml
+MultiplayerState 3.0 ../VPlay/gamenetwork/multiplayer/MultiplayerState.qml
+MultiplayerView 3.0 ../VPlay/gamenetwork/multiplayer/view/MultiplayerView.qml
+NotificationBar 3.0 ../VPlay/gamenetwork/multiplayer/view/NotificationBar.qml
+MessageView 3.0 ../VPlay/gamenetwork/multiplayer/view/MessageView.qml
+UserImage 3.0 ../VPlay/gamenetwork/gnView/UserImage.qml
+GameNetworkUser 3.0 ../VPlay/gamenetwork/GameNetworkUser.qml
+MultiplayerUser 3.0 ../VPlay/gamenetwork/multiplayer/MultiplayerUser.qml
+SimpleRanking 3.0 ../VPlay/gamenetwork/multiplayer/SimpleRanking.qml
+NoRanking 3.0 ../VPlay/gamenetwork/multiplayer/NoRanking.qml
+SyncedStore 3.0 ../VPlay/gamenetwork/SyncedStore.qml
+
+### socialview ###
+SocialView 3.0 ../VPlay/gamenetwork/socialview/SocialView.qml
+SocialActionButton 3.0 ../VPlay/gamenetwork/socialview/common/SocialActionButton.qml
+SocialUserImage 3.0 ../VPlay/gamenetwork/socialview/common/SocialUserImage.qml
+SocialFlagImage 3.0 ../VPlay/gamenetwork/socialview/common/SocialFlagImage.qml
+SocialViewButton 3.0 ../VPlay/gamenetwork/socialview/common/SocialViewButton.qml
+SocialUserDelegate 3.0 ../VPlay/gamenetwork/socialview/delegates/SocialUserDelegate.qml
+SocialPage 3.0 ../VPlay/gamenetwork/socialview/pages/SocialPage.qml
+SocialUserSearchPage 3.0 ../VPlay/gamenetwork/socialview/pages/SocialUserSearchPage.qml
+
+### level ###
+BuildEntityButton 3.0 ../VPlay/level/BuildEntityButton.qml
+EntityBaseDraggable 3.0 ../VPlay/level/EntityBaseDraggable.qml
+EntitySelection 3.0 ../VPlay/level/EntitySelection.qml
+LevelBase 3.0 ../VPlay/level/LevelBase.qml
+LevelEditor 3.0 ../VPlay/level/LevelEditor.qml
+LevelLoader 3.0 ../VPlay/level/LevelLoader.qml
+LevelSelectionList 3.0 ../VPlay/level/LevelSelectionList.qml
+LevelStore 3.0 ../VPlay/level/LevelStore.qml
+
+### rube ###
+RubeBody 3.0 ../VPlay/rube/RubeBody.qml
+RubeFixtureCircle 3.0 ../VPlay/rube/RubeFixtureCircle.qml
+RubeFixturePolygon 3.0 ../VPlay/rube/RubeFixturePolygon.qml
+RubeImage 3.0 ../VPlay/rube/RubeImage.qml
+RubeManager 3.0 ../VPlay/rube/RubeManager.qml
+RubeParser 3.0 ../VPlay/rube/RubeParser.qml
+RubeRevoluteJoint 3.0 ../VPlay/rube/RubeRevoluteJoint.qml
+
+### spine ###
+SpineSkeleton 3.0 ../VPlay/spine/SpineSkeleton.qml
+
+
+
+## VPlayApps ##
+
+### essential
+Page 3.0 ../VPlayApps/essential/Page.qml
+ListPage 3.0 ../VPlayApps/essential/ListPage.qml
+FlickablePage 3.0 ../VPlayApps/essential/FlickablePage.qml
+AppFlickable 3.0 ../VPlayApps/essential/AppFlickable.qml
+Modal 3.0 ../VPlayApps/essential/Modal.qml
+
+### controls
+AppActivityIndicator 3.0 ../VPlayApps/controls/AppActivityIndicator.qml
+AppButton 3.0 ../VPlayApps/controls/AppButton.qml
+AppCard 3.0 ../VPlayApps/controls/AppCard.qml
+AppCardSwipeArea 3.0 ../VPlayApps/controls/AppCardSwipeArea.qml
+AppCheckBox 3.0 ../VPlayApps/controls/AppCheckBox.qml
+AppImage 3.0 ../VPlayApps/controls/AppImage.qml
+AppMap 3.0 ../VPlayApps/controls/AppMap.qml
+AppListView 3.0 ../VPlayApps/controls/AppListView.qml
+AppPaper 3.0 ../VPlayApps/controls/AppPaper.qml
+AppSwitch 3.0 ../VPlayApps/controls/AppSwitch.qml
+AppText 3.0 ../VPlayApps/controls/AppText.qml
+AppTextEdit 3.0 ../VPlayApps/controls/AppTextEdit.qml
+AppTextInput 3.0 ../VPlayApps/controls/AppTextInput.qml
+AppTextField 3.0 ../VPlayApps/controls/AppTextField.qml
+DatePicker 3.0 ../VPlayApps/controls/DatePicker.qml
+Dialog 3.0 ../VPlayApps/controls/Dialog.qml
+FloatingActionButton 3.0 ../VPlayApps/controls/FloatingActionButton.qml
+Icon 3.0 ../VPlayApps/controls/Icon.qml
+IconButton 3.0 ../VPlayApps/controls/IconButton.qml
+singleton InputDialog 3.0 ../VPlayApps/controls/InputDialog.qml
+ImagePicker 3.0 ../VPlayApps/controls/ImagePicker.qml
+singleton NativeDialog 3.0 ../VPlayApps/controls/NativeDialog.qml
+PageControl 3.0 ../VPlayApps/controls/PageControl.qml
+singleton PictureViewer 3.0 ../VPlayApps/controls/PictureViewer.qml
+PullToRefreshHandler 3.0 ../VPlayApps/controls/PullToRefreshHandler.qml
+RoundedImage 3.0 ../VPlayApps/controls/RoundedImage.qml
+ScrollIndicator 3.0 ../VPlayApps/controls/ScrollIndicator.qml
+SearchBar 3.0 ../VPlayApps/controls/SearchBar.qml
+SectionSelect 3.0 ../VPlayApps/controls/SectionSelect.qml
+SimpleRow 3.0 ../VPlayApps/controls/SimpleRow.qml
+SimpleSection 3.0 ../VPlayApps/controls/SimpleSection.qml
+SwipeButton 3.0 ../VPlayApps/controls/SwipeButton.qml
+SwipeOptionsContainer 3.0 ../VPlayApps/controls/SwipeOptionsContainer.qml
+TextFieldRow 3.0 ../VPlayApps/controls/TextFieldRow.qml
+VisibilityRefreshHandler 3.0 ../VPlayApps/controls/VisibilityRefreshHandler.qml
+YouTubeWebPlayer 3.0 ../VPlayApps/controls/YouTubeWebPlayer.qml
+
+## quick controls 2 ##
+AppRangeSlider 3.0 ../VPlayApps/controls/quick2/AppRangeSlider.qml
+AppSlider 3.0 ../VPlayApps/controls/quick2/AppSlider.qml
+AppTabBar 3.0 ../VPlayApps/controls/quick2/AppTabBar.qml
+AppTabButton 3.0 ../VPlayApps/controls/quick2/AppTabButton.qml
+
+### navigation
+ActivityIndicatorBarItem 3.0 ../VPlayApps/navigation/ActivityIndicatorBarItem.qml
+AppDrawer 3.0 ../VPlayApps/navigation/AppDrawer.qml
+ButtonBarItem 3.0 ../VPlayApps/navigation/ButtonBarItem.qml
+IconButtonBarItem 3.0 ../VPlayApps/navigation/IconButtonBarItem.qml
+TextButtonBarItem 3.0 ../VPlayApps/navigation/TextButtonBarItem.qml
+Navigation 3.0 ../VPlayApps/navigation/Navigation.qml
+NavigationBar 3.0 ../VPlayApps/navigation/NavigationBar.qml
+NavigationBarItem 3.0 ../VPlayApps/navigation/NavigationBarItem.qml
+NavigationBarRow 3.0 ../VPlayApps/navigation/NavigationBarRow.qml
+NavigationItem 3.0 ../VPlayApps/navigation/NavigationItem.qml
+NavigationStack 3.0 ../VPlayApps/navigation/NavigationStack.qml
+TabControl 3.0 ../VPlayApps/navigation/TabControl.qml
+
+### styles
+singleton IconType 3.0 ../VPlayApps/styles/IconType.qml
+RippleMouseArea 3.0 ../VPlayApps/styles/effects/RippleMouseArea.qml
+StyleSimpleRow 3.0 ../VPlayApps/styles/listview/StyleSimpleRow.qml
+StyleSimpleSection 3.0 ../VPlayApps/styles/listview/StyleSimpleSection.qml
+singleton Theme 3.0 ../VPlayApps/styles/Theme.qml
+ThemeColors 3.0 ../VPlayApps/styles/ThemeColors.qml
+ThemeAppButton 3.0 ../VPlayApps/styles/ThemeAppButton.qml
+ThemeAppCheckBox 3.0 ../VPlayApps/styles/ThemeAppCheckBox.qml
+ThemeNavigationAppDrawer 3.0 ../VPlayApps/styles/ThemeNavigationAppDrawer.qml
+ThemeNavigationBar 3.0 ../VPlayApps/styles/ThemeNavigationBar.qml
+ThemeTabControl 3.0 ../VPlayApps/styles/ThemeTabControl.qml
+ThemeSimpleRow 3.0 ../VPlayApps/styles/listview/ThemeSimpleRow.qml
+ThemeSimpleSection 3.0 ../VPlayApps/styles/listview/ThemeSimpleSection.qml
+ThemeSimpleSectionCompact 3.0 ../VPlayApps/styles/listview/ThemeSimpleSectionCompact.qml
+
+### utils
+singleton DateFormatter 3.0 ../VPlayApps/utils/DateFormatter.qml

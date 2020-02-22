@@ -1,0 +1,1146 @@
+import QtQuick.tooling 1.2
+
+Module {
+    dependencies: ["QtQuick 2.0"]
+    Component {
+        name: "DownloadableResourceItem"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["VPlayApps/DownloadableResource 1.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "Status"
+            values: {
+                "UnAvailable": 0,
+                "Available": 1,
+                "Downloading": 2,
+                "Extracting": 3
+            }
+        }
+        Enum {
+            name: "DownloadError"
+            values: {
+                "NoError": 0,
+                "NetworkError": 1,
+                "UnauthorizedError": 2,
+                "FilePathError": 3,
+                "FileExtractionError": 4,
+                "DownloadCancelledError": 5,
+                "UnknownError": 6
+            }
+        }
+        Property { name: "source"; type: "QUrl" }
+        Property { name: "secret"; type: "string" }
+        Property { name: "extractAsPackage"; type: "bool" }
+        Property { name: "headerParameters"; type: "QVariant" }
+        Property { name: "storageLocation"; type: "VPlayFileUtils::StorageLocation" }
+        Property { name: "storageLocationDisplayName"; type: "string"; isReadonly: true }
+        Property { name: "storagePath"; type: "QUrl" }
+        Property { name: "storageName"; type: "string" }
+        Property { name: "status"; type: "Status"; isReadonly: true }
+        Property { name: "statusText"; type: "string"; isReadonly: true }
+        Property { name: "progress"; type: "int"; isReadonly: true }
+        Property { name: "available"; type: "bool"; isReadonly: true }
+        Signal { name: "headersChanged" }
+        Signal { name: "downloadStarted" }
+        Signal {
+            name: "downloadProgressChanged"
+            Parameter { name: "progress"; type: "int" }
+        }
+        Signal {
+            name: "extractionProgressChanged"
+            Parameter { name: "progress"; type: "int" }
+        }
+        Signal {
+            name: "downloadFinished"
+            Parameter { name: "error"; type: "DownloadError" }
+        }
+        Signal {
+            name: "extractFinished"
+            Parameter { name: "success"; type: "bool" }
+        }
+        Signal {
+            name: "extractAsPackageChanged"
+            Parameter { name: "extractAsPackage"; type: "bool" }
+        }
+        Method { name: "download" }
+        Method { name: "cancel" }
+        Method { name: "remove" }
+        Method {
+            name: "getExtractedFileUrl"
+            type: "QUrl"
+            Parameter { type: "string" }
+        }
+    }
+    Component {
+        name: "NativeUtils"
+        prototype: "QObject"
+        exports: ["VPlayApps/NativeUtils 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "StatusBarStyle"
+            values: {
+                "StatusBarStyleHidden": 0,
+                "StatusBarStyleWhite": 1,
+                "StatusBarStyleBlack": 2,
+                "StatusBarStyleSystem": 3
+            }
+        }
+        Enum {
+            name: "ScreenOrientation"
+            values: {
+                "ScreenOrientationUnspecified": -1,
+                "ScreenOrientationDefault": 0,
+                "ScreenOrientationSensor": 1,
+                "ScreenOrientationPortrait": 2,
+                "ScreenOrientationLandscape": 3
+            }
+        }
+        Enum {
+            name: "SoftInputMode"
+            values: {
+                "SoftInputModeUnspecified": 0,
+                "SoftInputModeAdjustResize": 1,
+                "SoftInputModeAdjustPan": 2,
+                "SoftInputModeAdjustNothing": 3
+            }
+        }
+        Property { name: "displaySleepEnabled"; type: "bool" }
+        Property { name: "safeAreaInsets"; type: "EdgeInset"; isReadonly: true }
+        Property { name: "preferredScreenOrientation"; type: "ScreenOrientation" }
+        Property { name: "screenOrientation"; type: "ScreenOrientation"; isReadonly: true }
+        Property { name: "softInputMode"; type: "SoftInputMode" }
+        Property { name: "contacts"; type: "QVariantList"; isReadonly: true }
+        Property { name: "phoneNumber"; type: "string"; isReadonly: true }
+        Property { name: "galleryPhotos"; type: "QVariantList"; isReadonly: true }
+        Signal {
+            name: "displaySleepEnabledChanged"
+            Parameter { name: "enabled"; type: "bool" }
+        }
+        Signal {
+            name: "safeAreaInsetsChanged"
+            Parameter { name: "safeAreaInsets"; type: "EdgeInset" }
+        }
+        Signal {
+            name: "textInputFinished"
+            Parameter { name: "accepted"; type: "bool" }
+            Parameter { name: "enteredText"; type: "string" }
+        }
+        Signal {
+            name: "messageBoxFinished"
+            Parameter { name: "accepted"; type: "bool" }
+        }
+        Signal {
+            name: "alertDialogFinished"
+            Parameter { name: "accepted"; type: "bool" }
+        }
+        Signal {
+            name: "alertSheetFinished"
+            Parameter { name: "index"; type: "int" }
+        }
+        Signal {
+            name: "imagePickerFinished"
+            Parameter { name: "accepted"; type: "bool" }
+            Parameter { name: "path"; type: "string" }
+        }
+        Signal {
+            name: "cameraPickerFinished"
+            Parameter { name: "accepted"; type: "bool" }
+            Parameter { name: "path"; type: "string" }
+        }
+        Signal {
+            name: "datePickerFinished"
+            Parameter { name: "accepted"; type: "bool" }
+            Parameter { name: "date"; type: "QDate" }
+        }
+        Signal {
+            name: "statusBarHeightChanged"
+            Parameter { name: "height"; type: "double" }
+        }
+        Signal { name: "statusBarTapped" }
+        Method {
+            name: "displayTextInput"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "placeholder"; type: "string" }
+            Parameter { name: "text"; type: "string" }
+            Parameter { name: "okButtonTitle"; type: "string" }
+            Parameter { name: "cancelButtonTitle"; type: "string" }
+        }
+        Method {
+            name: "displayTextInput"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "placeholder"; type: "string" }
+            Parameter { name: "text"; type: "string" }
+            Parameter { name: "okButtonTitle"; type: "string" }
+        }
+        Method {
+            name: "displayTextInput"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "placeholder"; type: "string" }
+            Parameter { name: "text"; type: "string" }
+        }
+        Method {
+            name: "displayTextInput"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "placeholder"; type: "string" }
+        }
+        Method {
+            name: "displayTextInput"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+        }
+        Method {
+            name: "displayMessageBox"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "buttons"; type: "int" }
+        }
+        Method {
+            name: "displayMessageBox"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+        }
+        Method {
+            name: "displayMessageBox"
+            Parameter { name: "title"; type: "string" }
+        }
+        Method {
+            name: "displayAlertDialog"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "okButtonTitle"; type: "string" }
+            Parameter { name: "cancelButtonTitle"; type: "string" }
+        }
+        Method {
+            name: "displayAlertDialog"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+            Parameter { name: "okButtonTitle"; type: "string" }
+        }
+        Method {
+            name: "displayAlertDialog"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "description"; type: "string" }
+        }
+        Method {
+            name: "displayAlertDialog"
+            Parameter { name: "title"; type: "string" }
+        }
+        Method {
+            name: "displayAlertSheet"
+            Parameter { name: "title"; type: "string" }
+            Parameter { name: "items"; type: "QStringList" }
+            Parameter { name: "cancelable"; type: "bool" }
+        }
+        Method { name: "displayCameraPicker" }
+        Method {
+            name: "displayImagePicker"
+            Parameter { name: "title"; type: "string" }
+        }
+        Method { name: "displayDatePicker" }
+        Method {
+            name: "displayDatePicker"
+            Parameter { name: "initialDate"; type: "QDate" }
+        }
+        Method {
+            name: "displayDatePicker"
+            Parameter { name: "initialDate"; type: "QDate" }
+            Parameter { name: "minDate"; type: "QDate" }
+            Parameter { name: "maxDate"; type: "QDate" }
+        }
+        Method {
+            name: "openUrl"
+            type: "bool"
+            Parameter { name: "urlString"; type: "string" }
+        }
+        Method {
+            name: "sendEmail"
+            Parameter { name: "to"; type: "string" }
+            Parameter { name: "subject"; type: "string" }
+            Parameter { name: "message"; type: "string" }
+        }
+        Method {
+            name: "sendEmail"
+            Parameter { name: "to"; type: "string" }
+            Parameter { name: "subject"; type: "string" }
+        }
+        Method {
+            name: "sendEmail"
+            Parameter { name: "to"; type: "string" }
+        }
+        Method { name: "clearComponentCache" }
+        Method { name: "vibrate" }
+        Method { name: "provideSelectionFeedback" }
+        Method { name: "provideImpactFeedback" }
+        Method {
+            name: "share"
+            Parameter { name: "text"; type: "string" }
+            Parameter { name: "url"; type: "QUrl" }
+        }
+        Method {
+            name: "storeContacts"
+            type: "bool"
+            Parameter { name: "vCard"; type: "string" }
+        }
+        Method {
+            name: "getContacts"
+            type: "QVariantList"
+            Parameter { name: "includeAllNumbers"; type: "bool" }
+        }
+        Method { name: "getContacts"; type: "QVariantList" }
+        Method { name: "getContactsAllNumbers"; type: "QVariantList" }
+        Method { name: "getPhoneNumber"; type: "string" }
+        Method { name: "getPhoneCountryIso"; type: "string" }
+        Method {
+            name: "openApp"
+            type: "bool"
+            Parameter { name: "launchParam"; type: "string" }
+        }
+        Method {
+            name: "setNewParent"
+            Parameter { name: "child"; type: "QObject"; isPointer: true }
+            Parameter { name: "newParent"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "setNewParent"
+            Parameter { name: "child"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "setWindowColor"
+            Parameter { name: "color"; type: "QColor" }
+        }
+        Method {
+            name: "setStatusBarStyle"
+            Parameter { name: "style"; type: "NativeUtils::StatusBarStyle" }
+        }
+        Method { name: "statusBarHeight"; type: "int" }
+        Method {
+            name: "setStatusBarTapEnabled"
+            Parameter { name: "enabled"; type: "bool" }
+        }
+        Method {
+            name: "setStatusBarOpacity"
+            Parameter { name: "opacity"; type: "float" }
+        }
+        Method { name: "deviceModel"; type: "string" }
+        Method {
+            name: "setSimulatedEdgeInset"
+            Parameter { name: "top"; type: "float" }
+            Parameter { name: "left"; type: "float" }
+            Parameter { name: "bottom"; type: "float" }
+            Parameter { name: "right"; type: "float" }
+        }
+        Method { name: "fetchGalleryPhotos" }
+        Method {
+            name: "getCachedAssetPath"
+            Parameter { name: "localIdentifer"; type: "string" }
+            Parameter { name: "jsCallback"; type: "QJSValue" }
+        }
+        Method {
+            name: "getCachedAssetPath"
+            Parameter { name: "localIdentifer"; type: "string" }
+        }
+    }
+    Component {
+        name: "QAbstractProxyModel"
+        prototype: "QAbstractItemModel"
+        Property { name: "sourceModel"; type: "QAbstractItemModel"; isPointer: true }
+        Method {
+            name: "mapToSource"
+            type: "QModelIndex"
+            Parameter { name: "proxyIndex"; type: "QModelIndex" }
+        }
+        Method {
+            name: "mapFromSource"
+            type: "QModelIndex"
+            Parameter { name: "sourceIndex"; type: "QModelIndex" }
+        }
+        Method {
+            name: "mapSelectionToSource"
+            type: "QItemSelection"
+            Parameter { name: "selection"; type: "QItemSelection" }
+        }
+        Method {
+            name: "mapSelectionFromSource"
+            type: "QItemSelection"
+            Parameter { name: "selection"; type: "QItemSelection" }
+        }
+    }
+    Component {
+        name: "QSJsonListModel"
+        prototype: "QSListModel"
+        exports: ["VPlayApps/JsonListModel 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "keyField"; type: "string" }
+        Property { name: "source"; type: "QVariantList" }
+        Property { name: "fields"; type: "QStringList" }
+    }
+    Component {
+        name: "QSListModel"
+        prototype: "QAbstractListModel"
+        Property { name: "count"; type: "int"; isReadonly: true }
+        Method {
+            name: "append"
+            Parameter { name: "value"; type: "QVariantMap" }
+        }
+        Method {
+            name: "insert"
+            Parameter { name: "index"; type: "int" }
+            Parameter { name: "value"; type: "QVariantMap" }
+        }
+        Method { name: "clear" }
+        Method {
+            name: "move"
+            Parameter { name: "from"; type: "int" }
+            Parameter { name: "to"; type: "int" }
+            Parameter { name: "count"; type: "int" }
+        }
+        Method {
+            name: "move"
+            Parameter { name: "from"; type: "int" }
+            Parameter { name: "to"; type: "int" }
+        }
+        Method {
+            name: "remove"
+            Parameter { name: "i"; type: "int" }
+            Parameter { name: "count"; type: "int" }
+        }
+        Method {
+            name: "remove"
+            Parameter { name: "i"; type: "int" }
+        }
+        Method {
+            name: "indexOf"
+            type: "int"
+            Parameter { name: "field"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Method {
+            name: "get"
+            type: "QVariantMap"
+            Parameter { name: "i"; type: "int" }
+        }
+        Method {
+            name: "setProperty"
+            Parameter { name: "index"; type: "int" }
+            Parameter { name: "property"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Method {
+            name: "set"
+            Parameter { name: "index"; type: "int" }
+            Parameter { name: "data"; type: "QVariantMap" }
+        }
+    }
+    Component {
+        name: "QSUuid"
+        prototype: "QObject"
+        exports: ["VPlayApps/Uuid 1.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Method { name: "create"; type: "string" }
+    }
+    Component {
+        name: "QSortFilterProxyModel"
+        prototype: "QAbstractProxyModel"
+        Property { name: "filterRegExp"; type: "QRegExp" }
+        Property { name: "filterKeyColumn"; type: "int" }
+        Property { name: "dynamicSortFilter"; type: "bool" }
+        Property { name: "filterCaseSensitivity"; type: "Qt::CaseSensitivity" }
+        Property { name: "sortCaseSensitivity"; type: "Qt::CaseSensitivity" }
+        Property { name: "isSortLocaleAware"; type: "bool" }
+        Property { name: "sortRole"; type: "int" }
+        Property { name: "filterRole"; type: "int" }
+        Property { name: "recursiveFilteringEnabled"; type: "bool" }
+        Method {
+            name: "setFilterRegExp"
+            Parameter { name: "pattern"; type: "string" }
+        }
+        Method {
+            name: "setFilterWildcard"
+            Parameter { name: "pattern"; type: "string" }
+        }
+        Method {
+            name: "setFilterFixedString"
+            Parameter { name: "pattern"; type: "string" }
+        }
+        Method { name: "clear" }
+        Method { name: "invalidate" }
+    }
+    Component {
+        name: "QSyncableQmlWrapper"
+        prototype: "QObject"
+        exports: ["VPlayApps/QSyncable 1.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Method {
+            name: "assign"
+            Parameter { name: "dest"; type: "QObject"; isPointer: true }
+            Parameter { name: "source"; type: "QJSValue" }
+        }
+    }
+    Component {
+        name: "VPlayFileUtils"
+        prototype: "QObject"
+        exports: ["VPlayApps/FileUtils 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "StorageLocation"
+            values: {
+                "DesktopLocation": 0,
+                "DocumentsLocation": 1,
+                "FontsLocation": 2,
+                "ApplicationsLocation": 3,
+                "MusicLocation": 4,
+                "MoviesLocation": 5,
+                "PicturesLocation": 6,
+                "TempLocation": 7,
+                "HomeLocation": 8,
+                "DataLocation": 9,
+                "CacheLocation": 10,
+                "GenericDataLocation": 11,
+                "RuntimeLocation": 12,
+                "ConfigLocation": 13,
+                "DownloadLocation": 14,
+                "GenericCacheLocation": 15,
+                "GenericConfigLocation": 16,
+                "AppDataLocation": 17,
+                "AppConfigLocation": 18,
+                "AppLocalDataLocation": 9
+            }
+        }
+        Property { name: "searchPaths"; type: "QStringList"; isReadonly: true }
+        Property { name: "applicationDirPath"; type: "string"; isReadonly: true }
+        Method {
+            name: "existsFile"
+            type: "bool"
+            Parameter { name: "fileUrl"; type: "string" }
+        }
+        Method {
+            name: "existsFileWithoutAdoptions"
+            type: "bool"
+            Parameter { name: "fileUrl"; type: "string" }
+        }
+        Method {
+            name: "existsFileFromUrl"
+            type: "bool"
+            Parameter { name: "fileUrl"; type: "string" }
+        }
+        Method { name: "engineBasePath"; type: "string" }
+        Method { name: "engineBaseUrlPath"; type: "string" }
+        Method {
+            name: "existsFileOrDirectoryIncludingResources"
+            type: "bool"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "findFileOrDirectoryIncludingResources"
+            type: "string"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "getUrlByAddingSchemeToFilename"
+            type: "QUrl"
+            Parameter { name: "file"; type: "string" }
+        }
+        Method {
+            name: "stripSchemeFromUrl"
+            type: "string"
+            Parameter { name: "filepath"; type: "QUrl" }
+        }
+        Method {
+            name: "stripSchemeFromUrl"
+            type: "string"
+            Parameter { name: "urlString"; type: "string" }
+        }
+        Method {
+            name: "getFilenameWithoutSchemeAndResourcePath"
+            type: "string"
+            Parameter { name: "filepath"; type: "QUrl" }
+        }
+        Method {
+            name: "getAbsolutePathFromUrlString"
+            type: "string"
+            Parameter { name: "filepath"; type: "string" }
+        }
+        Method {
+            name: "writeFile"
+            type: "bool"
+            Parameter { name: "file"; type: "string" }
+            Parameter { name: "stringData"; type: "string" }
+        }
+        Method {
+            name: "writeFile"
+            type: "bool"
+            Parameter { name: "file"; type: "string" }
+            Parameter { name: "byteData"; type: "QByteArray" }
+        }
+        Method {
+            name: "readFile"
+            type: "string"
+            Parameter { name: "file"; type: "string" }
+        }
+        Method {
+            name: "listFiles"
+            type: "QStringList"
+            Parameter { name: "path"; type: "QUrl" }
+            Parameter { name: "nameFilter"; type: "QStringList" }
+        }
+        Method {
+            name: "listFiles"
+            type: "QStringList"
+            Parameter { name: "path"; type: "QUrl" }
+        }
+        Method {
+            name: "copyFile"
+            type: "bool"
+            Parameter { name: "source"; type: "string" }
+            Parameter { name: "destination"; type: "string" }
+        }
+        Method {
+            name: "getFileData"
+            type: "QByteArray"
+            Parameter { name: "filename"; type: "string" }
+        }
+        Method {
+            name: "getDataStorageUrl"
+            type: "QUrl"
+            Parameter { name: "relativePath"; type: "string" }
+        }
+        Method {
+            name: "getPathUrl"
+            type: "QUrl"
+            Parameter { name: "urlString"; type: "string" }
+            Parameter { name: "sourceObject"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "getPathUrl"
+            type: "QUrl"
+            Parameter { name: "urlString"; type: "string" }
+            Parameter { name: "sourcePath"; type: "QUrl" }
+        }
+        Method {
+            name: "getBasePath"
+            type: "string"
+            Parameter { name: "sourceObject"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "qmlEngineBaseUrlForObject"
+            type: "QUrl"
+            Parameter { name: "object"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "storageLocation"
+            type: "string"
+            Parameter { name: "type"; type: "StorageLocation" }
+        }
+        Method {
+            name: "storageLocation"
+            type: "string"
+            Parameter { name: "type"; type: "StorageLocation" }
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "removeDir"
+            type: "bool"
+            Parameter { name: "dirName"; type: "string" }
+        }
+        Method { name: "defaultWritablePath"; type: "string" }
+        Method {
+            name: "cropPathAndKeepFilename"
+            type: "string"
+            Parameter { name: "path"; type: "string" }
+            Parameter { name: "cropFileExtension"; type: "bool" }
+        }
+        Method {
+            name: "cropPathAndKeepFilename"
+            type: "string"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "addSearchPath"
+            Parameter { name: "path"; type: "string" }
+            Parameter { name: "index"; type: "int" }
+        }
+        Method {
+            name: "addSearchPath"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "removeSearchPath"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method { name: "searchPaths"; type: "QStringList" }
+        Method {
+            name: "getMultiPathUrl"
+            type: "QUrl"
+            Parameter { name: "url"; type: "QUrl" }
+            Parameter { name: "contextObject"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "getMultiPathUrl"
+            type: "QUrl"
+            Parameter { name: "url"; type: "QUrl" }
+        }
+        Method {
+            name: "storageLocationDisplayName"
+            type: "string"
+            Parameter { name: "location"; type: "StorageLocation" }
+        }
+        Method {
+            name: "openFile"
+            type: "bool"
+            Parameter { name: "fileName"; type: "string" }
+        }
+    }
+    Component {
+        name: "com::cutehacks::duperagent::CacheControl"
+        prototype: "QObject"
+        exports: ["VPlayApps/HttpCacheControl 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "CacheLoadControl"
+            values: {
+                "AlwaysNetwork": 0,
+                "PreferNetwork": 1,
+                "PreferCache": 2,
+                "AlwaysCache": 3
+            }
+        }
+    }
+    Component {
+        name: "com::cutehacks::duperagent::ImageUtils"
+        prototype: "QObject"
+        exports: ["VPlayApps/HttpImageUtils 1.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Method {
+            name: "createReader"
+            type: "QJSValue"
+            Parameter { type: "string" }
+        }
+    }
+    Component {
+        name: "com::cutehacks::duperagent::NetworkActivityIndicator"
+        prototype: "QObject"
+        exports: ["VPlayApps/HttpNetworkActivityIndicator 1.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Property { name: "enabled"; type: "bool"; isReadonly: true }
+        Property { name: "activationDelay"; type: "int" }
+        Property { name: "completionDelay"; type: "int" }
+        Property { name: "enableNativeIndicator"; type: "bool" }
+        Signal {
+            name: "activationDelayChanged"
+            Parameter { name: "activationDelay"; type: "int" }
+        }
+        Signal {
+            name: "completionDelayChanged"
+            Parameter { name: "completionDelay"; type: "int" }
+        }
+        Signal {
+            name: "enableNativeIndicatorChanged"
+            Parameter { name: "enableNativeIndicator"; type: "bool" }
+        }
+        Signal {
+            name: "enabledChanged"
+            Parameter { name: "enabled"; type: "bool" }
+        }
+        Method {
+            name: "setActivationDelay"
+            Parameter { name: "activationDelay"; type: "int" }
+        }
+        Method {
+            name: "setCompletionDelay"
+            Parameter { name: "completionDelay"; type: "int" }
+        }
+        Method {
+            name: "setEnableNativeIndicator"
+            Parameter { name: "enableNativeIndicator"; type: "bool" }
+        }
+    }
+    Component {
+        name: "com::cutehacks::duperagent::PromiseModule"
+        prototype: "QObject"
+        exports: ["VPlayApps/Promise 1.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Method {
+            name: "create"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "all"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "race"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "resolve"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "reject"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+    }
+    Component {
+        name: "com::cutehacks::duperagent::Request"
+        prototype: "QObject"
+        exports: ["VPlayApps/HttpRequest 1.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Property { name: "cookie"; type: "QJSValue" }
+        Method {
+            name: "config"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "get"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "get"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "get"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "head"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "head"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "head"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "del"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "del"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "patch"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "patch"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "patch"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "post"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "post"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "post"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "put"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "put"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+            Parameter { type: "QJSValue" }
+        }
+        Method {
+            name: "put"
+            type: "QJSValue"
+            Parameter { type: "QJSValue" }
+        }
+        Method { name: "clearCookies" }
+    }
+    Component {
+        name: "qqsfpm::AllOfFilter"
+        defaultProperty: "filters"
+        prototype: "qqsfpm::FilterContainer"
+        exports: ["VPlayApps/AllOf 1.0"]
+        exportMetaObjectRevisions: [0]
+    }
+    Component {
+        name: "qqsfpm::AnyOfFilter"
+        defaultProperty: "filters"
+        prototype: "qqsfpm::FilterContainer"
+        exports: ["VPlayApps/AnyOf 1.0"]
+        exportMetaObjectRevisions: [0]
+    }
+    Component {
+        name: "qqsfpm::ExpressionFilter"
+        prototype: "qqsfpm::Filter"
+        exports: ["VPlayApps/ExpressionFilter 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "expression"; type: "QQmlScriptString" }
+    }
+    Component {
+        name: "qqsfpm::ExpressionRole"
+        prototype: "qqsfpm::ProxyRole"
+        exports: ["VPlayApps/ExpressionRole 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "expression"; type: "QQmlScriptString" }
+    }
+    Component {
+        name: "qqsfpm::ExpressionSorter"
+        prototype: "qqsfpm::Sorter"
+        exports: ["VPlayApps/ExpressionSorter 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "expression"; type: "QQmlScriptString" }
+    }
+    Component {
+        name: "qqsfpm::Filter"
+        prototype: "QObject"
+        exports: ["VPlayApps/Filter 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Property { name: "enabled"; type: "bool" }
+        Property { name: "inverted"; type: "bool" }
+        Signal { name: "invalidated" }
+    }
+    Component {
+        name: "qqsfpm::FilterContainer"
+        defaultProperty: "filters"
+        prototype: "qqsfpm::Filter"
+        Property { name: "filters"; type: "qqsfpm::Filter"; isList: true; isReadonly: true }
+    }
+    Component {
+        name: "qqsfpm::IndexFilter"
+        prototype: "qqsfpm::Filter"
+        exports: ["VPlayApps/IndexFilter 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "minimumIndex"; type: "QVariant" }
+        Property { name: "maximumIndex"; type: "QVariant" }
+    }
+    Component {
+        name: "qqsfpm::JoinRole"
+        prototype: "qqsfpm::ProxyRole"
+        exports: ["VPlayApps/JoinRole 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "roleNames"; type: "QStringList" }
+        Property { name: "separator"; type: "string" }
+    }
+    Component {
+        name: "qqsfpm::ProxyRole"
+        prototype: "QObject"
+        exports: ["VPlayApps/ProxyRole 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Property { name: "name"; type: "string" }
+        Signal { name: "nameAboutToBeChanged" }
+        Signal { name: "invalidated" }
+    }
+    Component {
+        name: "qqsfpm::QQmlSortFilterProxyModel"
+        prototype: "QSortFilterProxyModel"
+        exports: ["VPlayApps/SortFilterProxyModel 1.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "PatternSyntax"
+            values: {
+                "RegExp": 0,
+                "Wildcard": 1,
+                "FixedString": 2,
+                "RegExp2": 3,
+                "WildcardUnix": 4,
+                "W3CXmlSchema11": 5
+            }
+        }
+        Property { name: "count"; type: "int"; isReadonly: true }
+        Property { name: "filterRoleName"; type: "string" }
+        Property { name: "filterPattern"; type: "string" }
+        Property { name: "filterPatternSyntax"; type: "PatternSyntax" }
+        Property { name: "filterValue"; type: "QVariant" }
+        Property { name: "sortRoleName"; type: "string" }
+        Property { name: "ascendingSortOrder"; type: "bool" }
+        Property { name: "filters"; type: "qqsfpm::Filter"; isList: true; isReadonly: true }
+        Property { name: "sorters"; type: "qqsfpm::Sorter"; isList: true; isReadonly: true }
+        Property { name: "proxyRoles"; type: "qqsfpm::ProxyRole"; isList: true; isReadonly: true }
+        Method {
+            name: "roleForName"
+            type: "int"
+            Parameter { name: "roleName"; type: "string" }
+        }
+        Method {
+            name: "get"
+            type: "QVariantMap"
+            Parameter { name: "row"; type: "int" }
+        }
+        Method {
+            name: "get"
+            type: "QVariant"
+            Parameter { name: "row"; type: "int" }
+            Parameter { name: "roleName"; type: "string" }
+        }
+        Method {
+            name: "mapToSource"
+            type: "QModelIndex"
+            Parameter { name: "proxyIndex"; type: "QModelIndex" }
+        }
+        Method {
+            name: "mapToSource"
+            type: "int"
+            Parameter { name: "proxyRow"; type: "int" }
+        }
+        Method {
+            name: "mapFromSource"
+            type: "QModelIndex"
+            Parameter { name: "sourceIndex"; type: "QModelIndex" }
+        }
+        Method {
+            name: "mapFromSource"
+            type: "int"
+            Parameter { name: "sourceRow"; type: "int" }
+        }
+    }
+    Component {
+        name: "qqsfpm::RangeFilter"
+        prototype: "qqsfpm::RoleFilter"
+        exports: ["VPlayApps/RangeFilter 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "minimumValue"; type: "QVariant" }
+        Property { name: "minimumInclusive"; type: "bool" }
+        Property { name: "maximumValue"; type: "QVariant" }
+        Property { name: "maximumInclusive"; type: "bool" }
+    }
+    Component {
+        name: "qqsfpm::RegExpFilter"
+        prototype: "qqsfpm::RoleFilter"
+        exports: ["VPlayApps/RegExpFilter 1.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "PatternSyntax"
+            values: {
+                "RegExp": 0,
+                "Wildcard": 1,
+                "FixedString": 2,
+                "RegExp2": 3,
+                "WildcardUnix": 4,
+                "W3CXmlSchema11": 5
+            }
+        }
+        Property { name: "pattern"; type: "string" }
+        Property { name: "syntax"; type: "PatternSyntax" }
+        Property { name: "caseSensitivity"; type: "Qt::CaseSensitivity" }
+    }
+    Component {
+        name: "qqsfpm::RoleFilter"
+        prototype: "qqsfpm::Filter"
+        Property { name: "roleName"; type: "string" }
+    }
+    Component {
+        name: "qqsfpm::RoleSorter"
+        prototype: "qqsfpm::Sorter"
+        exports: ["VPlayApps/RoleSorter 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "roleName"; type: "string" }
+    }
+    Component {
+        name: "qqsfpm::Sorter"
+        prototype: "QObject"
+        exports: ["VPlayApps/Sorter 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Property { name: "enabled"; type: "bool" }
+        Property { name: "ascendingOrder"; type: "bool" }
+        Property { name: "sortOrder"; type: "Qt::SortOrder" }
+        Signal { name: "invalidated" }
+    }
+    Component {
+        name: "qqsfpm::StringSorter"
+        prototype: "qqsfpm::RoleSorter"
+        exports: ["VPlayApps/StringSorter 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "caseSensitivity"; type: "Qt::CaseSensitivity" }
+        Property { name: "ignorePunctation"; type: "bool" }
+        Property { name: "locale"; type: "QLocale" }
+        Property { name: "numericMode"; type: "bool" }
+    }
+    Component {
+        name: "qqsfpm::SwitchRole"
+        prototype: "qqsfpm::ProxyRole"
+        exports: ["VPlayApps/SwitchRole 1.0"]
+        exportMetaObjectRevisions: [0]
+        attachedType: "qqsfpm::SwitchRoleAttached"
+        Property { name: "defaultRoleName"; type: "string" }
+        Property { name: "defaultValue"; type: "QVariant" }
+        Property { name: "filters"; type: "qqsfpm::Filter"; isList: true; isReadonly: true }
+    }
+    Component {
+        name: "qqsfpm::SwitchRoleAttached"
+        prototype: "QObject"
+        Property { name: "value"; type: "QVariant" }
+    }
+    Component {
+        name: "qqsfpm::ValueFilter"
+        prototype: "qqsfpm::RoleFilter"
+        exports: ["VPlayApps/ValueFilter 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "value"; type: "QVariant" }
+    }
+}

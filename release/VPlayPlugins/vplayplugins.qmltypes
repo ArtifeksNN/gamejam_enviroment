@@ -1,0 +1,1489 @@
+import QtQuick.tooling 1.2
+
+Module {
+    dependencies: ["QtQuick 2.0"]
+    Component {
+        name: "AdMobBannerItem"
+        defaultProperty: "data"
+        prototype: "AdMobItem"
+        exports: ["VPlayPlugins/AdMobBanner 1.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "BannerType"
+            values: {
+                "None": 0,
+                "Standard": 1,
+                "Medium": 2,
+                "Large": 3,
+                "LeaderBoard": 4,
+                "Smart": 5
+            }
+        }
+        Property { name: "banner"; type: "AdMobBannerItem::BannerType" }
+        Signal { name: "adReceived" }
+        Signal { name: "adFailedToReceive" }
+        Signal { name: "adOpened" }
+        Signal { name: "adClosed" }
+        Signal { name: "adLeftApplication" }
+    }
+    Component {
+        name: "AdMobInterstitialItem"
+        defaultProperty: "data"
+        prototype: "AdMobItem"
+        exports: ["VPlayPlugins/AdMobInterstitial 1.0"]
+        exportMetaObjectRevisions: [0]
+        Signal { name: "interstitialReceived" }
+        Signal { name: "interstitialFailedToReceive" }
+        Signal { name: "interstitialOpened" }
+        Signal { name: "interstitialClosed" }
+        Signal { name: "interstitialLeftApplication" }
+        Method { name: "loadInterstitial" }
+        Method { name: "showInterstitialIfLoaded" }
+    }
+    Component {
+        name: "AdMobItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        Property { name: "adUnitId"; type: "string" }
+        Property { name: "testDeviceIds"; type: "QStringList" }
+        Property { name: "designedForFamilies"; type: "bool" }
+        Property { name: "childDirectedTreatment"; type: "bool" }
+    }
+    Component {
+        name: "AdMobNativeItem"
+        defaultProperty: "data"
+        prototype: "AdMobItem"
+        exports: ["VPlayPlugins/AdMobNative 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "appId"; type: "string" }
+        Property { name: "clipContainer"; type: "QQuickItem"; isPointer: true }
+        Signal { name: "adReceived" }
+        Signal { name: "adFailedToReceive" }
+        Signal { name: "adOpened" }
+        Signal { name: "adClosed" }
+        Signal { name: "adLeftApplication" }
+    }
+    Component {
+        name: "AdMobRewardedVideoItem"
+        defaultProperty: "data"
+        prototype: "AdMobItem"
+        exports: ["VPlayPlugins/AdMobRewardedVideo 1.0"]
+        exportMetaObjectRevisions: [0]
+        Signal {
+            name: "rewardedVideoRewarded"
+            Parameter { name: "type"; type: "string" }
+            Parameter { name: "amount"; type: "int" }
+        }
+        Signal { name: "rewardedVideoClosed" }
+        Signal { name: "rewardedVideoFailedToReceive" }
+        Signal { name: "rewardedVideoOpened" }
+        Signal { name: "rewardedVideoStarted" }
+        Signal { name: "rewardedVideoReceived" }
+        Signal { name: "rewardedVideoLeftApplication" }
+        Method { name: "loadRewardedVideo" }
+        Method { name: "showRewardedVideoIfLoaded" }
+    }
+    Component {
+        name: "AmplitudeItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/Amplitude 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "apiKey"; type: "string" }
+        Property { name: "useAdvertisingIdForDeviceId"; type: "bool" }
+        Property { name: "userId"; type: "string" }
+        Property { name: "userProperties"; type: "QVariant" }
+        Method {
+            name: "logEvent"
+            Parameter { name: "event"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+        Method {
+            name: "logRevenue"
+            Parameter { name: "revenueData"; type: "QVariant" }
+        }
+        Method {
+            name: "setUserProperties"
+            Parameter { name: "userProperties"; type: "QVariant" }
+        }
+        Method {
+            name: "setUserId"
+            Parameter { name: "userId"; type: "string" }
+        }
+        Method { name: "getDeviceId"; type: "string" }
+        Method {
+            name: "setDeviceId"
+            Parameter { name: "deviceId"; type: "string" }
+        }
+    }
+    Component {
+        name: "BaseItem"
+        prototype: "QObject"
+        Property { name: "itemId"; type: "string" }
+        Property { name: "name"; type: "string" }
+        Property { name: "description"; type: "string" }
+        Property { name: "balance"; type: "int"; isReadonly: true }
+        Signal {
+            name: "itemIdChanged"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "balanceChanged"
+            Parameter { name: "balance"; type: "int" }
+        }
+        Signal {
+            name: "nameChanged"
+            Parameter { name: "name"; type: "string" }
+        }
+        Signal {
+            name: "descriptionChanged"
+            Parameter { name: "description"; type: "string" }
+        }
+        Method {
+            name: "setItemId"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setName"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setDescription"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setBalance"
+            Parameter { name: "arg"; type: "int" }
+        }
+    }
+    Component {
+        name: "ChartboostItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/Chartboost 1.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "Location"
+            values: {
+                "DefaultLocation": 0,
+                "StartupLocation": 1,
+                "HomeScreenLocation": 2,
+                "MainMenuLocation": 3,
+                "GameScreenLocation": 4,
+                "AchievementsLocation": 5,
+                "QuestsLocation": 6,
+                "PauseLocation": 7,
+                "LevelStartLocation": 8,
+                "LevelCompleteLocation": 9,
+                "TurnCompleteLocation": 10,
+                "IAPStoreLocation": 11,
+                "GItemStoreLocation": 12,
+                "GameOverLocation": 13,
+                "LeaderboardLocation": 14,
+                "SettingsLocation": 15,
+                "QuitLocation": 16
+            }
+        }
+        Property { name: "appId"; type: "string" }
+        Property { name: "appSignature"; type: "string" }
+        Property { name: "shouldDisplayInterstitial"; type: "bool" }
+        Property { name: "shouldDisplayMoreApps"; type: "bool" }
+        Property { name: "shouldRequestInterstitial"; type: "bool" }
+        Property { name: "shouldRequestMoreApps"; type: "bool" }
+        Property { name: "shouldDisplayRewardedVideo"; type: "bool" }
+        Property { name: "shouldRequestInterstitialsInFirstSession"; type: "bool" }
+        Property { name: "shouldDisplayLoadingViewForMoreApps"; type: "bool" }
+        Property { name: "shouldPrefetchVideoContent"; type: "bool" }
+        Signal {
+            name: "interstitialCached"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "interstitialFailedToLoad"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "error"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "interstitialDismissed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "interstitialClosed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "interstitialClicked"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "interstitialDisplayed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "moreAppsCached"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "moreAppsFailedToLoad"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "error"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "moreAppsDismissed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "moreAppsClosed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "moreAppsClicked"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "moreAppsDisplayed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "recordClickFailed"
+            Parameter { name: "uri"; type: "string" }
+            Parameter { name: "error"; type: "string" }
+        }
+        Signal {
+            name: "rewardedVideoCached"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "rewardedVideoFailedToLoad"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "error"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "rewardedVideoDismissed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "rewardedVideoClosed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "rewardedVideoClicked"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "rewardedVideoCompleted"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "reward"; type: "int" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "rewardedVideoDisplayed"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Signal {
+            name: "rewardedVideoDisplaying"
+            Parameter { name: "location"; type: "string" }
+            Parameter { name: "locationType"; type: "ChartboostItem::Location" }
+        }
+        Method {
+            name: "hasInterstitial"
+            type: "bool"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "hasInterstitial"; type: "bool" }
+        Method {
+            name: "cacheInterstitial"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "cacheInterstitial" }
+        Method {
+            name: "showInterstitial"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "showInterstitial" }
+        Method {
+            name: "hasMoreApps"
+            type: "bool"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "hasMoreApps"; type: "bool" }
+        Method {
+            name: "cacheMoreApps"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "cacheMoreApps" }
+        Method {
+            name: "showMoreApps"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "showMoreApps" }
+        Method {
+            name: "hasRewardedVideo"
+            type: "bool"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "hasRewardedVideo"; type: "bool" }
+        Method {
+            name: "cacheRewardedVideo"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "cacheRewardedVideo" }
+        Method {
+            name: "showRewardedVideo"
+            Parameter { name: "location"; type: "Location" }
+        }
+        Method { name: "showRewardedVideo" }
+        Method {
+            name: "hasInterstitial"
+            type: "bool"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "cacheInterstitial"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "showInterstitial"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "hasMoreApps"
+            type: "bool"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "cacheMoreApps"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "showMoreApps"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "hasRewardedVideo"
+            type: "bool"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "cacheRewardedVideo"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method {
+            name: "showRewardedVideo"
+            Parameter { name: "location"; type: "string" }
+        }
+        Method { name: "shouldDisplayInterstitial"; type: "bool" }
+        Method { name: "shouldDisplayMoreApps"; type: "bool" }
+        Method { name: "shouldRequestInterstitial"; type: "bool" }
+        Method { name: "shouldRequestMoreApps"; type: "bool" }
+        Method { name: "shouldDisplayRewardedVideo"; type: "bool" }
+        Method { name: "shouldRequestInterstitialsInFirstSession"; type: "bool" }
+        Method { name: "shouldDisplayLoadingViewForMoreApps"; type: "bool" }
+        Method { name: "shouldPrefetchVideoContent"; type: "bool" }
+    }
+    Component {
+        name: "CrashlyticsItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/Crashlytics 1.0"]
+        exportMetaObjectRevisions: [0]
+        Method { name: "forceCrash" }
+    }
+    Component {
+        name: "CurrencyItem"
+        prototype: "BaseItem"
+        exports: ["VPlayPlugins/Currency 1.0"]
+        exportMetaObjectRevisions: [0]
+    }
+    Component {
+        name: "CurrencyPackItem"
+        prototype: "BaseItem"
+        exports: ["VPlayPlugins/CurrencyPack 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "currencyId"; type: "string" }
+        Property { name: "currencyAmount"; type: "int" }
+        Property { name: "purchaseType"; type: "PurchaseTypeItem"; isPointer: true }
+        Signal {
+            name: "currencyIdChanged"
+            Parameter { name: "currencyId"; type: "string" }
+        }
+        Signal {
+            name: "currencyAmountChanged"
+            Parameter { name: "currencyAmount"; type: "int" }
+        }
+        Signal {
+            name: "purchaseTypeChanged"
+            Parameter { name: "purchaseType"; type: "PurchaseTypeItem"; isPointer: true }
+        }
+        Method {
+            name: "setCurrencyId"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setCurrencyAmount"
+            Parameter { name: "arg"; type: "int" }
+        }
+        Method {
+            name: "setPurchaseType"
+            Parameter { name: "arg"; type: "PurchaseTypeItem"; isPointer: true }
+        }
+    }
+    Component {
+        name: "FacebookItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/Facebook 1.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "SessionState"
+            values: {
+                "NoSession": 0,
+                "SessionOpened": 1,
+                "SessionClosed": 2,
+                "SessionFailed": 3,
+                "SessionOpening": 4,
+                "SessionPermissionDenied": 5
+            }
+        }
+        Enum {
+            name: "ResultState"
+            values: {
+                "ResultOk": 0,
+                "ResultError": 1,
+                "ResultInvalidSession": 2,
+                "ResultPermissionDenied": 3
+            }
+        }
+        Property { name: "appId"; type: "string" }
+        Property { name: "readPermissions"; type: "QStringList" }
+        Property { name: "publishPermissions"; type: "QStringList" }
+        Property { name: "grantedPermissions"; type: "QStringList"; isReadonly: true }
+        Property { name: "sessionState"; type: "SessionState"; isReadonly: true }
+        Property { name: "profile"; type: "FacebookProfile"; isReadonly: true; isPointer: true }
+        Property { name: "accessToken"; type: "string"; isReadonly: true }
+        Signal {
+            name: "sessionOpened"
+            Parameter { name: "grantedPermissions"; type: "QStringList" }
+            Parameter { name: "deniedPermissions"; type: "QStringList" }
+        }
+        Signal {
+            name: "openSessionFailed"
+            Parameter { name: "reason"; type: "string" }
+        }
+        Signal {
+            name: "getGraphRequestFinished"
+            Parameter { name: "graphPath"; type: "string" }
+            Parameter { name: "resultState"; type: "int" }
+            Parameter { name: "result"; type: "string" }
+        }
+        Signal {
+            name: "postGraphRequestFinished"
+            Parameter { name: "graphPath"; type: "string" }
+            Parameter { name: "resultState"; type: "int" }
+            Parameter { name: "result"; type: "string" }
+        }
+        Method {
+            name: "openSession"
+            Parameter { name: "allowUI"; type: "bool" }
+        }
+        Method { name: "openSession" }
+        Method { name: "closeSession" }
+        Method { name: "fetchUserDetails" }
+        Method {
+            name: "getGraphRequest"
+            Parameter { name: "graphPath"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+        Method {
+            name: "getGraphRequest"
+            Parameter { name: "graphPath"; type: "string" }
+        }
+        Method {
+            name: "postGraphRequest"
+            Parameter { name: "graphPath"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+        Method {
+            name: "postGraphRequest"
+            Parameter { name: "graphPath"; type: "string" }
+        }
+        Method { name: "printAndroidKeyHash" }
+    }
+    Component {
+        name: "FacebookProfile"
+        prototype: "QObject"
+        exports: ["VPlayPlugins/Profile 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "firstName"; type: "string"; isReadonly: true }
+        Property { name: "lastName"; type: "string"; isReadonly: true }
+        Property { name: "gender"; type: "string"; isReadonly: true }
+        Property { name: "timezone"; type: "int"; isReadonly: true }
+        Property { name: "locale"; type: "string"; isReadonly: true }
+        Property { name: "pictureUrl"; type: "QUrl"; isReadonly: true }
+        Property { name: "userId"; type: "string"; isReadonly: true }
+        Property { name: "verified"; type: "bool"; isReadonly: true }
+    }
+    Component {
+        name: "FirebaseAuthItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/FirebaseAuth 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "config"; type: "FirebaseConfigItem"; isPointer: true }
+        Property { name: "authenticated"; type: "bool"; isReadonly: true }
+        Property { name: "authenticatedAnonymously"; type: "bool"; isReadonly: true }
+        Property { name: "email"; type: "string"; isReadonly: true }
+        Property { name: "userId"; type: "string"; isReadonly: true }
+        Property { name: "userToken"; type: "string"; isReadonly: true }
+        Signal { name: "firebaseReady" }
+        Signal {
+            name: "userRegistered"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "message"; type: "string" }
+        }
+        Signal {
+            name: "loggedIn"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "message"; type: "string" }
+        }
+        Signal {
+            name: "authenticatedChanged"
+            Parameter { name: "authenticated"; type: "bool" }
+        }
+        Signal {
+            name: "authenticatedAnonymouslyChanged"
+            Parameter { name: "authenticatedAnonymously"; type: "bool" }
+        }
+        Signal {
+            name: "emailChanged"
+            Parameter { name: "email"; type: "string" }
+        }
+        Signal {
+            name: "userIdChanged"
+            Parameter { name: "userId"; type: "string" }
+        }
+        Signal {
+            name: "userTokenChanged"
+            Parameter { name: "userToken"; type: "string" }
+        }
+        Signal {
+            name: "passwordResetEmailSent"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "message"; type: "string" }
+        }
+        Method {
+            name: "registerUser"
+            Parameter { name: "email"; type: "string" }
+            Parameter { name: "password"; type: "string" }
+        }
+        Method {
+            name: "loginUser"
+            Parameter { name: "email"; type: "string" }
+            Parameter { name: "password"; type: "string" }
+        }
+        Method { name: "loginUserAnonymously" }
+        Method {
+            name: "loginUserWithToken"
+            Parameter { name: "token"; type: "string" }
+        }
+        Method { name: "logoutUser" }
+        Method {
+            name: "sendPasswordResetMail"
+            Parameter { name: "email"; type: "string" }
+        }
+    }
+    Component {
+        name: "FirebaseConfigItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/FirebaseConfig 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "name"; type: "string" }
+        Property { name: "apiKey"; type: "string" }
+        Property { name: "applicationId"; type: "string" }
+        Property { name: "databaseUrl"; type: "string" }
+        Property { name: "gcmSenderId"; type: "string" }
+        Property { name: "projectId"; type: "string" }
+        Property { name: "storageBucket"; type: "string" }
+    }
+    Component {
+        name: "FirebaseDatabaseItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/FirebaseDatabase 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "config"; type: "FirebaseConfigItem"; isPointer: true }
+        Property { name: "realtimeUserValueKeys"; type: "QList<QString>" }
+        Property { name: "realtimeValueKeys"; type: "QList<QString>" }
+        Property { name: "persistenceEnabled"; type: "bool" }
+        Signal { name: "firebaseReady" }
+        Signal {
+            name: "writeCompleted"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "message"; type: "string" }
+        }
+        Signal {
+            name: "readCompleted"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Signal {
+            name: "realtimeValueChanged"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Signal {
+            name: "realtimeUserValueChanged"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Method {
+            name: "setValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Method {
+            name: "setValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+            Parameter { name: "callback"; type: "QJSValue" }
+        }
+        Method {
+            name: "getValue"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "getValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "queryProperties"; type: "QVariant" }
+        }
+        Method {
+            name: "getValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "queryProperties"; type: "QVariant" }
+            Parameter { name: "callback"; type: "QJSValue" }
+        }
+        Method {
+            name: "setUserValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Method {
+            name: "setUserValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
+            Parameter { name: "callback"; type: "QJSValue" }
+        }
+        Method {
+            name: "getUserValue"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "getUserValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "queryProperties"; type: "QVariant" }
+        }
+        Method {
+            name: "getUserValue"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "queryProperties"; type: "QVariant" }
+            Parameter { name: "callback"; type: "QJSValue" }
+        }
+        Method {
+            name: "addRealtimeUserValueKey"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "addRealtimeValueKey"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "removeRealtimeUserValueKey"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "removeRealtimeValueKey"
+            Parameter { name: "key"; type: "string" }
+        }
+    }
+    Component {
+        name: "FirebaseStorageItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/FirebaseStorage 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "config"; type: "FirebaseConfigItem"; isPointer: true }
+        Signal { name: "firebaseReady" }
+        Method {
+            name: "uploadFile"
+            type: "FirebaseStorageUploadTask*"
+            Parameter { name: "localUrl"; type: "QUrl" }
+            Parameter { name: "remotePath"; type: "string" }
+            Parameter { name: "callback"; type: "QJSValue" }
+        }
+    }
+    Component {
+        name: "FirebaseStorageUploadTask"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["VPlayPlugins/FirebaseStorageUploadTask 1.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Method { name: "cancel" }
+        Method {
+            name: "uploadProgress"
+            Parameter { name: "numBytes"; type: "qlonglong" }
+            Parameter { name: "totalBytes"; type: "qlonglong" }
+        }
+        Method {
+            name: "uploadFinished"
+            Parameter { name: "success"; type: "bool" }
+            Parameter { name: "downloadUrl"; type: "string" }
+        }
+    }
+    Component {
+        name: "FlurryItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/Flurry 1.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "LogLevel"
+            values: {
+                "LogLevelNone": 0,
+                "LogLevelCriticalOnly": 1,
+                "LogLevelDebug": 2,
+                "LogLevelAll": 3
+            }
+        }
+        Enum {
+            name: "UserGender"
+            values: {
+                "UserGenderNone": 0,
+                "UserGenderFemale": 1,
+                "UserGenderMale": 2
+            }
+        }
+        Property { name: "appVersion"; type: "string" }
+        Property { name: "logLevel"; type: "LogLevel" }
+        Property { name: "apiKey"; type: "string" }
+        Property { name: "sessionAutostart"; type: "bool" }
+        Property { name: "userId"; type: "string" }
+        Property { name: "userAge"; type: "int" }
+        Property { name: "userGender"; type: "UserGender" }
+        Property { name: "eventLoggingEnabled"; type: "bool" }
+        Method { name: "startSession" }
+        Method { name: "endSession" }
+        Method {
+            name: "logError"
+            Parameter { name: "name"; type: "string" }
+            Parameter { name: "message"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "event"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+        Method {
+            name: "logTimedEvent"
+            Parameter { name: "event"; type: "string" }
+        }
+        Method {
+            name: "logTimedEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "string" }
+        }
+        Method {
+            name: "logTimedEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+        Method {
+            name: "endTimedEvent"
+            Parameter { name: "event"; type: "string" }
+        }
+        Method {
+            name: "endTimedEvent"
+            Parameter { name: "event"; type: "string" }
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+    }
+    Component {
+        name: "GameCenterItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/GameCenter 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "authenticated"; type: "bool"; isReadonly: true }
+        Signal {
+            name: "scoreReported"
+            Parameter { name: "success"; type: "bool" }
+        }
+        Signal {
+            name: "achievementReported"
+            Parameter { name: "success"; type: "bool" }
+        }
+        Signal {
+            name: "achievementsReset"
+            Parameter { name: "success"; type: "bool" }
+        }
+        Method { name: "authenticateLocalPlayer" }
+        Method {
+            name: "showLeaderboard"
+            Parameter { name: "identifier"; type: "string" }
+        }
+        Method { name: "showLeaderboard" }
+        Method { name: "showAchievements" }
+        Method {
+            name: "reportScore"
+            Parameter { name: "score"; type: "int" }
+            Parameter { name: "identifier"; type: "string" }
+        }
+        Method {
+            name: "reportScore"
+            Parameter { name: "score"; type: "int" }
+        }
+        Method {
+            name: "reportAchievement"
+            Parameter { name: "identifier"; type: "string" }
+            Parameter { name: "percentComplete"; type: "double" }
+            Parameter { name: "bannerVisible"; type: "bool" }
+        }
+        Method {
+            name: "reportAchievement"
+            Parameter { name: "identifier"; type: "string" }
+            Parameter { name: "percentComplete"; type: "double" }
+        }
+        Method {
+            name: "reportAchievement"
+            Parameter { name: "identifier"; type: "string" }
+        }
+        Method { name: "resetAchievements" }
+    }
+    Component {
+        name: "GcmItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/GoogleCloudMessaging 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "channels"; type: "QStringList" }
+        Property { name: "topics"; type: "QStringList" }
+        Property { name: "backgroundFetchEnabled"; type: "bool" }
+        Property { name: "backgroundFetchUrl"; type: "string" }
+        Property { name: "backgroundFetchStackSize"; type: "int" }
+        Property { name: "processForegroundNotifications"; type: "bool" }
+        Signal {
+            name: "notificationReceived"
+            Parameter { name: "data"; type: "QVariantMap" }
+        }
+        Signal {
+            name: "backgroundFetchAvailable"
+            Parameter { name: "content"; type: "QStringList" }
+        }
+        Signal {
+            name: "registrationTokenReceived"
+            Parameter { name: "token"; type: "string" }
+        }
+    }
+    Component {
+        name: "GoodItem"
+        prototype: "BaseItem"
+        Property { name: "purchaseType"; type: "PurchaseTypeItem"; isPointer: true }
+        Method {
+            name: "setPurchaseType"
+            Parameter { name: "arg"; type: "PurchaseTypeItem"; isPointer: true }
+        }
+    }
+    Component {
+        name: "GoogleAnalyticsItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/GoogleAnalytics 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "propertyId"; type: "string" }
+        Property { name: "userId"; type: "string" }
+        Property { name: "anonymizeIp"; type: "bool" }
+        Property { name: "autoStartSession"; type: "bool" }
+        Property { name: "userLanguage"; type: "string" }
+        Method {
+            name: "logScreen"
+            Parameter { name: "screenName"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "eventCategory"; type: "string" }
+            Parameter { name: "eventAction"; type: "string" }
+            Parameter { name: "eventLabel"; type: "string" }
+            Parameter { name: "value"; type: "int" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "eventCategory"; type: "string" }
+            Parameter { name: "eventAction"; type: "string" }
+            Parameter { name: "eventLabel"; type: "string" }
+        }
+        Method {
+            name: "logEvent"
+            Parameter { name: "eventCategory"; type: "string" }
+            Parameter { name: "eventAction"; type: "string" }
+        }
+        Method {
+            name: "addCustomDimension"
+            Parameter { name: "id"; type: "int" }
+            Parameter { name: "value"; type: "string" }
+        }
+        Method {
+            name: "removeCustomDimension"
+            Parameter { name: "id"; type: "int" }
+        }
+        Method {
+            name: "addCustomMetric"
+            Parameter { name: "id"; type: "int" }
+            Parameter { name: "value"; type: "string" }
+        }
+        Method {
+            name: "removeCustomMetric"
+            Parameter { name: "id"; type: "int" }
+        }
+        Method { name: "startSession" }
+        Method { name: "stopSession" }
+    }
+    Component {
+        name: "HockeyItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/HockeyApp 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "appId"; type: "string" }
+        Property { name: "disableCrashManager"; type: "bool" }
+        Property { name: "disableUpdateManager"; type: "bool" }
+        Method { name: "showUpdateView" }
+        Method { name: "forceCrash" }
+    }
+    Component {
+        name: "ItemPurchaseItem"
+        prototype: "PurchaseTypeItem"
+        exports: ["VPlayPlugins/VirtualPurchase 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "itemId"; type: "string" }
+        Property { name: "amount"; type: "int" }
+        Method {
+            name: "setItemId"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setAmount"
+            Parameter { name: "arg"; type: "int" }
+        }
+    }
+    Component {
+        name: "LicenseItem"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        Property { name: "platformSupported"; type: "bool"; isReadonly: true }
+        Property { name: "platformLoaded"; type: "bool"; isReadonly: true }
+        Signal { name: "loadComponent" }
+        Signal { name: "pluginLoaded" }
+    }
+    Component {
+        name: "LifetimeGoodItem"
+        prototype: "GoodItem"
+        exports: ["VPlayPlugins/LifetimeGood 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "purchased"; type: "bool"; isReadonly: true }
+        Signal {
+            name: "purchasedChanged"
+            Parameter { name: "purchased"; type: "bool" }
+        }
+        Method {
+            name: "setPurchased"
+            Parameter { name: "arg"; type: "bool" }
+        }
+    }
+    Component {
+        name: "MarketPurchaseItem"
+        prototype: "PurchaseTypeItem"
+        exports: ["VPlayPlugins/StorePurchase 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "productId"; type: "string" }
+        Property { name: "price"; type: "double" }
+        Property { name: "isSubscription"; type: "bool" }
+        Property { name: "marketPriceAndCurrency"; revision: 2; type: "string"; isReadonly: true }
+        Property { name: "marketTitle"; revision: 2; type: "string"; isReadonly: true }
+        Property { name: "marketDescription"; revision: 2; type: "string"; isReadonly: true }
+        Property { name: "marketCurrencyCode"; revision: 2; type: "string"; isReadonly: true }
+        Property { name: "marketPrice"; revision: 2; type: "double"; isReadonly: true }
+        Signal {
+            name: "marketPriceAndCurrencyChanged"
+            revision: 2
+            Parameter { name: "marketPriceAndCurrency"; type: "string" }
+        }
+        Signal {
+            name: "marketTitleChanged"
+            revision: 2
+            Parameter { name: "marketTitle"; type: "string" }
+        }
+        Signal {
+            name: "marketDescriptionChanged"
+            revision: 2
+            Parameter { name: "marketDescription"; type: "string" }
+        }
+        Signal {
+            name: "marketCurrencyCodeChanged"
+            revision: 2
+            Parameter { name: "marketCurrencyCode"; type: "string" }
+        }
+        Signal {
+            name: "marketPriceChanged"
+            revision: 2
+            Parameter { name: "marketPrice"; type: "double" }
+        }
+        Method {
+            name: "setProductId"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setPrice"
+            Parameter { name: "arg"; type: "double" }
+        }
+        Method {
+            name: "setMarketPriceAndCurrency"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setMarketTitle"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setMarketDescription"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setMarketCurrencyCode"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setMarketPrice"
+            Parameter { name: "arg"; type: "double" }
+        }
+        Method {
+            name: "setIsSubscription"
+            Parameter { name: "isSubscription"; type: "bool" }
+        }
+    }
+    Component {
+        name: "NotificationItem"
+        prototype: "QObject"
+        exports: ["VPlayPlugins/Notification 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "notificationId"; type: "string" }
+        Property { name: "message"; type: "string" }
+        Property { name: "number"; type: "int" }
+        Property { name: "timestamp"; type: "int" }
+        Property { name: "timeInterval"; type: "int" }
+    }
+    Component {
+        name: "NotificationManagerItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/NotificationManager 1.0"]
+        exportMetaObjectRevisions: [0]
+        Signal {
+            name: "notificationFired"
+            Parameter { name: "notificationId"; type: "string" }
+        }
+        Method {
+            name: "schedule"
+            type: "string"
+            Parameter { name: "params"; type: "QVariantMap" }
+        }
+        Method {
+            name: "scheduleNotification"
+            type: "string"
+            Parameter { name: "notification"; type: "NotificationItem"; isPointer: true }
+        }
+        Method {
+            name: "cancelNotification"
+            Parameter { name: "notificationId"; type: "string" }
+        }
+        Method { name: "cancelAllNotifications" }
+    }
+    Component {
+        name: "OneSignalItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/OneSignal 1.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "LogLevel"
+            values: {
+                "LogLevelNone": 0,
+                "LogLevelFatal": 1,
+                "LogLevelError": 2,
+                "LogLevelWarn": 3,
+                "LogLevelInfo": 4,
+                "LogLevelDebug": 5,
+                "LogLevelVerbose": 6
+            }
+        }
+        Property { name: "appId"; type: "string" }
+        Property { name: "googleProjectNumber"; type: "string" }
+        Property { name: "userId"; type: "string"; isReadonly: true }
+        Property { name: "registrationId"; type: "string"; isReadonly: true }
+        Property { name: "notificationWhenActive"; type: "bool" }
+        Property { name: "inAppAlertNotification"; type: "bool" }
+        Property { name: "shareLocationEnabled"; type: "bool" }
+        Property { name: "logLevel"; type: "LogLevel" }
+        Signal {
+            name: "tagsReceived"
+            Parameter { name: "tags"; type: "QVariantMap" }
+        }
+        Signal {
+            name: "notificationReceived"
+            Parameter { name: "message"; type: "string" }
+            Parameter { name: "additionalData"; type: "QVariantMap" }
+            Parameter { name: "isActive"; type: "bool" }
+        }
+        Method { name: "clearNotifications" }
+        Method {
+            name: "sendTag"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "string" }
+        }
+        Method {
+            name: "sendTags"
+            Parameter { name: "tags"; type: "QVariantMap" }
+        }
+        Method {
+            name: "deleteTag"
+            Parameter { name: "key"; type: "string" }
+        }
+        Method {
+            name: "deleteTags"
+            Parameter { name: "keys"; type: "QStringList" }
+        }
+        Method { name: "requestTags" }
+    }
+    Component {
+        name: "ParseItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/Parse 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "applicationId"; type: "string" }
+        Property { name: "clientKey"; type: "string" }
+        Property { name: "channels"; type: "QStringList" }
+        Property { name: "backgroundFetchEnabled"; type: "bool" }
+        Property { name: "backgroundFetchUrl"; type: "string" }
+        Property { name: "backgroundFetchStackSize"; type: "int" }
+        Property { name: "processForegroundNotifications"; type: "bool" }
+        Signal {
+            name: "notificationReceived"
+            Parameter { name: "data"; type: "QVariantMap" }
+        }
+        Signal {
+            name: "backgroundFetchAvailable"
+            Parameter { name: "content"; type: "QStringList" }
+        }
+        Method {
+            name: "putInstallation"
+            Parameter { name: "key"; type: "string" }
+            Parameter { name: "value"; type: "string" }
+        }
+    }
+    Component { name: "PurchaseTypeItem"; prototype: "QObject" }
+    Component {
+        name: "SingleUseGoodItem"
+        prototype: "GoodItem"
+        exports: ["VPlayPlugins/SingleUseGood 1.0"]
+        exportMetaObjectRevisions: [0]
+    }
+    Component {
+        name: "SingleUsePackGoodItem"
+        prototype: "GoodItem"
+        exports: ["VPlayPlugins/SingleUsePackGood 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "goodItemId"; type: "string" }
+        Property { name: "amount"; type: "int" }
+        Method {
+            name: "setGoodItemId"
+            Parameter { name: "arg"; type: "string" }
+        }
+        Method {
+            name: "setAmount"
+            Parameter { name: "arg"; type: "int" }
+        }
+    }
+    Component {
+        name: "StoreItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/Store 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "secret"; type: "string" }
+        Property { name: "version"; type: "int" }
+        Property { name: "androidPublicKey"; type: "string" }
+        Property { name: "supported"; type: "bool"; isReadonly: true }
+        Property { name: "currencies"; type: "CurrencyItem"; isList: true; isReadonly: true }
+        Property { name: "currencyPacks"; type: "CurrencyPackItem"; isList: true; isReadonly: true }
+        Property { name: "goods"; type: "GoodItem"; isList: true; isReadonly: true }
+        Signal {
+            name: "supportedChanged"
+            Parameter { name: "supported"; type: "bool" }
+        }
+        Signal {
+            name: "currencyBalanceChanged"
+            Parameter { name: "itemId"; type: "string" }
+            Parameter { name: "balance"; type: "int" }
+            Parameter { name: "amountAdded"; type: "int" }
+        }
+        Signal {
+            name: "goodBalanceChanged"
+            Parameter { name: "itemId"; type: "string" }
+            Parameter { name: "balance"; type: "int" }
+            Parameter { name: "amountAdded"; type: "int" }
+        }
+        Signal {
+            name: "goodEquipped"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "goodUnequipped"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "goodUpgrade"
+            Parameter { name: "itemId"; type: "string" }
+            Parameter { name: "upgradeItemId"; type: "string" }
+        }
+        Signal {
+            name: "itemPurchased"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "storePurchaseCanceled"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "storePurchaseCancelled"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "storePurchased"
+            Parameter { name: "itemId"; type: "string" }
+            Parameter { name: "transactionData"; type: "QVariant" }
+        }
+        Signal {
+            name: "storePurchaseStarted"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "storeRefund"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal { name: "restoreAllTransactionsStarted" }
+        Signal {
+            name: "restoreAllTransactionsFinished"
+            Parameter { name: "success"; type: "bool" }
+        }
+        Signal { name: "marketItemsRefreshStarted"; revision: 2 }
+        Signal {
+            name: "marketItemsRefreshFinished"
+            revision: 2
+            Parameter { name: "success"; type: "bool" }
+        }
+        Signal { name: "unexpectedError" }
+        Signal {
+            name: "itemNotFoundError"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Signal {
+            name: "insufficientFundsError"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Method {
+            name: "buyStoreItem"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Method { name: "restoreAllTransactions" }
+        Method { name: "refreshGoodDetails" }
+        Method {
+            name: "buyItem"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Method {
+            name: "getItemBalance"
+            type: "int"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Method {
+            name: "giveItem"
+            type: "bool"
+            Parameter { name: "itemId"; type: "string" }
+            Parameter { name: "amount"; type: "int" }
+        }
+        Method {
+            name: "giveItem"
+            type: "bool"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Method {
+            name: "takeItem"
+            type: "bool"
+            Parameter { name: "itemId"; type: "string" }
+            Parameter { name: "amount"; type: "int" }
+        }
+        Method {
+            name: "takeItem"
+            type: "bool"
+            Parameter { name: "itemId"; type: "string" }
+        }
+        Method { name: "printStoreProductLists" }
+    }
+    Component {
+        name: "TagManagerItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/TagManager 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "containerId"; type: "string" }
+        Method {
+            name: "push"
+            Parameter { name: "keyValuePairs"; type: "QVariantMap" }
+        }
+    }
+    Component {
+        name: "WikitudeItem"
+        defaultProperty: "data"
+        prototype: "LicenseItem"
+        exports: ["VPlayPlugins/WikitudeArView 1.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "CameraPosition"
+            values: {
+                "UnspecifiedCamera": 0,
+                "FrontCamera": 1,
+                "BackCamera": 2
+            }
+        }
+        Enum {
+            name: "CameraResolution"
+            values: {
+                "SD": 0,
+                "HD": 1,
+                "FullHD": 2,
+                "AutoResolution": 3
+            }
+        }
+        Enum {
+            name: "CameraFocusMode"
+            values: {
+                "AutoFocus": 0,
+                "AutoFocusContinuous": 1,
+                "ManualFocus": 2
+            }
+        }
+        Property { name: "licenseKey"; type: "string" }
+        Property { name: "arWorldSource"; type: "QUrl" }
+        Property { name: "running"; type: "bool" }
+        Property { name: "cameraResolution"; type: "CameraResolution" }
+        Property { name: "cameraFocusMode"; type: "CameraFocusMode" }
+        Property { name: "cameraPosition"; type: "CameraPosition" }
+        Property { name: "cameraManualFocusDistance"; type: "double" }
+        Property { name: "overrideLocation"; type: "bool" }
+        Property { name: "latitude"; type: "double" }
+        Property { name: "longitude"; type: "double" }
+        Property { name: "altitude"; type: "double" }
+        Property { name: "locationAccuracy"; type: "double" }
+        Signal {
+            name: "runningChanged"
+            Parameter { name: "running"; type: "bool" }
+        }
+        Signal {
+            name: "arWorldSourceChanged"
+            Parameter { name: "arWorldSource"; type: "QUrl" }
+        }
+        Signal {
+            name: "licenseKeyChanged"
+            Parameter { name: "licenseKey"; type: "string" }
+        }
+        Signal {
+            name: "javascriptCallback"
+            Parameter { name: "jsObject"; type: "QVariant" }
+        }
+        Signal {
+            name: "overrideLocationChanged"
+            Parameter { name: "overrideLocation"; type: "bool" }
+        }
+        Signal {
+            name: "latitudeChanged"
+            Parameter { name: "latitude"; type: "double" }
+        }
+        Signal {
+            name: "longitudeChanged"
+            Parameter { name: "longitude"; type: "double" }
+        }
+        Signal {
+            name: "altitudeChanged"
+            Parameter { name: "altitude"; type: "double" }
+        }
+        Signal {
+            name: "locationAccuracyChanged"
+            Parameter { name: "locationAccuracy"; type: "double" }
+        }
+        Signal {
+            name: "cameraPositionChanged"
+            Parameter { name: "cameraPosition"; type: "CameraPosition" }
+        }
+        Signal {
+            name: "cameraManualFocusDistanceChanged"
+            Parameter { name: "cameraManualFocusDistance"; type: "double" }
+        }
+        Method {
+            name: "callJavascript"
+            Parameter { name: "jsCommand"; type: "string" }
+        }
+    }
+}

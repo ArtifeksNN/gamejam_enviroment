@@ -1,0 +1,1073 @@
+import QtQuick.tooling 1.2
+
+Module {
+    dependencies: ["QtQuick 2.0"]
+    Component {
+        name: "Box2DBody"
+        defaultProperty: "fixtures"
+        prototype: "QObject"
+        exports: ["VPlay/Body 2.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "BodyType"
+            values: {
+                "Static": 0,
+                "Kinematic": 1,
+                "Dynamic": 2
+            }
+        }
+        Property { name: "world"; type: "Box2DWorld"; isPointer: true }
+        Property { name: "target"; type: "QQuickItem"; isPointer: true }
+        Property { name: "linearDamping"; type: "float" }
+        Property { name: "angularDamping"; type: "float" }
+        Property { name: "bodyType"; type: "BodyType" }
+        Property { name: "bullet"; type: "bool" }
+        Property { name: "sleepingAllowed"; type: "bool" }
+        Property { name: "fixedRotation"; type: "bool" }
+        Property { name: "active"; type: "bool" }
+        Property { name: "awake"; type: "bool" }
+        Property { name: "linearVelocity"; type: "QPointF" }
+        Property { name: "angularVelocity"; type: "float" }
+        Property { name: "fixtures"; type: "Box2DFixture"; isList: true; isReadonly: true }
+        Property { name: "gravityScale"; type: "float" }
+        Property { name: "force"; type: "QPointF" }
+        Property { name: "torque"; type: "float" }
+        Property { name: "collisionTestingOnlyMode"; type: "bool" }
+        Signal { name: "bodyCreated" }
+        Signal { name: "positionChanged" }
+        Method {
+            name: "applyForce"
+            Parameter { name: "force"; type: "QPointF" }
+            Parameter { name: "point"; type: "QPointF" }
+        }
+        Method {
+            name: "applyForceToCenter"
+            Parameter { name: "force"; type: "QPointF" }
+        }
+        Method {
+            name: "applyTorque"
+            Parameter { name: "torque"; type: "double" }
+        }
+        Method {
+            name: "applyLinearImpulse"
+            Parameter { name: "impulse"; type: "QPointF" }
+            Parameter { name: "point"; type: "QPointF" }
+        }
+        Method {
+            name: "applyAngularImpulse"
+            Parameter { name: "impulse"; type: "double" }
+        }
+        Method { name: "getWorldCenter"; type: "QPointF" }
+        Method { name: "getLocalCenter"; type: "QPointF" }
+        Method { name: "getMass"; type: "float" }
+        Method { name: "resetMassData" }
+        Method { name: "getInertia"; type: "float" }
+        Method {
+            name: "toWorldPoint"
+            type: "QPointF"
+            Parameter { name: "localPoint"; type: "QPointF" }
+        }
+        Method {
+            name: "toWorldVector"
+            type: "QPointF"
+            Parameter { name: "localVector"; type: "QPointF" }
+        }
+        Method {
+            name: "toLocalPoint"
+            type: "QPointF"
+            Parameter { name: "worldPoint"; type: "QPointF" }
+        }
+        Method {
+            name: "toLocalVector"
+            type: "QPointF"
+            Parameter { name: "worldVector"; type: "QPointF" }
+        }
+        Method {
+            name: "getLinearVelocityFromWorldPoint"
+            type: "QPointF"
+            Parameter { name: "point"; type: "QPointF" }
+        }
+        Method {
+            name: "getLinearVelocityFromLocalPoint"
+            type: "QPointF"
+            Parameter { name: "point"; type: "QPointF" }
+        }
+        Method {
+            name: "addFixture"
+            Parameter { name: "fixture"; type: "Box2DFixture"; isPointer: true }
+        }
+    }
+    Component {
+        name: "Box2DBox"
+        prototype: "Box2DFixture"
+        exports: ["VPlay/Box 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "x"; type: "double" }
+        Property { name: "y"; type: "double" }
+        Property { name: "width"; type: "double" }
+        Property { name: "height"; type: "double" }
+        Property { name: "rotation"; type: "double" }
+    }
+    Component {
+        name: "Box2DChain"
+        prototype: "Box2DFixture"
+        exports: ["VPlay/Chain 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "vertices"; type: "QVariantList" }
+        Property { name: "loop"; type: "bool" }
+        Property { name: "prevVertex"; type: "QPointF" }
+        Property { name: "nextVertex"; type: "QPointF" }
+    }
+    Component {
+        name: "Box2DCircle"
+        prototype: "Box2DFixture"
+        exports: ["VPlay/Circle 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "x"; type: "double" }
+        Property { name: "y"; type: "double" }
+        Property { name: "radius"; type: "float" }
+    }
+    Component {
+        name: "Box2DContact"
+        prototype: "QObject"
+        exports: ["VPlay/Contact 2.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Property { name: "enabled"; type: "bool" }
+        Property { name: "fixtureA"; type: "Box2DFixture"; isReadonly: true; isPointer: true }
+        Property { name: "fixtureB"; type: "Box2DFixture"; isReadonly: true; isPointer: true }
+        Property { name: "childIndexA"; type: "int"; isReadonly: true }
+        Property { name: "childIndexB"; type: "int"; isReadonly: true }
+        Property { name: "friction"; type: "double" }
+        Property { name: "restitution"; type: "double" }
+        Property { name: "tangentSpeed"; type: "double" }
+        Method { name: "isTouching"; type: "bool" }
+        Method { name: "resetFriction" }
+        Method { name: "resetRestitution" }
+    }
+    Component {
+        name: "Box2DDebugDraw"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["VPlay/DebugDraw 2.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "DebugFlag"
+            values: {
+                "Shape": 1,
+                "Joint": 2,
+                "AABB": 4,
+                "Pair": 8,
+                "CenterOfMass": 16,
+                "Everything": 31
+            }
+        }
+        Property { name: "axisScale"; type: "double" }
+        Property { name: "flags"; type: "DebugFlag" }
+        Property { name: "world"; type: "Box2DWorld"; isPointer: true }
+    }
+    Component {
+        name: "Box2DDistanceJoint"
+        prototype: "Box2DJoint"
+        exports: ["VPlay/DistanceJoint 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "length"; type: "float" }
+        Property { name: "frequencyHz"; type: "float" }
+        Property { name: "dampingRatio"; type: "float" }
+        Method {
+            name: "getReactionForce"
+            type: "QPointF"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+        Method {
+            name: "getReactionTorque"
+            type: "float"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+    }
+    Component {
+        name: "Box2DEdge"
+        prototype: "Box2DFixture"
+        exports: ["VPlay/Edge 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "vertices"; type: "QVariantList" }
+    }
+    Component {
+        name: "Box2DFixture"
+        prototype: "QObject"
+        exports: ["VPlay/Fixture 2.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "CategoryFlag"
+            values: {
+                "Category1": 1,
+                "Category2": 2,
+                "Category3": 4,
+                "Category4": 8,
+                "Category5": 16,
+                "Category6": 32,
+                "Category7": 64,
+                "Category8": 128,
+                "Category9": 256,
+                "Category10": 512,
+                "Category11": 1024,
+                "Category12": 2048,
+                "Category13": 4096,
+                "Category14": 8192,
+                "Category15": 16384,
+                "Category16": 32768,
+                "All": 65535,
+                "None": 0
+            }
+        }
+        Enum {
+            name: "CategoryFlags"
+            values: {
+                "Category1": 1,
+                "Category2": 2,
+                "Category3": 4,
+                "Category4": 8,
+                "Category5": 16,
+                "Category6": 32,
+                "Category7": 64,
+                "Category8": 128,
+                "Category9": 256,
+                "Category10": 512,
+                "Category11": 1024,
+                "Category12": 2048,
+                "Category13": 4096,
+                "Category14": 8192,
+                "Category15": 16384,
+                "Category16": 32768,
+                "All": 65535,
+                "None": 0
+            }
+        }
+        Property { name: "density"; type: "float" }
+        Property { name: "friction"; type: "float" }
+        Property { name: "restitution"; type: "float" }
+        Property { name: "sensor"; type: "bool" }
+        Property { name: "categories"; type: "CategoryFlags" }
+        Property { name: "collidesWith"; type: "CategoryFlags" }
+        Property { name: "groupIndex"; type: "int" }
+        Signal {
+            name: "beginContact"
+            Parameter { name: "other"; type: "Box2DFixture"; isPointer: true }
+            Parameter { name: "contactNormal"; type: "QPointF" }
+        }
+        Signal {
+            name: "endContact"
+            Parameter { name: "other"; type: "Box2DFixture"; isPointer: true }
+        }
+        Signal {
+            name: "contactChanged"
+            Parameter { name: "other"; type: "Box2DFixture"; isPointer: true }
+        }
+        Method { name: "getBody"; type: "Box2DBody*" }
+    }
+    Component {
+        name: "Box2DFrictionJoint"
+        prototype: "Box2DJoint"
+        exports: ["VPlay/FrictionJoint 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "maxForce"; type: "float" }
+        Property { name: "maxTorque"; type: "float" }
+        Method {
+            name: "getReactionForce"
+            type: "QPointF"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+        Method {
+            name: "getReactionTorque"
+            type: "float"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+    }
+    Component {
+        name: "Box2DGearJoint"
+        prototype: "Box2DJoint"
+        exports: ["VPlay/GearJoint 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "joint1"; type: "Box2DJoint"; isPointer: true }
+        Property { name: "joint2"; type: "Box2DJoint"; isPointer: true }
+        Property { name: "ratio"; type: "float" }
+    }
+    Component {
+        name: "Box2DJoint"
+        prototype: "QObject"
+        exports: ["VPlay/Joint 2.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "JointType"
+            values: {
+                "UnknownJoint": 0,
+                "RevoluteJoint": 1,
+                "PrismaticJoint": 2,
+                "DistanceJoint": 3,
+                "PulleyJoint": 4,
+                "MouseJoint": 5,
+                "GearJoint": 6,
+                "WheelJoint": 7,
+                "WeldJoint": 8,
+                "FrictionJoint": 9,
+                "RopeJoint": 10,
+                "MotorJoint": 11
+            }
+        }
+        Property { name: "jointType"; type: "JointType"; isReadonly: true }
+        Property { name: "collideConnected"; type: "bool" }
+        Property { name: "bodyA"; type: "Box2DBody"; isPointer: true }
+        Property { name: "bodyB"; type: "Box2DBody"; isPointer: true }
+        Signal { name: "created" }
+    }
+    Component {
+        name: "Box2DMotorJoint"
+        prototype: "Box2DJoint"
+        exports: ["VPlay/MotorJoint 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "linearOffset"; type: "QPointF" }
+        Property { name: "angularOffset"; type: "float" }
+        Property { name: "maxForce"; type: "float" }
+        Property { name: "maxTorque"; type: "float" }
+        Property { name: "correctionFactor"; type: "float" }
+    }
+    Component {
+        name: "Box2DMouseJoint"
+        prototype: "Box2DJoint"
+        exports: ["VPlay/MouseJoint 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "target"; type: "QPointF" }
+        Property { name: "maxForce"; type: "float" }
+        Property { name: "frequencyHz"; type: "float" }
+        Property { name: "dampingRatio"; type: "float" }
+        Method {
+            name: "getReactionForce"
+            type: "QPointF"
+            Parameter { name: "inv_dt"; type: "float" }
+        }
+        Method {
+            name: "getReactionTorque"
+            type: "float"
+            Parameter { name: "inv_dt"; type: "float" }
+        }
+    }
+    Component {
+        name: "Box2DPolygon"
+        prototype: "Box2DFixture"
+        exports: ["VPlay/Polygon 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "vertices"; type: "QVariantList" }
+    }
+    Component {
+        name: "Box2DPrismaticJoint"
+        prototype: "Box2DJoint"
+        exports: ["VPlay/PrismaticJoint 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "localAxisA"; type: "QPointF" }
+        Property { name: "referenceAngle"; type: "float" }
+        Property { name: "enableLimit"; type: "bool" }
+        Property { name: "lowerTranslation"; type: "float" }
+        Property { name: "upperTranslation"; type: "float" }
+        Property { name: "enableMotor"; type: "bool" }
+        Property { name: "maxMotorForce"; type: "float" }
+        Property { name: "motorSpeed"; type: "float" }
+        Method { name: "getJointTranslation"; type: "float" }
+        Method { name: "getJointSpeed"; type: "float" }
+    }
+    Component {
+        name: "Box2DProfile"
+        prototype: "QObject"
+        exports: ["VPlay/Profile 2.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Property { name: "step"; type: "float"; isReadonly: true }
+        Property { name: "collide"; type: "float"; isReadonly: true }
+        Property { name: "solve"; type: "float"; isReadonly: true }
+        Property { name: "solveInit"; type: "float"; isReadonly: true }
+        Property { name: "solveVelocity"; type: "float"; isReadonly: true }
+        Property { name: "solvePosition"; type: "float"; isReadonly: true }
+        Property { name: "broadphase"; type: "float"; isReadonly: true }
+        Property { name: "solveTOI"; type: "float"; isReadonly: true }
+        Property { name: "synchronize"; type: "float"; isReadonly: true }
+        Property { name: "emitSignals"; type: "float"; isReadonly: true }
+    }
+    Component {
+        name: "Box2DPulleyJoint"
+        prototype: "Box2DJoint"
+        exports: ["VPlay/PulleyJoint 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "groundAnchorA"; type: "QPointF" }
+        Property { name: "groundAnchorB"; type: "QPointF" }
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "lengthA"; type: "float" }
+        Property { name: "lengthB"; type: "float" }
+        Property { name: "ratio"; type: "float" }
+        Method { name: "getCurrentLengthA"; type: "float" }
+        Method { name: "getCurrentLengthB"; type: "float" }
+        Method {
+            name: "getReactionForce"
+            type: "QPointF"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+        Method {
+            name: "getReactionTorque"
+            type: "float"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+    }
+    Component {
+        name: "Box2DRayCast"
+        prototype: "QObject"
+        exports: ["VPlay/RayCast 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "maxFraction"; type: "float" }
+        Signal {
+            name: "fixtureReported"
+            Parameter { name: "fixture"; type: "Box2DFixture"; isPointer: true }
+            Parameter { name: "point"; type: "QPointF" }
+            Parameter { name: "normal"; type: "QPointF" }
+            Parameter { name: "fraction"; type: "double" }
+        }
+    }
+    Component {
+        name: "Box2DRevoluteJoint"
+        prototype: "Box2DJoint"
+        exports: ["VPlay/RevoluteJoint 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "referenceAngle"; type: "float" }
+        Property { name: "enableLimit"; type: "bool" }
+        Property { name: "lowerAngle"; type: "float" }
+        Property { name: "upperAngle"; type: "float" }
+        Property { name: "enableMotor"; type: "bool" }
+        Property { name: "motorSpeed"; type: "float" }
+        Property { name: "maxMotorTorque"; type: "float" }
+        Method { name: "getJointAngle"; type: "float" }
+        Method { name: "getJointSpeed"; type: "float" }
+    }
+    Component {
+        name: "Box2DRopeJoint"
+        prototype: "Box2DJoint"
+        exports: ["VPlay/RopeJoint 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "maxLength"; type: "float" }
+        Method {
+            name: "getReactionForce"
+            type: "QPointF"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+        Method {
+            name: "getReactionTorque"
+            type: "float"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+    }
+    Component {
+        name: "Box2DStatic"
+        prototype: "QObject"
+        exports: ["VPlay/Box2D 2.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Property { name: "defaultWorld"; type: "Box2DWorld"; isPointer: true }
+        Method {
+            name: "setDefaultWorld"
+            Parameter { name: "currentWorld"; type: "Box2DWorld"; isPointer: true }
+        }
+    }
+    Component {
+        name: "Box2DWeldJoint"
+        prototype: "Box2DJoint"
+        exports: ["VPlay/WeldJoint 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "referenceAngle"; type: "float" }
+        Property { name: "frequencyHz"; type: "float" }
+        Property { name: "dampingRatio"; type: "float" }
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+    }
+    Component {
+        name: "Box2DWheelJoint"
+        prototype: "Box2DJoint"
+        exports: ["VPlay/WheelJoint 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "localAnchorA"; type: "QPointF" }
+        Property { name: "localAnchorB"; type: "QPointF" }
+        Property { name: "localAxisA"; type: "QPointF" }
+        Property { name: "dampingRatio"; type: "float" }
+        Property { name: "frequencyHz"; type: "float" }
+        Property { name: "maxMotorTorque"; type: "float" }
+        Property { name: "motorSpeed"; type: "float" }
+        Property { name: "enableMotor"; type: "bool" }
+        Method {
+            name: "getReactionForce"
+            type: "QPointF"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+        Method {
+            name: "getReactionTorque"
+            type: "float"
+            Parameter { name: "inv_dt"; type: "float32" }
+        }
+        Method { name: "getJointTranslation"; type: "float" }
+        Method { name: "getJointSpeed"; type: "float" }
+    }
+    Component {
+        name: "Box2DWorld"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["VPlay/World 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "running"; type: "bool" }
+        Property { name: "timeStep"; type: "float" }
+        Property { name: "velocityIterations"; type: "int" }
+        Property { name: "positionIterations"; type: "int" }
+        Property { name: "gravity"; type: "QPointF" }
+        Property { name: "autoClearForces"; type: "bool" }
+        Property { name: "profile"; type: "Box2DProfile"; isReadonly: true; isPointer: true }
+        Property { name: "pixelsPerMeter"; type: "float" }
+        Property { name: "enableContactEvents"; type: "bool" }
+        Signal {
+            name: "preSolve"
+            Parameter { name: "contact"; type: "Box2DContact"; isPointer: true }
+        }
+        Signal {
+            name: "postSolve"
+            Parameter { name: "contact"; type: "Box2DContact"; isPointer: true }
+        }
+        Signal { name: "stepped" }
+        Method {
+            name: "step"
+            Parameter { name: "dt"; type: "float" }
+        }
+        Method { name: "clearForces" }
+        Method {
+            name: "rayCast"
+            Parameter { name: "rayCast"; type: "Box2DRayCast"; isPointer: true }
+            Parameter { name: "point1"; type: "QPointF" }
+            Parameter { name: "point2"; type: "QPointF" }
+        }
+        Method {
+            name: "bodyAt"
+            type: "Box2DBody*"
+            Parameter { name: "point"; type: "QPointF" }
+        }
+    }
+    Component {
+        name: "DownloadableResourceItem"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["VPlay/DownloadableResource 2.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "Status"
+            values: {
+                "UnAvailable": 0,
+                "Available": 1,
+                "Downloading": 2,
+                "Extracting": 3
+            }
+        }
+        Enum {
+            name: "DownloadError"
+            values: {
+                "NoError": 0,
+                "NetworkError": 1,
+                "UnauthorizedError": 2,
+                "FilePathError": 3,
+                "FileExtractionError": 4,
+                "DownloadCancelledError": 5,
+                "UnknownError": 6
+            }
+        }
+        Property { name: "source"; type: "QUrl" }
+        Property { name: "secret"; type: "string" }
+        Property { name: "extractAsPackage"; type: "bool" }
+        Property { name: "headerParameters"; type: "QVariant" }
+        Property { name: "storageLocation"; type: "VPlayFileUtils::StorageLocation" }
+        Property { name: "storageLocationDisplayName"; type: "string"; isReadonly: true }
+        Property { name: "storagePath"; type: "QUrl" }
+        Property { name: "storageName"; type: "string" }
+        Property { name: "status"; type: "Status"; isReadonly: true }
+        Property { name: "statusText"; type: "string"; isReadonly: true }
+        Property { name: "progress"; type: "int"; isReadonly: true }
+        Property { name: "available"; type: "bool"; isReadonly: true }
+        Signal { name: "headersChanged" }
+        Signal { name: "downloadStarted" }
+        Signal {
+            name: "downloadProgressChanged"
+            Parameter { name: "progress"; type: "int" }
+        }
+        Signal {
+            name: "extractionProgressChanged"
+            Parameter { name: "progress"; type: "int" }
+        }
+        Signal {
+            name: "downloadFinished"
+            Parameter { name: "error"; type: "DownloadError" }
+        }
+        Signal {
+            name: "extractFinished"
+            Parameter { name: "success"; type: "bool" }
+        }
+        Signal {
+            name: "extractAsPackageChanged"
+            Parameter { name: "extractAsPackage"; type: "bool" }
+        }
+        Method { name: "download" }
+        Method { name: "cancel" }
+        Method { name: "remove" }
+        Method {
+            name: "getExtractedFileUrl"
+            type: "QUrl"
+            Parameter { type: "string" }
+        }
+    }
+    Component {
+        name: "ItemEditor"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["VPlay/ItemEditorBase 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "contentDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "groupDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "boolDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "numberDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "stringDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "pointDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "colorDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "textureDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "arrayDelegate"; type: "QQmlComponent"; isPointer: true }
+        Method {
+            name: "readColorPropertyWithRed"
+            type: "double"
+            Parameter { name: "color"; type: "QColor" }
+        }
+        Method {
+            name: "readColorPropertyWithGreen"
+            type: "double"
+            Parameter { name: "color"; type: "QColor" }
+        }
+        Method {
+            name: "readColorPropertyWithBlue"
+            type: "double"
+            Parameter { name: "color"; type: "QColor" }
+        }
+        Method {
+            name: "readColorPropertyWithAlpha"
+            type: "double"
+            Parameter { name: "color"; type: "QColor" }
+        }
+    }
+    Component {
+        name: "MovementAnimation"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["VPlay/MovementAnimation 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "running"; type: "bool" }
+        Property { name: "target"; type: "QObject"; isPointer: true }
+        Property { name: "property"; type: "string" }
+        Property { name: "velocity"; type: "QVariant" }
+        Property { name: "acceleration"; type: "QVariant" }
+        Property { name: "maxVelocity"; type: "QVariant" }
+        Property { name: "minVelocity"; type: "QVariant" }
+        Property { name: "maxPropertyValue"; type: "QVariant" }
+        Property { name: "minPropertyValue"; type: "QVariant" }
+        Property { name: "maxPropertyValueDifference"; type: "QVariant" }
+        Property { name: "wrapping"; type: "bool" }
+        Property { name: "updateInterval"; type: "int" }
+        Signal { name: "started" }
+        Signal { name: "stopped" }
+        Signal {
+            name: "runningChanged"
+            Parameter { type: "bool" }
+        }
+        Signal {
+            name: "pausedChanged"
+            Parameter { type: "bool" }
+        }
+        Signal { name: "limitReached" }
+        Method { name: "start" }
+        Method { name: "stop" }
+    }
+    Component {
+        name: "ParticleItem"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["VPlay/ParticleBase 2.0"]
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "PositionType"
+            values: {
+                "Free": 0,
+                "Relative": 1,
+                "Grouped": 2
+            }
+        }
+        Enum {
+            name: "EmitterType"
+            values: {
+                "Gravity": 0,
+                "Radius": 1
+            }
+        }
+        Enum {
+            name: "Duration"
+            values: {
+                "Infinite": 0
+            }
+        }
+        Enum {
+            name: "BlendFunction"
+            values: {
+                "GL_ZERO": 0,
+                "GL_ONE": 1,
+                "GL_SRC_COLOR": 768,
+                "GL_ONE_MINUS_SRC_COLOR": 769,
+                "GL_SRC_ALPHA": 770,
+                "GL_ONE_MINUS_SRC_ALPHA": 771,
+                "GL_DST_ALPHA": 772,
+                "GL_ONE_MINUS_DST_ALPHA": 773,
+                "GL_DST_COLOR": 774,
+                "GL_ONE_MINUS_DST_COLOR": 775,
+                "GL_SRC_ALPHA_SATURATE": 776
+            }
+        }
+        Property { name: "gravity"; type: "QPointF" }
+        Property { name: "speed"; type: "double" }
+        Property { name: "speedVariance"; type: "double" }
+        Property { name: "radialAcceleration"; type: "double" }
+        Property { name: "radialAccelVariance"; type: "double" }
+        Property { name: "tangentialAcceleration"; type: "double" }
+        Property { name: "tangentialAccelVariance"; type: "double" }
+        Property { name: "rotatePerSecond"; type: "double" }
+        Property { name: "rotatePerSecondVariance"; type: "double" }
+        Property { name: "minRadius"; type: "double" }
+        Property { name: "minRadiusVariance"; type: "double" }
+        Property { name: "maxRadius"; type: "double" }
+        Property { name: "maxRadiusVariance"; type: "double" }
+        Property { name: "emissionRate"; type: "double" }
+        Property { name: "maxParticles"; type: "double" }
+        Property { name: "particleLifespan"; type: "double" }
+        Property { name: "particleLifespanVariance"; type: "double" }
+        Property { name: "duration"; type: "double" }
+        Property { name: "blendFuncSource"; type: "double" }
+        Property { name: "blendFuncDestination"; type: "double" }
+        Property { name: "startColor"; type: "QColor" }
+        Property { name: "startColorAlpha"; type: "double" }
+        Property { name: "startColorVariance"; type: "QColor" }
+        Property { name: "startColorVarianceAlpha"; type: "double" }
+        Property { name: "finishColor"; type: "QColor" }
+        Property { name: "finishColorAlpha"; type: "double" }
+        Property { name: "finishColorVariance"; type: "QColor" }
+        Property { name: "finishColorVarianceAlpha"; type: "double" }
+        Property { name: "startParticleSize"; type: "double" }
+        Property { name: "startParticleSizeVariance"; type: "double" }
+        Property { name: "finishParticleSize"; type: "double" }
+        Property { name: "finishParticleSizeVariance"; type: "double" }
+        Property { name: "sourcePositionVariance"; type: "QPointF" }
+        Property { name: "angle"; type: "double" }
+        Property { name: "angleVariance"; type: "double" }
+        Property { name: "rotationStart"; type: "double" }
+        Property { name: "rotationStartVariance"; type: "double" }
+        Property { name: "rotationEnd"; type: "double" }
+        Property { name: "rotationEndVariance"; type: "double" }
+        Property { name: "textureFileName"; type: "QUrl" }
+        Property { name: "positionType"; type: "int" }
+        Property { name: "emitterType"; type: "int" }
+        Property { name: "fileName"; type: "QUrl" }
+        Property { name: "autoStart"; type: "bool" }
+        Property { name: "running"; type: "bool" }
+        Signal {
+            name: "runningChanged"
+            Parameter { type: "bool" }
+        }
+        Method {
+            name: "geometryChanged"
+            Parameter { name: "newGeometry"; type: "QRectF" }
+            Parameter { name: "oldGeometry"; type: "QRectF" }
+        }
+        Method {
+            name: "itemChange"
+            Parameter { name: "change"; type: "ItemChange" }
+            Parameter { name: "value"; type: "ItemChangeData" }
+        }
+        Method { name: "start" }
+        Method { name: "stop" }
+        Method { name: "stopLivingParticles" }
+        Method {
+            name: "saveAsPList"
+            Parameter { name: "file"; type: "QUrl" }
+        }
+    }
+    Component {
+        name: "SteerToPointBehavior"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["VPlay/MoveToPointHelper 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "targetObject"; type: "QObject"; isPointer: true }
+        Property { name: "targetPoint"; type: "QPointF" }
+        Property { name: "owningEntity"; type: "QQuickItem"; isPointer: true }
+        Property { name: "allowSteerForward"; type: "bool" }
+        Property { name: "allowSteerBackward"; type: "bool" }
+        Property { name: "stopForwardMovementAtDifferentDirections"; type: "bool" }
+        Property { name: "rotationThreshold"; type: "double" }
+        Property { name: "distanceToTargetThreshold"; type: "double" }
+        Property { name: "distanceToTarget"; type: "double"; isReadonly: true }
+        Property { name: "absoluteRotationDifference"; type: "float"; isReadonly: true }
+        Property { name: "outputXAxis"; type: "double"; isReadonly: true }
+        Property { name: "outputYAxis"; type: "double"; isReadonly: true }
+        Property { name: "updateInterval"; type: "int" }
+        Signal { name: "targetItemChanged" }
+        Signal { name: "targetReached" }
+        Method { name: "update" }
+        Method { name: "reset" }
+        Method { name: "enabledHasChanged" }
+        Method { name: "targetItemDestroyed" }
+    }
+    Component {
+        name: "TypeWriterItem"
+        defaultProperty: "data"
+        prototype: "QQuickItem"
+        exports: ["VPlay/TypeWriterItem 2.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "typeDelay"; type: "int" }
+        Property { name: "textSource"; type: "string" }
+        Property { name: "typeWriterText"; type: "string"; isReadonly: true }
+        Property { name: "running"; type: "bool"; isReadonly: true }
+        Property { name: "finished"; type: "bool"; isReadonly: true }
+        Signal { name: "typeWriterFinished" }
+        Method { name: "start" }
+        Method { name: "stop" }
+        Method { name: "pause" }
+    }
+    Component {
+        name: "VPlayFileUtils"
+        prototype: "QObject"
+        exports: ["VPlay/FileUtils 2.0"]
+        isCreatable: false
+        exportMetaObjectRevisions: [0]
+        Enum {
+            name: "StorageLocation"
+            values: {
+                "DesktopLocation": 0,
+                "DocumentsLocation": 1,
+                "FontsLocation": 2,
+                "ApplicationsLocation": 3,
+                "MusicLocation": 4,
+                "MoviesLocation": 5,
+                "PicturesLocation": 6,
+                "TempLocation": 7,
+                "HomeLocation": 8,
+                "DataLocation": 9,
+                "CacheLocation": 10,
+                "GenericDataLocation": 11,
+                "RuntimeLocation": 12,
+                "ConfigLocation": 13,
+                "DownloadLocation": 14,
+                "GenericCacheLocation": 15,
+                "GenericConfigLocation": 16,
+                "AppDataLocation": 17,
+                "AppConfigLocation": 18,
+                "AppLocalDataLocation": 9
+            }
+        }
+        Property { name: "searchPaths"; type: "QStringList"; isReadonly: true }
+        Property { name: "applicationDirPath"; type: "string"; isReadonly: true }
+        Method {
+            name: "existsFile"
+            type: "bool"
+            Parameter { name: "fileUrl"; type: "string" }
+        }
+        Method {
+            name: "existsFileWithoutAdoptions"
+            type: "bool"
+            Parameter { name: "fileUrl"; type: "string" }
+        }
+        Method {
+            name: "existsFileFromUrl"
+            type: "bool"
+            Parameter { name: "fileUrl"; type: "string" }
+        }
+        Method { name: "engineBasePath"; type: "string" }
+        Method { name: "engineBaseUrlPath"; type: "string" }
+        Method {
+            name: "existsFileOrDirectoryIncludingResources"
+            type: "bool"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "findFileOrDirectoryIncludingResources"
+            type: "string"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "getUrlByAddingSchemeToFilename"
+            type: "QUrl"
+            Parameter { name: "file"; type: "string" }
+        }
+        Method {
+            name: "stripSchemeFromUrl"
+            type: "string"
+            Parameter { name: "filepath"; type: "QUrl" }
+        }
+        Method {
+            name: "stripSchemeFromUrl"
+            type: "string"
+            Parameter { name: "urlString"; type: "string" }
+        }
+        Method {
+            name: "getFilenameWithoutSchemeAndResourcePath"
+            type: "string"
+            Parameter { name: "filepath"; type: "QUrl" }
+        }
+        Method {
+            name: "getAbsolutePathFromUrlString"
+            type: "string"
+            Parameter { name: "filepath"; type: "string" }
+        }
+        Method {
+            name: "writeFile"
+            type: "bool"
+            Parameter { name: "file"; type: "string" }
+            Parameter { name: "stringData"; type: "string" }
+        }
+        Method {
+            name: "writeFile"
+            type: "bool"
+            Parameter { name: "file"; type: "string" }
+            Parameter { name: "byteData"; type: "QByteArray" }
+        }
+        Method {
+            name: "readFile"
+            type: "string"
+            Parameter { name: "file"; type: "string" }
+        }
+        Method {
+            name: "listFiles"
+            type: "QStringList"
+            Parameter { name: "path"; type: "QUrl" }
+            Parameter { name: "nameFilter"; type: "QStringList" }
+        }
+        Method {
+            name: "listFiles"
+            type: "QStringList"
+            Parameter { name: "path"; type: "QUrl" }
+        }
+        Method {
+            name: "copyFile"
+            type: "bool"
+            Parameter { name: "source"; type: "string" }
+            Parameter { name: "destination"; type: "string" }
+        }
+        Method {
+            name: "getFileData"
+            type: "QByteArray"
+            Parameter { name: "filename"; type: "string" }
+        }
+        Method {
+            name: "getDataStorageUrl"
+            type: "QUrl"
+            Parameter { name: "relativePath"; type: "string" }
+        }
+        Method {
+            name: "getPathUrl"
+            type: "QUrl"
+            Parameter { name: "urlString"; type: "string" }
+            Parameter { name: "sourceObject"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "getPathUrl"
+            type: "QUrl"
+            Parameter { name: "urlString"; type: "string" }
+            Parameter { name: "sourcePath"; type: "QUrl" }
+        }
+        Method {
+            name: "getBasePath"
+            type: "string"
+            Parameter { name: "sourceObject"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "qmlEngineBaseUrlForObject"
+            type: "QUrl"
+            Parameter { name: "object"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "storageLocation"
+            type: "string"
+            Parameter { name: "type"; type: "StorageLocation" }
+        }
+        Method {
+            name: "storageLocation"
+            type: "string"
+            Parameter { name: "type"; type: "StorageLocation" }
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "removeDir"
+            type: "bool"
+            Parameter { name: "dirName"; type: "string" }
+        }
+        Method { name: "defaultWritablePath"; type: "string" }
+        Method {
+            name: "cropPathAndKeepFilename"
+            type: "string"
+            Parameter { name: "path"; type: "string" }
+            Parameter { name: "cropFileExtension"; type: "bool" }
+        }
+        Method {
+            name: "cropPathAndKeepFilename"
+            type: "string"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "addSearchPath"
+            Parameter { name: "path"; type: "string" }
+            Parameter { name: "index"; type: "int" }
+        }
+        Method {
+            name: "addSearchPath"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method {
+            name: "removeSearchPath"
+            Parameter { name: "path"; type: "string" }
+        }
+        Method { name: "searchPaths"; type: "QStringList" }
+        Method {
+            name: "getMultiPathUrl"
+            type: "QUrl"
+            Parameter { name: "url"; type: "QUrl" }
+            Parameter { name: "contextObject"; type: "QObject"; isPointer: true }
+        }
+        Method {
+            name: "getMultiPathUrl"
+            type: "QUrl"
+            Parameter { name: "url"; type: "QUrl" }
+        }
+        Method {
+            name: "storageLocationDisplayName"
+            type: "string"
+            Parameter { name: "location"; type: "StorageLocation" }
+        }
+        Method {
+            name: "openFile"
+            type: "bool"
+            Parameter { name: "fileName"; type: "string" }
+        }
+    }
+}

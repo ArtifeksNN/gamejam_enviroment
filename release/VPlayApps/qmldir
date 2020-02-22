@@ -1,0 +1,87 @@
+module VPlayApps
+typeinfo vplayapps.qmltypes
+
+### essential
+App 1.0 essential/FallbackApp.qml
+Page 1.0 essential/Page.qml
+ListPage 1.0 essential/ListPage.qml
+FlickablePage 1.0 essential/FlickablePage.qml
+AppFlickable 1.0 essential/AppFlickable.qml
+Modal 1.0 essential/Modal.qml
+
+### controls
+AppActivityIndicator 1.0 controls/AppActivityIndicator.qml
+AppButton 1.0 controls/AppButton.qml
+AppCard 1.0 controls/AppCard.qml
+AppCardSwipeArea 1.0 controls/AppCardSwipeArea.qml
+AppCheckBox 1.0 controls/AppCheckBox.qml
+AppImage 1.0 controls/AppImage.qml
+AppListView 1.0 controls/AppListView.qml
+AppMap 1.0 controls/AppMap.qml
+AppPaper 1.0 controls/AppPaper.qml
+AppSwitch 1.0 controls/AppSwitch.qml
+AppText 1.0 controls/AppText.qml
+AppTextEdit 1.0 controls/AppTextEdit.qml
+AppTextField 1.0 controls/AppTextField.qml
+AppTextInput 1.0 controls/AppTextInput.qml
+DatePicker 1.0 controls/DatePicker.qml
+Dialog 1.0 controls/Dialog.qml
+FloatingActionButton 1.0 controls/FloatingActionButton.qml
+Icon 1.0 controls/Icon.qml
+IconButton 1.0 controls/IconButton.qml
+singleton InputDialog 1.0 controls/InputDialog.qml
+ImagePicker 1.0 controls/ImagePicker.qml
+singleton NativeDialog 1.0 controls/NativeDialog.qml
+PageControl 1.0 controls/PageControl.qml
+singleton PictureViewer 1.0 controls/PictureViewer.qml
+PullToRefreshHandler 1.0 controls/PullToRefreshHandler.qml
+RoundedImage 1.0 controls/RoundedImage.qml
+ScrollIndicator 1.0 controls/ScrollIndicator.qml
+SearchBar 1.0 controls/SearchBar.qml
+SectionSelect 1.0 controls/SectionSelect.qml
+SimpleRow 1.0 controls/SimpleRow.qml
+SimpleSection 1.0 controls/SimpleSection.qml
+SwipeButton 1.0 controls/SwipeButton.qml
+SwipeOptionsContainer 1.0 controls/SwipeOptionsContainer.qml
+TextFieldRow 1.0 controls/TextFieldRow.qml
+VisibilityRefreshHandler 1.0 controls/VisibilityRefreshHandler.qml
+YouTubeWebPlayer 1.0 controls/YouTubeWebPlayer.qml
+
+## quick controls 2 ##
+AppRangeSlider 1.0 controls/quick2/AppRangeSlider.qml
+AppSlider 1.0 controls/quick2/AppSlider.qml
+AppTabBar 1.0 controls/quick2/AppTabBar.qml
+AppTabButton 1.0 controls/quick2/AppTabButton.qml
+
+### navigation
+ActivityIndicatorBarItem 1.0 navigation/ActivityIndicatorBarItem.qml
+AppDrawer 1.0 navigation/AppDrawer.qml
+ButtonBarItem 1.0 navigation/ButtonBarItem.qml
+IconButtonBarItem 1.0 navigation/IconButtonBarItem.qml
+TextButtonBarItem 1.0 navigation/TextButtonBarItem.qml
+Navigation 1.0 navigation/Navigation.qml
+NavigationBar 1.0 navigation/NavigationBar.qml
+NavigationBarItem 1.0 navigation/NavigationBarItem.qml
+NavigationBarRow 1.0 navigation/NavigationBarRow.qml
+NavigationItem 1.0 navigation/NavigationItem.qml
+NavigationStack 1.0 navigation/NavigationStack.qml
+TabControl 1.0 navigation/TabControl.qml
+
+### styles
+singleton IconType 1.0 styles/IconType.qml
+RippleMouseArea 1.0 styles/effects/RippleMouseArea.qml
+StyleSimpleRow 1.0 styles/listview/StyleSimpleRow.qml
+StyleSimpleSection 1.0 styles/listview/StyleSimpleSection.qml
+singleton Theme 1.0 styles/Theme.qml
+ThemeColors 1.0 styles/ThemeColors.qml
+ThemeAppButton 1.0 styles/ThemeAppButton.qml
+ThemeAppCheckBox 1.0 styles/ThemeAppCheckBox.qml
+ThemeNavigationAppDrawer 1.0 styles/ThemeNavigationAppDrawer.qml
+ThemeNavigationBar 1.0 styles/ThemeNavigationBar.qml
+ThemeTabControl 1.0 styles/ThemeTabControl.qml
+ThemeSimpleRow 1.0 styles/listview/ThemeSimpleRow.qml
+ThemeSimpleSection 1.0 styles/listview/ThemeSimpleSection.qml
+ThemeSimpleSectionCompact 1.0 styles/listview/ThemeSimpleSectionCompact.qml
+
+### utils
+singleton DateFormatter 1.0 utils/DateFormatter.qml
