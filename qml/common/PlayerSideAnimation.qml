@@ -53,7 +53,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         interpolate: false
 
-        Sprite{
+        Sprite {
             name: "forward1"
             source: "../../assets/move/ulitka_forward_01_r.png"
             frameCount: 1
