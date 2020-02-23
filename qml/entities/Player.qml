@@ -19,6 +19,8 @@ EntityBase {
     property var maxSpeed: 100
     property int contacts: 0
 
+    property bool isFocusMode: false
+
     onContactsChanged: {
         console.log("contact changed", contacts)
     }
@@ -66,10 +68,8 @@ EntityBase {
 //            collider.linearVelocity.y = -25
 
             var localForwardVector = collider.body.toWorldVector(Qt.point(0,90));
-
             collider.body.applyLinearImpulse(localForwardVector, collider.body.getWorldCenter());
         }
-            /* collider.force = Qt.point(15000, 0)*/
     }
 
     function stickTrajectory(center) {
@@ -77,11 +77,6 @@ EntityBase {
 
         if (!stickForce.running) stickForce.start()
         else stickForce.stop()
-//        collider.force = Qt.point(-15000, 0)
-
-        //        physicsWorld.gravity.y = 0
-        //        trajectoryAnim.newPointY = gameScene.height - ty - theight
-        //        trajectoryAnim.start()
     }
 
     MultiResolutionImage {
@@ -97,19 +92,6 @@ EntityBase {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    //    SequentialAnimation {
-    //        id: trajectoryAnim
-
-    //        property var newPointX;
-    //        property var newPointY;
-    ////        ScriptAction {
-    ////        }
-    //        NumberAnimation {
-    //            target: player
-    //            property: "y"; from: y; to: trajectoryAnim.newPointY; duration: 200
-    //        }
-    //    }
-
     BoxCollider {
         id: collider
 
@@ -118,36 +100,14 @@ EntityBase {
 
         anchors.horizontalCenter: parent.horizontalCenter
 
-        bodyType: Body.Dynamic // this is the default value but I wanted to mention it ;)
-        fixedRotation: true // we are running, not rolling...
-        bullet: true // for super accurate collision detection, use this sparingly, because it's quite performance greedy
+        bodyType: Body.Dynamic
+        bullet: true
         sleepingAllowed: false
         friction: 1.0
-        //      force: Qt.point(controller.xAxis*170*32,0)
 
         onLinearVelocityChanged: {
             if (linearVelocity.x > maxSpeed) linearVelocity.x = maxSpeed
             if (linearVelocity.x < -maxSpeed) linearVelocity.x = -maxSpeed
         }
-
-        //        fixture.onBeginContact: {
-        //            var otherEntity = other.getBody().target
-        //            if(otherEntity.entityType === "wall" || otherEntity.entityType === "platform") {
-        //                console.debug("contact platform begin", otherEntity.y, otherEntity.height)
-
-        //                // increase the number of active contacts the player has
-        //                player.contacts++
-        //            }
-        //        }
-
-        //        fixture.onEndContact: {
-        //            var otherEntity = other.getBody().target
-        //            if(otherEntity.entityType === "wall") {
-        //                console.debug("contact platform end", otherEntity.y, otherEntity.height)
-
-        //                // if the player leaves a platform, we decrease its number of active contacts
-        //                player.contacts--
-        //            }
-        //        }
     }
 }
